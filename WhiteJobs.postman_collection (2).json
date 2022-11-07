@@ -1,0 +1,722 @@
+{
+	"info": {
+		"_postman_id": "5f318a74-78bf-4efc-b6df-07e9f07717fb",
+		"name": "WhiteJobs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13379093"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\"    : \"rajeevkumarmajhi@gmail.com\",\r\n    \"password\" : \"password\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/register",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login_id\":\"tivitac423@ekbasia.com\",\r\n    \"password\":\"password\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/login",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profileUpdate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|CKgs9uIV9jARzk93ms8DylIcgdm2rqMeIEvaEAko",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"password\":\"password\",\r\n    \"first_name\":\"Rajeev\",\r\n    \"last_name\":\"Majhi\",\r\n    \"birthday\":\"1992-01-27\",\r\n    \"avatar_id\":209,\r\n    \"bio\":\"This is test account\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/profile-update",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"profile-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"code\":1864346\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/verify-email",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reset_type\":\"Email\",\r\n    \"reset_id\":\"rajeevkumarmajhi@gmail.com\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/forgot-password",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"code\":1864346\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/verify-email",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "my-media",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|CKgs9uIV9jARzk93ms8DylIcgdm2rqMeIEvaEAko",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-media",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 3|AGMvGiT71jl2e6tswhrcUfFpPtTj2Xgak35xPl5V",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Rajeev Majhi/Pictures/bagimg.jpeg"
+								},
+								{
+									"key": "type",
+									"value": "image",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-media/store",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-media",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|ATitkjIs1fzNJYIxThkSCKkC6iLu0wPu0ckD07t1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file_ids[]",
+									"value": "209",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-media/remove",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-media",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "plans/all",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/plans/all",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"plans",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my-plan",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-plans",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-plans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my-jobs",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-jobs",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "applicants",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/applicants",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"applicants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "plan/buy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plan_id\":1\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/plan/buy",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"plan",
+								"buy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "application/status/change",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"plan_id\":1\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/application/change/approved/3",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"application",
+								"change",
+								"approved",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "job/create or edit pass id parameter for edit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"33\",\r\n    \"title\":\"Software Engineer\",\r\n    \"content\":\"We are looking for Network Engineer having 5+ years of experience\",\r\n    \"thumbnail_id\":221,\r\n    \"category_id\":19,\r\n    \"location_id\":16,\r\n    \"job_type_id\":2,\r\n    \"expiration_date\":\"2022-10-30\",\r\n    \"hours\":\"8\",\r\n    \"hours_type\":\"day\",\r\n    \"salary_min\":5000,\r\n    \"salary_max\":50000,\r\n    \"salary_type\":\"monthly\",\r\n    \"gender\":\"Male\",\r\n    \"map_lat\":\"27.326326327\",\r\n    \"map_lng\":\"87.23131321\",\r\n    \"map_zoom\":8,\r\n    \"experience\":2,\r\n    \"is_featured\":1,\r\n    \"is_urgent\":\"1\",\r\n    \"status\":\"publish\",\r\n    \"apply_type\":\"email\",\r\n    \"apply_link\":\"https://jobs.buyersuppliers.com\",\r\n    \"apply_email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"wage_agreement\":1,\r\n    \"gallery\":\"68,69,70\",\r\n    \"video\":\"https://www.youtube.com/watch?v=bhOiLfkChPo\",\r\n    \"video_cover_id\":\"23\",\r\n    \"number_recruitment\":7\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/job/create",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"job",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "job/destroy",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 18|vH2ddKiw59rPrkRfj6arqIAM2GkrAqaIXUPrJsKN",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/job/destroy/33",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"job",
+								"destroy",
+								"33"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

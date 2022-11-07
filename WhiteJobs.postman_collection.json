@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "5f318a74-78bf-4efc-b6df-07e9f07717fb",
+		"name": "WhiteJobs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13379093"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"password\":\"password\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/register",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login_id\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"password\":\"password\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/login",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profileUpdate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|CKgs9uIV9jARzk93ms8DylIcgdm2rqMeIEvaEAko",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"password\":\"password\",\r\n    \"first_name\":\"Rajeev\",\r\n    \"last_name\":\"Majhi\",\r\n    \"birthday\":\"1992-01-27\",\r\n    \"avatar_id\":209,\r\n    \"bio\":\"This is test account\"\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/profile-update",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"profile-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"code\":1864346\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/verify-email",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"code\":1864346\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/verify-email",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set-password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rajeevkumarmajhi@gmail.com\",\r\n    \"code\":1864346\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/verify-email",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Media",
+			"item": [
+				{
+					"name": "my-media",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 2|CKgs9uIV9jARzk93ms8DylIcgdm2rqMeIEvaEAko",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n}"
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-media",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-media"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 3|AGMvGiT71jl2e6tswhrcUfFpPtTj2Xgak35xPl5V",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Rajeev Majhi/Pictures/blacknwhite.jpg"
+								},
+								{
+									"key": "type",
+									"value": "image",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-media/store",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-media",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 1|ATitkjIs1fzNJYIxThkSCKkC6iLu0wPu0ckD07t1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file_ids[]",
+									"value": "209",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "whitejobs.co.in/api/my-media/remove",
+							"host": [
+								"whitejobs",
+								"co",
+								"in"
+							],
+							"path": [
+								"api",
+								"my-media",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
