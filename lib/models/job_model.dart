@@ -852,15 +852,6 @@ class JobProvider extends ChangeNotifier {
       notifyListeners();
       return popularJobModel;
     }
-    // } else {
-    //   // var mssg = body['message'] ?? Constants.mssgErrTryLater;
-
-    //   // if (body['message'].toString().trim().isEmpty)
-    //   //   mssg = Constants.mssgErrTryLater;
-
-    //   // await getToastMessage(mssg, Colors.red);
-    //   // return false;
-    // }
   }
 
   Future<JobsModel?> findFeaturedJobs() async {
