@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
-import 'package:hires/models/find_jobs.dart';
+import 'package:hires/models/job_model.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/services/get_services.dart';
 
@@ -65,7 +65,7 @@ class Wishlist {
 
   // String? thumbnailImage;
   JobWL? job;
-  Company? company;
+  CompanyJob? company;
 
   factory Wishlist.fromJson(Map<String, dynamic> json) => Wishlist(
         id: json["id"] == null ? null : json["id"],
@@ -80,8 +80,9 @@ class Wishlist {
             ? null
             : DateTime.parse(json["updated_at"]),
         job: json["job"] == null ? null : JobWL.fromJson(json["job"]),
-        company:
-            json["company"] == null ? null : Company.fromJson(json["company"]),
+        company: json["company"] == null
+            ? null
+            : CompanyJob.fromJson(json["company"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -290,14 +291,6 @@ class WishlistProvider extends ChangeNotifier {
         //print(jobsModel);
         return wishlistModel;
       }
-      // } else {
-      //   var mssg = body['message'] ?? Constants.mssgErrTryLater;
-
-      //   if (body['message'].toString().trim().isEmpty)
-      //     mssg = Constants.mssgErrTryLater;
-      //   await getToastMessage(mssg, Colors.red);
-      //   return false;
-      // }
     }
   }
 

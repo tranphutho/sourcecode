@@ -10,7 +10,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/models/applicant_detail_model.dart';
-import 'package:hires/models/find_jobs.dart';
+
+import 'package:hires/models/my_job_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 // import 'package:chunked_uploader/chunked_uploader.dart';
@@ -172,6 +173,197 @@ class PostServices {
       };
       http.Response response = await http.post(
           Uri.parse(Api_Url.REMOVE_WISHLIT),
+          headers: headers,
+          body: data);
+      print(response.body);
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static createUpdateJob(MyJob myJob, String token) async {
+    //var pref = await SharedPreferences.getInstance();
+    //String token = pref.getString("token");
+    try {
+      var headers = {"Authorization": "Bearer $token"};
+      var data = {};
+      if (myJob.id == 0) {
+        data = {
+          "title": myJob.title,
+          "content": myJob.content,
+          "thumbnail_id": myJob.thumbnailId,
+          "category_id": myJob.categoryId,
+          "location_id": myJob.locationId,
+          "job_type_id": myJob.jobTypeId,
+          "expiration_date": myJob.expirationDate,
+          "hours": myJob.hours,
+          "hours_type": myJob.hoursType,
+          "salary_min": myJob.salaryMin,
+          "salary_max": myJob.salaryMax,
+          "salary_type": myJob.salaryType,
+          "gender": myJob.gender,
+          "map_lat": myJob.mapLat,
+          "map_lng": myJob.mapLng,
+          "map_zoom": myJob.mapZoom,
+          "experience": myJob.experience,
+          "is_featured": myJob.isFeatured,
+          "is_urgent": myJob.isUrgent,
+          "status": myJob.status,
+          "apply_type": myJob.applyType,
+          "apply_link": myJob.applyLink,
+          "apply_email": myJob.applyEmail,
+          "wage_agreement": myJob.wageAgreement,
+          "gallery": myJob.gallery,
+          "video": myJob.video,
+          "video_cover_id": myJob.videoCoverId,
+          "number_recruitment": myJob.numberRecruitments
+        };
+      } else {
+        data = {
+          "id": myJob.id,
+          "title": myJob.title,
+          "content": myJob.content,
+          "thumbnail_id": myJob.thumbnailId,
+          "category_id": myJob.categoryId,
+          "location_id": myJob.locationId,
+          "job_type_id": myJob.jobTypeId,
+          "expiration_date": myJob.expirationDate,
+          "hours": myJob.hours,
+          "hours_type": myJob.hoursType,
+          "salary_min": myJob.salaryMin,
+          "salary_max": myJob.salaryMax,
+          "salary_type": myJob.salaryType,
+          "gender": myJob.gender,
+          "map_lat": myJob.mapLat,
+          "map_lng": myJob.mapLng,
+          "map_zoom": myJob.mapZoom,
+          "experience": myJob.experience,
+          "is_featured": myJob.isFeatured,
+          "is_urgent": myJob.isUrgent,
+          "status": myJob.status,
+          "apply_type": myJob.applyType,
+          "apply_link": myJob.applyLink,
+          "apply_email": myJob.applyEmail,
+          "wage_agreement": myJob.wageAgreement,
+          "gallery": myJob.gallery,
+          "video": myJob.video,
+          "video_cover_id": myJob.videoCoverId,
+          "number_recruitment": myJob.numberRecruitments
+        };
+      }
+      http.Response response = await http.post(
+          Uri.parse(Api_Url.CREATE_UPDATE_MYJOB),
+          headers: headers,
+          body: data);
+      print(response.body);
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static destroyMyJob(String id_job, String token) async {
+    //var pref = await SharedPreferences.getInstance();
+    //String token = pref.getString("token");
+    try {
+      var headers = {"Authorization": "Bearer $token"};
+      // var data = {
+      //   "object_id": id_job,
+      //   "object_model": "job",
+      // };
+      http.Response response = await http.delete(
+        Uri.parse(Api_Url.DESTROY_MYJOB + "/" + id_job),
+        headers: headers,
+        // body: data,
+      );
+      print(response.body);
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static postMedia(File file, String token) async {
+    //var file = File(path);
+    Dio dio = new Dio();
+    dio.options.headers["Accept"] = "application/json";
+    // //dio.options.headers["Content-Type"] = "application/json";
+    dio.options.headers["Authorization"] = "Bearer $token";
+    // dio.options.baseUrl = Api_Url.BASE_URL;
+    dio.options.contentType = "multipart/form-data";
+    dio.options.method = "POST";
+    try {
+      var headers = {
+        // "Accept": "application/json",
+        // "Content-Type": "application/json",
+        "Authorization": "Bearer ${token}"
+      };
+      // File file = File("fileBits", fileName);
+      FormData formData = FormData.fromMap({
+        // "cv_file": file,
+        // "cv_file": fileName,
+        "type": "image",
+      });
+      formData.files.add(MapEntry(
+          'file',
+          MultipartFile.fromFileSync(file.path,
+              filename: file.path.split("/").last)));
+
+      var response = await dio.post(
+        Api_Url.POST_MEDIA,
+        data: formData,
+      );
+
+      // var response = await request.send();
+      return response.data;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static updateProfileCompany(Company company, String token) async {
+    //var pref = await SharedPreferences.getInstance();
+    //String token = pref.getString("token");
+    try {
+      var headers = {"Authorization": "Bearer $token"};
+      var data = {};
+
+      data = {
+        "name": company.name,
+        "email": company.email,
+        "phone": company.phone,
+        "website": company.website,
+        "location_id": company.locationId.toString(),
+        "avatar_id": company.avatarId.toString(),
+        // "founded_in": company.foundedIn,
+        "category_id": company.categoryId.toString(),
+        "map_lat": company.mapLat,
+        "map_lng": company.mapLng,
+        "status": company.status,
+        "about": company.about,
+        "social_media": company.socialMedia!.facebook!,
+        "city": company.city,
+        "state": company.state,
+        "country": company.country,
+        "address": company.address,
+        "team_size": company.teamSize.toString(),
+        "is_featured": company.isFeatured.toString(),
+        "zip_code": company.zipCode.toString(),
+        "allow_search": company.allowSearch.toString(),
+      };
+
+      http.Response response = await http.post(
+          Uri.parse(Api_Url.UPDATE_PROFILE_COMPANY),
           headers: headers,
           body: data);
       print(response.body);

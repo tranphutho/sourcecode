@@ -123,7 +123,7 @@ class Job {
   Category? category;
   JobType? jobType;
   Location? location;
-  Company? company;
+  CompanyJob? company;
   User? user;
 
   factory Job.fromJson(Map<String, dynamic> json) => Job(
@@ -181,8 +181,9 @@ class Job {
         location: json["location"] == null
             ? null
             : Location.fromJson(json["location"]),
-        company:
-            json["company"] == null ? null : Company.fromJson(json["company"]),
+        company: json["company"] == null
+            ? null
+            : CompanyJob.fromJson(json["company"]),
         user: json["user"] == null ? null : User.fromJson(json["user"]),
       );
 
@@ -314,8 +315,8 @@ class Category {
       };
 }
 
-class Company {
-  Company({
+class CompanyJob {
+  CompanyJob({
     this.id,
     this.name,
     this.email,
@@ -379,7 +380,7 @@ class Company {
   DateTime? createdAt;
   DateTime? updatedAt;
 
-  factory Company.fromJson(Map<String, dynamic> json) => Company(
+  factory CompanyJob.fromJson(Map<String, dynamic> json) => CompanyJob(
         id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         email: json["email"] == null ? null : json["email"],
