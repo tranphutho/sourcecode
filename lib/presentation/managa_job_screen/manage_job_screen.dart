@@ -6,13 +6,13 @@ import '../saved_screen/widgets/saved_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/app_export.dart';
 
-class ManagJobScreen extends StatefulWidget {
+class ManageJobScreen extends StatefulWidget {
   @override
-  State<ManagJobScreen> createState() => _ManagJobScreenState();
-  String id = "ManagJobScreen";
+  State<ManageJobScreen> createState() => _ManageJobScreenState();
+  static String id = "ManageJobScreen";
 }
 
-class _ManagJobScreenState extends State<ManagJobScreen>
+class _ManageJobScreenState extends State<ManageJobScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
   WishlistModel? wishlistModel;

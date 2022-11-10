@@ -16,6 +16,8 @@ import 'package:hires/presentation/job_proposal_screen/job_proposal_screen.dart'
 import 'package:hires/presentation/job_type1_screen/job_type1_screen.dart';
 import 'package:hires/presentation/job_type_screen/job_type_screen.dart';
 import 'package:hires/presentation/log_in_screen/log_in_screen.dart';
+import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
+import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen.dart';
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
@@ -485,7 +487,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
-                                      context, CompaniesScreen.id);
+                                      context, ManageJobsScreen.id);
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
