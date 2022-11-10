@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:hires/models/resource_model.dart';
 import 'package:hires/services/api_urls.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +22,10 @@ class _CompanyProfileState extends State<CompanyProfile> {
   bool upload = true;
   bool uploading = false;
   bool uploaded = false;
+
   int idMedia = 0;
   bool allowSearch = true;
+
 
   late TextEditingController txtEmail;
   late TextEditingController txtName;
@@ -47,6 +51,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
   late String txtCategory;
 
   File? imageFile;
+
 
   String publishDWValue = "Draft";
   String companySizeDWValue = "10 - 50 members";
@@ -81,6 +86,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
     txtLinkedin = TextEditingController(text: '');
     txtInstagram = TextEditingController(text: '');
     txtGoogle = TextEditingController(text: '');
+
     usePrv = Provider.of<UserProvider>(context, listen: false).userApp!;
     resourceModel = Provider.of<ResourceModelProvider>(context, listen: false)
         .resourceModel!;
@@ -118,6 +124,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
         allowSearch = false;
       //imageFile = File(path)
     }
+
   }
 
   @override
@@ -163,9 +170,11 @@ class _CompanyProfileState extends State<CompanyProfile> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
             SizedBox(
               height: 30,
             ),
+
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -174,7 +183,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                   BoxShadow(
                       blurRadius: 5.0,
                       color: Colors.grey,
+
                       offset: Offset(3, 3)),
+
                 ],
               ),
               child: Padding(
@@ -186,6 +197,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Company Content",
+
                           style: TextStyle(fontSize: 18),
                         )),
                     SizedBox(
@@ -198,39 +210,47 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         title2: "Company email",
                         //hint2: "Email",
                         controller2: txtEmail),
+
                     SizedBox(
                       height: 20,
                     ),
                     customRow(
                         title1: "Phone Number",
+
                         //hint1: "987654321",
                         controller1: txtPhone,
                         title2: "Website",
                         //hint2: "Website",
+
                         controller2: txtWebSite),
                     SizedBox(
                       height: 20,
                     ),
                     customRow(
                         title1: "Est. since",
+
                         //hint1: "12/10/1200",
                         controller1: txtFoundIn,
                         title2: "Address",
                         //hint2: "Bannu",
+
                         controller2: txtAddress),
                     SizedBox(
                       height: 20,
                     ),
                     customRow(
                         title1: "City",
+
                         //hint1: "Bannu",
                         controller1: txtCity,
                         title2: "State",
                         //hint2: "Pakistan",
+
                         controller2: txtState),
                     SizedBox(
                       height: 20,
                     ),
+
                     // customRow(
                     //     title1: "Country",
                     //     //hint1: "--select--",
@@ -325,6 +345,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           keyboardType: TextInputType.text,
                         ),
                       ],
+
                     ),
                     SizedBox(
                       height: 30,
@@ -335,6 +356,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           height: 20,
                           width: 30,
                           alignment: Alignment.center,
+
                           child: Checkbox(
                             value: allowSearch,
                             onChanged: (value) {
@@ -342,6 +364,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                                 allowSearch = value!;
                               });
                             },
+
                           ),
                         ),
                         SizedBox(
@@ -349,6 +372,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         ),
                         Text(
                           "Allow in search and listing",
+
                           style: TextStyle(color: Colors.black, fontSize: 16),
                         )
                       ],
@@ -356,10 +380,12 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     SizedBox(
                       height: 30,
                     ),
+
                     customColumn(
                         controller: txtAboutCompany,
                         title: "About company",
                         maxLines: null,
+
                         keyboardType: TextInputType.multiline)
                   ],
                 ),
@@ -368,6 +394,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             SizedBox(
               height: 50,
             ),
+
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -376,7 +403,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
+
                         offset: Offset(3, 3)),
+
                   ],
                 ),
                 child: Padding(
@@ -388,6 +417,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Company Location",
+
                                 style: TextStyle(fontSize: 18),
                               )),
                           SizedBox(
@@ -439,11 +469,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                                     }).toList(),
                                     onChanged: (value) {
                                       //get value when changed
+
                                       setState(() {
                                         nearestCityDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
+
                                         padding: EdgeInsets.only(left: 20),
                                         child: Icon(Icons.arrow_drop_down)),
                                     style: TextStyle(fontSize: 16),
@@ -467,23 +499,28 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           SizedBox(
                             height: 10,
                           ),
+
                           Container(
                             height: 150,
                             decoration: BoxDecoration(
                               color: Color(0xFFD9D9D9),
                             ),
                           ),
+
                           SizedBox(
                             height: 30,
                           ),
+
                           customRow(
                               title1: "Map latitude",
                               title2: "Map longitude",
                               controller1: txtLatitude,
+
                               controller2: txtLongitude),
                           SizedBox(
                             height: 30,
                           ),
+
                           Align(
                             alignment: Alignment.topLeft,
                             child: Container(
@@ -492,6 +529,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               child: customColumn(
                                   title: "Map zoom",
                                   controller: txtMapZoom,
+
                                   height: 50.0),
                             ),
                           ),
@@ -499,6 +537,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             SizedBox(
               height: 50,
             ),
+
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -507,7 +546,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
+
                         offset: Offset(3, 3)),
+
                   ],
                 ),
                 child: Padding(
@@ -519,6 +560,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Categories",
+
                                 style: TextStyle(fontSize: 18),
                               )),
                           SizedBox(
@@ -559,11 +601,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                                     }).toList(),
                                     onChanged: (value) {
                                       //get value when changed
+
                                       setState(() {
                                         categoryDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
+
                                         padding: EdgeInsets.only(left: 20),
                                         child: Icon(Icons.arrow_drop_down)),
                                     style: TextStyle(fontSize: 16),
@@ -577,6 +621,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             SizedBox(
               height: 50,
             ),
+
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -586,6 +631,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         blurRadius: 5.0,
                         color: Colors.grey,
                         offset: Offset(3, 3)),
+
                   ],
                 ),
                 child: Padding(
@@ -597,6 +643,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Company Size",
+
                                 style: TextStyle(fontSize: 18),
                               )),
                           SizedBox(
@@ -639,11 +686,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                                     }).toList(),
                                     onChanged: (value) {
                                       //get value when changed
+
                                       setState(() {
                                         companySizeDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
+
                                         padding: EdgeInsets.only(left: 20),
                                         child: Icon(Icons.arrow_drop_down)),
                                     style: TextStyle(fontSize: 16),
@@ -657,6 +706,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             SizedBox(
               height: 50,
             ),
+
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -665,7 +715,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
+
                         offset: Offset(3, 3)),
+
                   ],
                 ),
                 child: Padding(
@@ -677,11 +729,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Logo (Recommended size image: 330x300px)",
+
                                 style: TextStyle(fontSize: 18),
                               )),
                           SizedBox(
                             height: 30,
                           ),
+
                           Container(
                               width: 400,
                               height: 300,
@@ -689,6 +743,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               decoration: BoxDecoration(
                                 border: Border.all(color: Color(0xFFD9D9D9)),
                               ),
+
                               child: usePrv!.company!.avatarDetail!.filePath !=
                                           null &&
                                       imageFile == null
@@ -768,6 +823,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             SizedBox(
               height: 50,
             ),
+
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -776,7 +832,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
+
                         offset: Offset(3, 3)),
+
                   ],
                 ),
                 child: Padding(
@@ -787,6 +845,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           Align(
                               alignment: Alignment.topLeft,
                               child: Text(
+
                                 "Social Media",
                                 style: TextStyle(fontSize: 18),
                               )),
@@ -817,7 +876,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         ]))),
             SizedBox(
               height: 50,
+
             ),
+            SizedBox(height: 50,),
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -829,6 +890,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         offset: Offset(3, 3)),
                   ],
                 ),
+
                 child: Padding(
                     padding: const EdgeInsets.all(18.0),
                     child: Column(
@@ -952,6 +1014,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
+
                   ),
                 ),
               ),
@@ -967,7 +1030,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   customColumn({
     final title,
+
     //final hint,
+
     required,
     var height,
     var width,
@@ -975,13 +1040,16 @@ class _CompanyProfileState extends State<CompanyProfile> {
     var keyboardType,
     var maxLines,
   }) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
           style: TextStyle(
+
               fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+
         ),
         SizedBox(
           height: 10,
@@ -997,6 +1065,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
             decoration: InputDecoration(
               fillColor: Color(0xFFD9D9D9),
               contentPadding: EdgeInsets.all(18),
+
               //hintText: hint,
               hintStyle: TextStyle(
                   fontSize: 14,
@@ -1031,8 +1100,51 @@ class _CompanyProfileState extends State<CompanyProfile> {
           maxLines: 1,
           keyboardType: TextInputType.text,
         ),
+
       ],
     );
+}
+customRow({
+  final title1,
+  final title2,
+  final controller1,
+  final hint1,
+  final hint2,
+  final controller2}) {
+    return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      customColumn(
+          title: title1,
+          height: 50.0,
+          width: 150.0,
+          hint: hint1,
+          controller: controller1,
+          maxLines: 1,
+          keyboardType: TextInputType.text
+      ),
+      customColumn(
+        title: title2,
+        height: 50.0,
+        width: 150.0,
+        hint: hint2,
+        controller: controller2,
+        maxLines: 1,
+        keyboardType: TextInputType.text,
+      ),
+    ],
+  );
+}
+_getFromGallery() async {
+  PickedFile? pickedFile = await ImagePicker().getImage(
+    source: ImageSource.gallery,
+    maxWidth: 330,
+    maxHeight: 300,
+  );
+  if (pickedFile != null) {
+    setState(() {
+      imageFile = File(pickedFile.path);
+    });
   }
 
   _getFromGallery() async {
@@ -1048,3 +1160,6 @@ class _CompanyProfileState extends State<CompanyProfile> {
     }
   }
 }
+}
+
+
