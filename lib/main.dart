@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hires/models/find_jobs.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/models/wishlist_model.dart';
+import 'package:hires/presentation/add_new_job_screen/add_new_job_screen.dart';
 import 'package:hires/presentation/application_tracking_screen/application_tracking_screen.dart';
 import 'package:hires/presentation/applications_screen/applications_screen.dart';
 import 'package:hires/presentation/apply_screen/apply_screen.dart';
@@ -158,6 +159,7 @@ class _MyAppState extends State<MyApp> {
           Start1Screen.id: (context) => Start1Screen(),
           EditProfile.id: (context) => EditProfile(),
           ApplyScreen.id: (context) => ApplyScreen(),
+          AddNewJobScreen.id: (context) => AddNewJobScreen(),
           ApplySuccess2Screen.id: (context) => ApplySuccess2Screen(),
           CategoriesScreen.id: (context) => CategoriesScreen(),
           CompaniesScreen.id: (context) => CompaniesScreen(),

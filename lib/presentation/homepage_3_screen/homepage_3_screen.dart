@@ -28,6 +28,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../models/applicant_detail_model.dart';
 import '../../models/job_model.dart';
+import '../add_new_job_screen/add_new_job_screen.dart';
 import '../companies_screen/companies_screen.dart';
 import '../homepage_3_screen/widgets/group568_item_widget.dart';
 import '../homepage_3_screen/widgets/group59_item_widget.dart';
@@ -528,45 +529,46 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                               ),
                             );
                         }),
-                        // Padding(
-                        //   padding: EdgeInsets.only(top: getVerticalSize(16)),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     mainAxisSize: MainAxisSize.max,
-                        //     children: [
-                        //       Container(
-                        //         height: getVerticalSize(
-                        //           21.67,
-                        //         ),
-                        //         width: getHorizontalSize(
-                        //           17.33,
-                        //         ),
-                        //         child: SvgPicture.asset(
-                        //           ImageConstant.imgGroup186,
-                        //           fit: BoxFit.fill,
-                        //         ),
-                        //       ),
-                        //       Padding(
-                        //         padding: EdgeInsets.symmetric(
-                        //           horizontal: getHorizontalSize(12),
-                        //         ),
-                        //         child: Text(
-                        //           "Resumes",
-                        //           overflow: TextOverflow.ellipsis,
-                        //           textAlign: TextAlign.start,
-                        //           style: TextStyle(
-                        //             fontSize: getFontSize(
-                        //               15,
-                        //             ),
-                        //             fontFamily: 'Poppins',
-                        //             fontWeight: FontWeight.w500,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
+                        Padding(
+                          padding: EdgeInsets.only(top: getVerticalSize(16)),
+                          child: GestureDetector(
+                            onTap: () =>  Navigator.pushNamed(
+                                context, AddNewJobScreen.id),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  height: getVerticalSize(
+                                    21.67,
+                                  ),
+                                  width: getHorizontalSize(
+                                    17.33,
+                                  ),
+                                  child: Icon(Icons.post_add_outlined, color: Colors.grey.shade400,)
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getHorizontalSize(12),
+                                  ),
+                                  child: Text(
+                                    "Add new Job",
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: getFontSize(
+                                        15,
+                                      ),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         // Padding(
                         //   padding: EdgeInsets.only(top: getVerticalSize(16)),
                         //   child: Row(

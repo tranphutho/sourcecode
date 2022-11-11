@@ -21,6 +21,7 @@ backgroundColor:ColorConstant.gray50,
 
 
 inputDecorationTheme: InputDecorationTheme(
+
                                         alignLabelWithHint: true,
                                         
                                                     hintStyle: TextStyle(
@@ -29,7 +30,7 @@ inputDecorationTheme: InputDecorationTheme(
                                     ),
                                     color: ColorConstant.gray500,
                                   ),
-                                  border:  OutlineInputBorder(
+                                  border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(
                                       getHorizontalSize(
                                         12.00,
@@ -62,10 +63,10 @@ inputDecorationTheme: InputDecorationTheme(
                                       width: 1,
                                     ),
                                   ),
-                                 
-                                 
-                                       
-                                       
+
+
+
+
                                         filled: true,
                                         fillColor: ColorConstant.gray50,
                                         isDense: true,

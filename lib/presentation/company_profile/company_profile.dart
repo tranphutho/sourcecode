@@ -834,7 +834,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
         )
       ],
     );
-}
+  }
 customRow({
   final title1,
   final title2,
