@@ -1031,8 +1031,10 @@ class _CompanyProfileState extends State<CompanyProfile> {
     );
   }
 
+
   customRow(
       {final title1, final title2, final controller1, final controller2}) {
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
