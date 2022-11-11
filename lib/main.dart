@@ -31,6 +31,7 @@ import 'package:hires/presentation/log_in2_screen/log_in2_screen.dart';
 import 'package:hires/presentation/log_in_screen/log_in_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
+import 'package:hires/presentation/manage_applicants_screen/manage_applicants_screen.dart';
 import 'package:hires/presentation/messages_screen/messages_screen.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/notifications_screen/notifications_screen.dart';
@@ -176,6 +177,7 @@ class _MyAppState extends State<MyApp> {
           MessagesScreen.id: (context) => MessagesScreen(),
           ManageJobScreen.id: (context) => ManageJobScreen(),
           ManageJobsScreen.id: (context) => ManageJobsScreen(),
+          ManageApplicantsScreen.id: (context) => ManageApplicantsScreen(),
           NotificationsScreen.id: (context) => NotificationsScreen(),
           ProfileDropDraweritem.id: (context) => ProfileDropDraweritem(),
           ProfileStyle1Screen.id: (context) => ProfileStyle1Screen(),

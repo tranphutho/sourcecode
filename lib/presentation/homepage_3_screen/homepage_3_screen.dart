@@ -18,6 +18,7 @@ import 'package:hires/presentation/job_type_screen/job_type_screen.dart';
 import 'package:hires/presentation/log_in_screen/log_in_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
+import 'package:hires/presentation/manage_applicants_screen/manage_applicants_screen.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen.dart';
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
@@ -554,6 +555,46 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                                   ),
                                   child: Text(
                                     "Add new Job",
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: getFontSize(
+                                        15,
+                                      ),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: getVerticalSize(16)),
+                          child: GestureDetector(
+                            onTap: () =>  Navigator.pushNamed(
+                                context, ManageApplicantsScreen.id),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                    height: getVerticalSize(
+                                      21.67,
+                                    ),
+                                    width: getHorizontalSize(
+                                      17.33,
+                                    ),
+                                    child: Icon(Icons.wallet_giftcard, color: Colors.grey.shade400,)
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: getHorizontalSize(12),
+                                  ),
+                                  child: Text(
+                                    "Manage Applicants",
                                     overflow: TextOverflow.ellipsis,
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
