@@ -64,6 +64,7 @@ import 'core/theme/theme_constants.dart';
 import 'core/theme/theme_manager.dart';
 import 'models/applicant_detail_model.dart';
 import 'models/job_model.dart';
+import 'models/resource_model.dart';
 import 'presentation/edit_profile/edit_profile_screen.dart';
 import 'presentation/job_proposal_screen/job_proposal_screen.dart';
 import 'presentation/job_type1_screen/job_type1_screen.dart';
@@ -140,6 +141,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<JobProvider>(create: (_) => JobProvider()),
         ChangeNotifierProvider<WishlistProvider>(
             create: (_) => WishlistProvider()),
+        ChangeNotifierProvider<ResourceModelProvider>(
+            create: (_) => ResourceModelProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

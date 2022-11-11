@@ -24,4 +24,12 @@ class Api_Url {
   static const String APPLY_JOB = "$BASE_URL/api/apply-job";
   static const String ADD_WISHLIT = "$BASE_URL/api/wishlist";
   static const String REMOVE_WISHLIT = "$BASE_URL/api/wishlist/remove";
+
+  static const String CREATE_UPDATE_MYJOB = "$BASE_URL/api/job/create";
+  static const String DESTROY_MYJOB = "$BASE_URL/api/job/destroy";
+
+  static const String POST_MEDIA = "$BASE_URL/api/my-media/store";
+
+  static const String UPDATE_PROFILE_COMPANY =
+      "$BASE_URL/api/company/profile/update";
 }
