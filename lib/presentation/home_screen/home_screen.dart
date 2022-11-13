@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hires/models/resource_model.dart';
 import 'package:hires/presentation/categories_screen/categories_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/homepage_3_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/profile.dart';
 import 'package:hires/presentation/messages_screen/messages_screen.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/saved_screen/saved_screen.dart';
+import 'package:provider/provider.dart';
 import '../../core/utils/color_constant.dart';
 import '../../core/utils/image_constant.dart';
 import '../../core/utils/math_utils.dart';
@@ -26,6 +28,19 @@ class _HomeScreenState extends State<HomeScreen> {
     SavedScreen(),
     MyProfile(),
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ResourceModelProvider>(context, listen: false).init();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   int selectedNavBarIndex = 0;
   @override

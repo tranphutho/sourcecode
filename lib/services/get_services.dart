@@ -79,6 +79,38 @@ class GetServices {
     }
   }
 
+  static getMyJob(String token) async {
+    http.Response response;
+    try {
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/my-jobs',
+        // queryParameters: data
+      );
+      //print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+      // response = await http.post(
+      //   uri,
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: jsonEncode(data),
+      // );
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
   static getPopularJobs() async {
     http.Response response;
     try {
@@ -201,6 +233,114 @@ class GetServices {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
+      });
+      // response = await http.post(
+      //   uri,
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: jsonEncode(data),
+      // );
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static getApplicants(String token) async {
+    http.Response response;
+    try {
+      var data = {
+        "featured": "true",
+        "orderBy": "new",
+      };
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/applicants',
+        // queryParameters: data,
+      );
+      //print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+      // response = await http.post(
+      //   uri,
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: jsonEncode(data),
+      // );
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static getResource() async {
+    http.Response response;
+    try {
+      var data = {
+        "featured": "true",
+        "orderBy": "new",
+      };
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/job-resource',
+        // queryParameters: data,
+      );
+      //print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": "Bearer $token"
+      });
+      // response = await http.post(
+      //   uri,
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: jsonEncode(data),
+      // );
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static getCountries() async {
+    http.Response response;
+    try {
+      var data = {
+        "featured": "true",
+        "orderBy": "new",
+      };
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/countries',
+        // queryParameters: data,
+      );
+      //print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": "Bearer $token"
       });
       // response = await http.post(
       //   uri,
