@@ -7,6 +7,7 @@ import 'package:hires/models/find_jobs.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/presentation/applications_screen/applications_screen.dart';
 import 'package:hires/presentation/company_profile/company_profile.dart';
+import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/popular_jobs.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/presentation/job_details1_screen/job_details1_screen.dart';
@@ -19,6 +20,7 @@ import 'package:hires/presentation/log_in_screen/log_in_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
 import 'package:hires/presentation/manage_applicants_screen/manage_applicants_screen.dart';
+import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen.dart';
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
@@ -399,19 +401,20 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    //THO
                                     // Provider.of<ApplicantDetailModelProvider>(
                                     //         context)
                                     //     .getApplicantDetail(
                                     //         usePrv.id!, usePrv.token!);
                                     // if (usePrv.role_id == 3) {
                                     //   Navigator.pushNamed(
-                                    //       context, MyProfile.id);
+                                    //       context, CandidateProfileScreen.id);
                                     // } else {
                                     //   Navigator.pushNamed(
                                     //       context, CompanyProfile.id);
                                     // }
-                                    Navigator.pushNamed(context, MyProfile.id);
+                                    Navigator.pushNamed(
+                                        context, CandidateProfileScreen.id
+                                    );
                                   },
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
@@ -530,86 +533,158 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                               ),
                             );
                         }),
-                        Padding(
-                          padding: EdgeInsets.only(top: getVerticalSize(16)),
-                          child: GestureDetector(
-                            onTap: () =>  Navigator.pushNamed(
-                                context, AddNewJobScreen.id),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                  height: getVerticalSize(
-                                    21.67,
-                                  ),
-                                  width: getHorizontalSize(
-                                    17.33,
-                                  ),
-                                  child: Icon(Icons.post_add_outlined, color: Colors.grey.shade400,)
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: getHorizontalSize(12),
-                                  ),
-                                  child: Text(
-                                    "Add new Job",
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: getFontSize(
-                                        15,
+                        Builder(builder: (context) {
+                          if (usePrv!.role_id != 2) {
+                            return Container();
+                          }
+                          else {
+                            return Padding(
+                              padding: EdgeInsets.only(top: getVerticalSize(16)),
+                              child: GestureDetector(
+                                onTap: () =>  Navigator.pushNamed(
+                                    context, AddNewJobScreen.id),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                        height: getVerticalSize(
+                                          21.67,
+                                        ),
+                                        width: getHorizontalSize(
+                                          17.33,
+                                        ),
+                                        child: Icon(Icons.post_add_outlined, color: Colors.grey.shade400,)
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: getHorizontalSize(12),
                                       ),
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: getVerticalSize(16)),
-                          child: GestureDetector(
-                            onTap: () =>  Navigator.pushNamed(
-                                context, ManageApplicantsScreen.id),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Container(
-                                    height: getVerticalSize(
-                                      21.67,
-                                    ),
-                                    width: getHorizontalSize(
-                                      17.33,
-                                    ),
-                                    child: Icon(Icons.wallet_giftcard, color: Colors.grey.shade400,)
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: getHorizontalSize(12),
-                                  ),
-                                  child: Text(
-                                    "Manage Applicants",
-                                    overflow: TextOverflow.ellipsis,
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontSize: getFontSize(
-                                        15,
+                                      child: Text(
+                                        "Add new Job",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: getFontSize(
+                                            15,
+                                          ),
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w500,
                                     ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                        }),
+
+                        Builder(
+                          builder: (context) {
+                            if (usePrv!.role_id != 2) {
+                              return Container();
+                            }
+                            else {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                    top: getVerticalSize(16)),
+                                child: GestureDetector(
+                                  onTap: () =>
+                                      Navigator.pushNamed(
+                                          context, ManageApplicantsScreen.id),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment
+                                        .center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Container(
+                                          height: getVerticalSize(
+                                            21.67,
+                                          ),
+                                          width: getHorizontalSize(
+                                            17.33,
+                                          ),
+                                          child: Icon(Icons.wallet_giftcard,
+                                            color: Colors.grey.shade400,)
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: getHorizontalSize(12),
+                                        ),
+                                        child: Text(
+                                          "Manage Applicants",
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: getFontSize(
+                                              15,
+                                            ),
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
+                              );
+                            }
+                          }
                         ),
+                        Builder(builder: (context) {
+                          if (usePrv!.role_id != 3)
+                            return Container();
+                          else
+                            return Padding(
+                              padding:
+                              EdgeInsets.only(top: getVerticalSize(16)),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, FollowingEmployerScreen.id);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      height: getVerticalSize(
+                                        20.00,
+                                      ),
+                                      width: getHorizontalSize(
+                                        16.50,
+                                      ),
+                                      child: SvgPicture.asset(
+                                        ImageConstant.imgGroup4,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: getHorizontalSize(12),
+                                      ),
+                                      child: Text(
+                                        "Following Employers",
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontSize: getFontSize(
+                                            15,
+                                          ),
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                        }),
                         // Padding(
                         //   padding: EdgeInsets.only(top: getVerticalSize(16)),
                         //   child: Row(

@@ -17,6 +17,7 @@ import 'package:hires/presentation/categories_screen/popular.dart';
 import 'package:hires/presentation/categories_screen/trending.dart';
 import 'package:hires/presentation/companies_screen/companies_screen.dart';
 import 'package:hires/presentation/company_profile/company_profile.dart';
+import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/forgot_password_page/forgot_password_page.dart';
 import 'package:hires/presentation/home_screen/home_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/homepage_3_screen.dart';
@@ -33,6 +34,7 @@ import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
 import 'package:hires/presentation/manage_applicants_screen/manage_applicants_screen.dart';
 import 'package:hires/presentation/messages_screen/messages_screen.dart';
+import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/notifications_screen/notifications_screen.dart';
 import 'package:hires/presentation/profile_drop_draweritem/profile_drop_draweritem.dart';
@@ -155,6 +157,7 @@ class _MyAppState extends State<MyApp> {
           ApplicationTrackingScreen.id: (context) =>
               ApplicationTrackingScreen(),
           Popular.id: (context) => Popular(),
+          CandidateProfileScreen.id: (context) => CandidateProfileScreen(),
           SelectLanguage.id: (context) => SelectLanguage(),
           ApplicationsScreen.id: (context) => ApplicationsScreen(),
           Start1Screen.id: (context) => Start1Screen(),
@@ -165,6 +168,7 @@ class _MyAppState extends State<MyApp> {
           CategoriesScreen.id: (context) => CategoriesScreen(),
           CompaniesScreen.id: (context) => CompaniesScreen(),
           ForgotPasswordPage.id: (context) => ForgotPasswordPage(),
+          FollowingEmployerScreen.id: (context) => FollowingEmployerScreen(),
           JobDetailsScreen.id: (context) => JobDetailsScreen(),
           JobDetails1Screen.id: (context) => JobDetails1Screen(),
           JobPreferences2Screen.id: (context) => JobPreferences2Screen(),

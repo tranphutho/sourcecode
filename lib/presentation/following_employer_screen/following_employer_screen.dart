@@ -1,62 +1,69 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/models/job_model.dart';
 
-class ManageJobsScreen extends StatefulWidget {
-  static String id = "manageJobs";
-  const ManageJobsScreen({Key? key}) : super(key: key);
+class Employer {
+  String? name;
+  Location? location;
+  Category? category;
+  int? openJobs;
+  String? status;
 
-  @override
-  State<ManageJobsScreen> createState() => _ManageJobsScreenState();
+
+  Employer({
+    this.name,
+    this.location,
+    this.category,
+    this.openJobs,
+    this.status
+});
 }
 
-class _ManageJobsScreenState extends State<ManageJobsScreen> {
+class FollowingEmployerScreen extends StatefulWidget {
+  static String id = "followingEmployer";
+  const FollowingEmployerScreen({Key? key}) : super(key: key);
 
-  late TextEditingController txtSearchJob;
-  List<Job> jobs = [
-    Job(
-        title: "Software Engineer",
-        location: Location(name: "Biratnagar"),
-        category: Category(name: "Development"),
-        status: "Active",
-        expirationDate: DateTime.now()
+  @override
+  State<FollowingEmployerScreen> createState() => _FollowingEmployerScreenState();
+}
+
+class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
+  late TextEditingController txtSearchEmployer;
+  List<Employer> employers = [
+    Employer(
+      name: "Matin Softech",
+      location: Location(name: "Biratnagar"),
+      category: Category(name: "Development"),
+      openJobs: 2,
+      status: "Active",
     ),
-    Job(
-        title: "Social Media Manager",
-        location: Location(name: "Kathmandu"),
-        category: Category(name: "Marketing"),
-        status: "Expired",
-        expirationDate: DateTime.now()
+    Employer(
+      name: "Spinks Softech",
+      location: Location(name: "Kathmandu"),
+      category: Category(name: "Software"),
+      openJobs: 5,
+      status: "Expired",
     ),
-    Job(
-        title: "PHP Developer",
-        location: Location(name: "Bihar"),
-        category: Category(name: "Development"),
-        status: "Expired",
-        expirationDate: DateTime.now()
-    )
   ];
-  List<Job> searchedJobs = [];
+  List<Employer> searchedEmployers = [];
 
-  getSearchedJobs() {
-    searchedJobs.clear();
-    jobs.forEach((job) {
-      if(job.title!.toLowerCase().contains(txtSearchJob.text.toLowerCase())) {
-        searchedJobs.add(job);
+  getSearchedEmployers() {
+    searchedEmployers.clear();
+    employers.forEach((employer) {
+      if(employer.name!.toLowerCase().contains(txtSearchEmployer.text.toLowerCase())) {
+        searchedEmployers.add(employer);
       }
     });
   }
 
-
   @override
   void initState() {
-    txtSearchJob = TextEditingController(text: "");
+    txtSearchEmployer = TextEditingController(text: "");
     super.initState();
   }
 
   @override
   void dispose() {
-    txtSearchJob.dispose();
+    txtSearchEmployer.dispose();
     super.dispose();
   }
 
@@ -68,7 +75,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "Manage Jobs",
+          "Following Employers",
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
@@ -101,13 +108,13 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Manage Jobs",
-                          style: TextStyle(
-                              fontSize: 18
-                          ),
-                        )
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Following Employers",
+                        style: TextStyle(
+                          fontSize: 18
+                        ),
+                      )
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30,),
                     Row(
@@ -117,7 +124,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                           height: 50,
                           width: 225,
                           child: TextFormField(
-                            controller: txtSearchJob,
+                            controller: txtSearchEmployer,
                             decoration: InputDecoration(
                               hintText: "Search by name...",
                               fillColor: Color(0xFFD9D9D9),
@@ -130,7 +137,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                getSearchedJobs();
+                                getSearchedEmployers();
                               });
                             },
                             child: const Text("Search"),
@@ -150,13 +157,13 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height! / 1.56,
                       child: ListView.builder(
-                        itemCount: searchedJobs.length == 0 ? jobs.length : searchedJobs.length,
+                        itemCount: searchedEmployers.length == 0 ? employers.length : searchedEmployers.length,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0,0,0,MediaQuery.of(context).size.height / 25,),
                             child: Card(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
                               color: Color(0xFFD9D9D9),
                               child: Padding(
@@ -171,13 +178,13 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           width: 180,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: 'Title:  ',
+                                              text: 'Name: ',
                                               style: TextStyle(
-                                                color: Colors.blueAccent, fontSize: 17
+                                                  color: Colors.blueAccent, fontSize: 17
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedJobs.length == 0 ? jobs[index].title : searchedJobs[index].title,
+                                                  text: searchedEmployers.length == 0 ? employers[index].name : searchedEmployers[index].name,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -191,19 +198,19 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           width: 120,
                                           child: RichText(
                                             text: TextSpan(
-                                                text: 'Status:  ',
-                                                style: TextStyle(
-                                                    color: Colors.blueAccent, fontSize: 17
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: searchedJobs.length == 0 ? jobs[index].status : searchedJobs[index].status,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.black
-                                                    ),
-                                                  )
-                                                ]
+                                              text: 'Featured: ',
+                                              style: TextStyle(
+                                                color: Colors.blueAccent, fontSize: 17
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: searchedEmployers.length == 0 ? employers[index].status : searchedEmployers[index].status,
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black
+                                                  ),
+                                                )
+                                              ]
                                             ),
                                           ),
                                         ),
@@ -217,21 +224,21 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           width: 180,
                                           child: RichText(
                                             text: TextSpan(
-                                                text: 'Location:  ',
-                                                style: TextStyle(
-                                                    color: Colors.blueAccent, fontSize: 17
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: searchedJobs.length == 0
-                                                        ? jobs[index].location?.name
-                                                        : searchedJobs[index].location?.name,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.black
-                                                    ),
-                                                  )
-                                                ]
+                                              text: 'Location: ',
+                                              style: TextStyle(
+                                                color: Colors.blueAccent, fontSize: 17
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: searchedEmployers.length == 0
+                                                    ? employers[index].location?.name
+                                                    : searchedEmployers[index].location?.name,
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black
+                                                  ),
+                                                )
+                                              ]
                                             ),
                                           ),
                                         ),
@@ -239,21 +246,21 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           width: 120,
                                           child: RichText(
                                             text: TextSpan(
-                                                text: 'Date:  ',
-                                                style: TextStyle(
-                                                    color: Colors.blueAccent, fontSize: 17
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: searchedJobs.length == 0
-                                                        ? "${jobs[index].expirationDate?.day}/${jobs[index].expirationDate?.month}/${jobs[index].expirationDate?.year}"
-                                                        : "${searchedJobs[index].expirationDate?.day}/${searchedJobs[index].expirationDate?.month}/${searchedJobs[index].expirationDate?.year}",
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.black
-                                                    ),
-                                                  )
-                                                ]
+                                              text: 'Open Jobs: ',
+                                              style: TextStyle(
+                                                color: Colors.blueAccent, fontSize: 17
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: searchedEmployers.length == 0
+                                                    ? employers[index].openJobs.toString()
+                                                    : searchedEmployers[index].openJobs.toString(),
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black
+                                                  ),
+                                                )
+                                              ]
                                             ),
                                           ),
                                         ),
@@ -267,19 +274,21 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           width: 172,
                                           child: RichText(
                                             text: TextSpan(
-                                                text: 'Category:  ',
-                                                style: TextStyle(
-                                                    color: Colors.blueAccent, fontSize: 17
-                                                ),
-                                                children: <TextSpan>[
-                                                  TextSpan(
-                                                    text: jobs[index].category?.name,
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.black
-                                                    ),
-                                                  )
-                                                ]
+                                              text: 'Job Category: ',
+                                              style: TextStyle(
+                                                color: Colors.blueAccent, fontSize: 17
+                                              ),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: searchedEmployers.length == 0
+                                                    ? employers[index].category?.name
+                                                    : searchedEmployers[index].category?.name,
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: Colors.black
+                                                  ),
+                                                )
+                                              ]
                                             ),
                                           ),
                                         ),
@@ -289,23 +298,18 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               IconButton(
-                                                icon: Icon(Icons.remove_red_eye, color: Colors.blueAccent,),
-                                                onPressed: () {},
-                                              ),
-                                              IconButton(
-                                                icon: Icon(Icons.edit, color: Colors.blueAccent,),
-                                                onPressed: () {},
-                                              ),
-                                              IconButton(
                                                 icon: Icon(Icons.delete_outline, color: Colors.blueAccent,),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  setState(() {
+                                                    employers.removeAt(index);
+                                                  });
+                                                },
                                               ),
                                             ],
                                           ),
                                         ),
                                       ],
                                     ),
-
                                   ],
                                 ),
                               ),
