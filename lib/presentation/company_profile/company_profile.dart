@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hires/presentation/company_profile/widgets/social_media_div.dart';
+import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -374,6 +376,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                 )
             ),
             SizedBox(height: 50,),
+
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -544,128 +547,19 @@ class _CompanyProfileState extends State<CompanyProfile> {
                 )
             ),
             SizedBox(height: 50,),
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 5.0,
-                        color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
-                  ],
-                ),
-                child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Logo (Recommended size image: 330x300px)",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
-                          ),
-                          SizedBox(height: 30,),
-                          Container(
-                              width: 400,
-                              height: 300,
-                              padding: EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFD9D9D9)),
-                              ),
-                              child: imageFile == null ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: 150,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage("assets/images/gallery_image.png"),
-                                            fit: BoxFit.contain
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          _getFromGallery();
-                                        },
-                                        child: const Text("Upload image"),
-                                      ),
-                                    )
-                                  ]
-                              )
-                                  : GestureDetector(
-                                  onTap: () => _getFromGallery(),
-                                  child: Image.file(imageFile!))
-                          )
-                        ]
-                    )
-                )
+            customImageUploadDiv(
+                title: "Logo (Recommended size image: 330x300px)",
+                imageFile: imageFile,
+                getFromGallery: _getFromGallery()
             ),
             SizedBox(height: 50,),
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 5.0,
-                        color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
-                  ],
-                ),
-                child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Social Media",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
-                          ),
-                          SizedBox(height: 30,),
-                          customRow(
-                              title1: "Skype",
-                              title2: "Facebook",
-                              controller1: txtSkype,
-                              controller2: txtFacebook
-                          ),
-                          SizedBox(height: 20,),
-                          customRow(
-                              title1: "Twitter",
-                              title2: "Instagram",
-                              controller1: txtTwitter,
-                              controller2: txtInstagram
-                          ),
-                          SizedBox(height: 20,),
-                          customRow(
-                              title1: "Linkedin",
-                              title2: "Google",
-                              controller1: txtLinkedin,
-                              controller2: txtGoogle
-                          ),
-
-                        ]
-                    )
-                )
+            customSocialMediaDiv(
+              txtSkype: txtSkype,
+              txtFacebook: txtFacebook,
+              txtTwitter: txtTwitter,
+              txtInstagram: txtInstagram,
+              txtLinkedin: txtLinkedin,
+              txtGoogle: txtGoogle
             ),
             SizedBox(height: 50,),
             Container(

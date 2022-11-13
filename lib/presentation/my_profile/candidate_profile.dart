@@ -5,8 +5,11 @@ import 'package:hires/core/utils/color_constant.dart';
 import 'package:hires/core/utils/math_utils.dart';
 import 'package:hires/models/applicant_detail_model.dart';
 import 'package:hires/models/user_model.dart';
+import 'package:hires/presentation/company_profile/widgets/social_media_div.dart';
+import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
 import 'package:hires/presentation/my_profile/my_profile_widgets/custom_list_view_div.dart';
 import 'package:hires/presentation/my_profile/my_profile_widgets/custom_row_text_field.dart';
+import 'package:hires/presentation/my_profile/my_profile_widgets/multi_selector_div.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
@@ -1004,145 +1007,23 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               )
             ),
             SizedBox(height: screenHeight / 10,),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Categories",
-                        style: TextStyle(
-                          fontSize: 18
-                        ),
-                      )
-                    ),
-                    SizedBox(height: 30,),
-                    MultiSelectDialogField(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFD9D9D9),
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                      items: _categories,
-                      onConfirm: (values) {
-                      }
-                    )
-                  ]
-                )
-              )
+            multiSelectorDiv(
+              title: "Categories",
+              itemsList: _categories
             ),
             SizedBox(height: screenHeight / 10,),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Job Skills",
-                        style: TextStyle(
-                          fontSize: 18
-                        ),
-                      )
-                    ),
-                    SizedBox(height: 30,),
-                    MultiSelectDialogField(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFD9D9D9),
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                      items: _jobSkills,
-                      onConfirm: (values) {
-                      }
-                    ),
-                    SizedBox(height: 30,),
-                  ]
-                )
-              )
+            multiSelectorDiv(
+              title: "Job Skills",
+              itemsList: _jobSkills
             ),
             SizedBox(height: screenHeight / 10,),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Social Media",
-                        style: TextStyle(
-                          fontSize: 18
-                        ),
-                      )
-                    ),
-                    SizedBox(height: 30,),
-                    customRow(
-                      title1: "Skype",
-                      title2: "Facebook",
-                      controller1: txtSkype,
-                      controller2: txtFacebook
-                    ),
-                    SizedBox(height: 20,),
-                    customRow(
-                      title1: "Twitter",
-                      title2: "Instagram",
-                      controller1: txtTwitter,
-                      controller2: txtInstagram
-                    ),
-                    SizedBox(height: 20,),
-                    customRow(
-                      title1: "Linkedin",
-                      title2: "Google",
-                      controller1: txtLinkedin,
-                      controller2: txtGoogle
-                    ),
-                  ]
-                )
-              )
+            customSocialMediaDiv(
+              txtSkype: txtSkype,
+              txtFacebook: txtFacebook,
+              txtTwitter: txtTwitter,
+              txtInstagram: txtInstagram,
+              txtLinkedin: txtLinkedin,
+              txtGoogle: txtGoogle
             ),
             SizedBox(height: screenHeight / 10,),
             Container(
@@ -1274,76 +1155,10 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               )
             ),
             SizedBox(height: screenHeight / 10,),
-            Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 5.0,
-                        color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
-                  ],
-                ),
-                child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Your Avatar ",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
-                          ),
-                          SizedBox(height: 30,),
-                          Container(
-                              width: 400,
-                              height: 150,
-                              padding: EdgeInsets.all(16.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Color(0xFFD9D9D9)),
-                                  borderRadius: BorderRadius.all(Radius.circular(12))
-                              ),
-                              child: imageFile == null ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      height: 150,
-                                      width: 200,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage("assets/images/gallery_image.png"),
-                                            fit: BoxFit.contain
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          _getFromGallery();
-                                        },
-                                        child: const Text("Upload image"),
-                                      ),
-                                    )
-                                  ]
-                              )
-                              : GestureDetector(
-                                onTap: () => _getFromGallery(),
-                                child: Image.file(imageFile!)
-                              )
-                          ),
-
-                        ]
-                    )
-                )
+            customImageUploadDiv(
+              title: "Your Avatar",
+              imageFile: imageFile,
+              getFromGallery: _getFromGallery
             ),
             SizedBox(height: screenHeight / 15,),
             Padding(
