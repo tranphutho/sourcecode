@@ -634,19 +634,48 @@ class _CompanyProfileState extends State<CompanyProfile> {
             ),
             SizedBox(height: 50,),
             Container(
-              alignment: Alignment.center,
-              height: getVerticalSize(
-                56.00,
-              ),
-              width: getHorizontalSize(
-                184.00,
-              ),
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(
-                  getHorizontalSize(
-                    16.00,
+
+              width: MediaQuery.of(context).size.width,
+              child: InkWell(
+                onTap: () async {
+                  usePrv!.company!.name = txtName.text;
+                  usePrv!.company!.email = txtEmail.text;
+                  usePrv!.company!.phone = txtPhone.text;
+                  usePrv!.company!.website = txtWebSite.text;
+                  usePrv!.company!.locationId = int.parse(nearestCityDWValue);
+                  if (idMedia != 0) {
+                    usePrv!.company!.avatarId = idMedia;
+                  }
+                  usePrv!.company!.categoryId = int.parse(categoryDWValue);
+                  usePrv!.company!.mapLat = txtLatitude.text;
+                  usePrv!.company!.mapLng = txtLongitude.text;
+                  usePrv!.company!.status = publishDWValue;
+                  usePrv!.company!.about = txtAboutCompany.text;
+                  usePrv!.company!.city = txtCity.text;
+                  usePrv!.company!.state = txtState.text;
+                  usePrv!.company!.country = country;
+                  usePrv!.company!.address = txtAddress.text;
+                  usePrv!.company!.teamSize = int.parse(companySizeDWValue);
+                  usePrv!.company!.socialMedia!.facebook = txtFacebook.text;
+                  usePrv!.company!.socialMedia!.google = txtGoogle.text;
+                  usePrv!.company!.socialMedia!.instagram = txtInstagram.text;
+                  usePrv!.company!.socialMedia!.linkedin = txtLinkedin.text;
+                  usePrv!.company!.socialMedia!.skype = txtSkype.text;
+                  usePrv!.company!.socialMedia!.twitter = txtTwitter.text;
+                  usePrv!.company!.foundedIn = txtFoundIn.text;
+                  usePrv!.company!.zipCode = int.parse(txtZipcode.text);
+                  usePrv!.company!.allowSearch = allowSearch ? 1 : 0;
+                  await Provider.of<UserProvider>(context, listen: false)
+                      .updateProfileCompany(usePrv!.company!);
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: getVerticalSize(
+                    56.00,
+                  ),
+                  width: getHorizontalSize(
+                    184.00,
+
                   ),
                 ),
                 boxShadow: [
@@ -729,13 +758,10 @@ class _CompanyProfileState extends State<CompanyProfile> {
       ],
     );
   }
-customRow({
-  final title1,
-  final title2,
-  final controller1,
-  final hint1,
-  final hint2,
-  final controller2}) {
+
+  customRow(
+      {final title1, final title2, final controller1, final controller2}) {
+
     return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [

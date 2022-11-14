@@ -13,6 +13,7 @@ import 'package:hires/services/get_services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../services/post_services.dart';
+import 'job_model.dart';
 
 // Findjobs findjobsFromJson(String str) => Findjobs.fromJson(json.decode(str));
 
@@ -23,18 +24,17 @@ class MyJobsModel {
     this.data,
   });
 
-  List<MyJob>? data;
+  List<Job>? data;
 
   factory MyJobsModel.fromJson(Map<String, dynamic> json) => MyJobsModel(
         data: json["data"] == null
             ? null
-            : List<MyJob>.from(json["data"].map((x) => MyJob.fromJson(x))),
+            : List<Job>.from(json["data"].map((x) => Job.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data == null
-            ? null
-            : List<MyJob>.from(data!.map((x) => x.toJson())),
+        "data":
+            data == null ? null : List<Job>.from(data!.map((x) => x.toJson())),
       };
 }
 
@@ -865,7 +865,7 @@ class MyJob {
 //       };
 // }
 
-class JobProvider extends ChangeNotifier {
+class MyJobProvider extends ChangeNotifier {
   MyJobsModel? myJobsModel;
   // JobsModel? popularJobModel;
   // JobsModel? urgenJobModel;
@@ -874,7 +874,7 @@ class JobProvider extends ChangeNotifier {
   String emailToVerify = '';
   String resetTypeToVerify = '';
 
-  RefreshController jobRefreshController = RefreshController();
+  RefreshController myjobRefreshController = RefreshController();
 
   Future intit(String token) async {
     await getMyJob(token);
@@ -886,7 +886,7 @@ class JobProvider extends ChangeNotifier {
       if (body != null) {
         var data = body["data"];
         //applicantDetail = ApplicantDetailModel.fromJson();
-        myJobsModel = MyJobsModel.fromJson(data);
+        myJobsModel = MyJobsModel.fromJson(body);
         notifyListeners();
         //print(jobsModel);
         return myJobsModel;
@@ -907,6 +907,23 @@ class JobProvider extends ChangeNotifier {
 
     var mssg = body['message'] ?? Constants.mssgErrTryLater;
     if (body["status"] == 1) {
+      return true;
+    } else if (body['message'].toString().trim().isEmpty) {
+      mssg = Constants.mssgErrTryLater;
+      await getToastMessage(mssg, Colors.red);
+      return false;
+    } else {
+      await getToastMessage(mssg, Colors.red);
+      return false;
+    }
+  }
+
+  Future<bool?> destroyMyJob(String id, String token) async {
+    var body = await PostServices.destroyMyJob(id, token);
+
+    var mssg = body['message'] ?? Constants.mssgErrTryLater;
+    if (body["status"]) {
+      await getToastMessage(mssg, Colors.red);
       return true;
     } else if (body['message'].toString().trim().isEmpty) {
       mssg = Constants.mssgErrTryLater;

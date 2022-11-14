@@ -16,7 +16,7 @@ class FeaturedJobes extends StatefulWidget {
 }
 
 class _FeaturedJobes extends State<FeaturedJobes> {
-  JobsModel? featuredJob;
+  //JobsModel? featuredJob;
   bool _isLoading = false;
   @override
   void initState() {
@@ -28,8 +28,6 @@ class _FeaturedJobes extends State<FeaturedJobes> {
     Provider.of<JobProvider>(context, listen: false)
         .findFeaturedJobs()
         .then((_) {
-      featuredJob =
-          Provider.of<JobProvider>(context, listen: false).featuredJobModel;
       setState(() {
         _isLoading = false;
       });
@@ -43,7 +41,7 @@ class _FeaturedJobes extends State<FeaturedJobes> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Featured Jobes",
+            "Featured Jobes 1",
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -100,21 +98,19 @@ class _FeaturedJobes extends State<FeaturedJobes> {
                   onLoading: () {
                     Provider.of<JobProvider>(context, listen: false)
                         .findFeaturedJobs()
-                        .then((_) {
-                      featuredJob =
-                          Provider.of<JobProvider>(context, listen: false)
-                              .popularJobModel;
-                    });
+                        .then((_) {});
                   },
                   footer: LazyLoaderFooter(),
                   child: ListView.builder(
                       padding: EdgeInsets.only(top: getVerticalSize(10)),
                       shrinkWrap: true,
-                      itemCount: featuredJob!.data!.length,
+
+                      itemCount: value.featuredJobModel!.data!.length,
+
                       itemBuilder: (context, index) {
                         print(index);
                         return Group59ItemWidget(
-                            job: featuredJob!.data![index]);
+                            job: value.featuredJobModel!.data![index]);
                       }
 
                       // return Align(

@@ -120,7 +120,7 @@ class SavedItemWidget extends StatelessWidget {
                                         child: Container(
                                           width: getHorizontalSize(220),
                                           child: Text(
-                                            wishlist!.job! != null
+                                            wishlist!.job != null
                                                 ? wishlist!.job!.title!
                                                 : "",
                                             overflow: TextOverflow.ellipsis,
@@ -160,7 +160,7 @@ class SavedItemWidget extends StatelessWidget {
                                 Container(
                                   width: getHorizontalSize(500),
                                   child: Text(
-                                    "${Constants.currency}${wishlist!.job! != null ? wishlist!.job?.salaryMin ?? "" : ""}-${wishlist!.job! != null ? wishlist!.job?.salaryMax ?? "" : ""}/${wishlist!.job! != null ? wishlist!.job!.salaryType!.substring(0, 1) : ""}",
+                                    "${Constants.currency}${wishlist!.job != null ? wishlist!.job?.salaryMin ?? "" : ""}-${wishlist!.job != null ? wishlist!.job?.salaryMax ?? "" : ""}/${wishlist!.job != null ? wishlist!.job!.salaryType!.substring(0, 1) : ""}",
                                     overflow: TextOverflow.clip,
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
@@ -229,7 +229,7 @@ class SavedItemWidget extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  wishlist!.job! != null
+                                  wishlist!.job != null
                                       ? wishlist!.job!.status!
                                       : "",
                                   textAlign: TextAlign.center,
@@ -267,7 +267,7 @@ class SavedItemWidget extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  wishlist!.job! != null
+                                  wishlist!.job != null
                                       ? wishlist!.job!.status!
                                       : "",
                                   textAlign: TextAlign.center,
@@ -420,7 +420,7 @@ class SavedItemWidget extends StatelessWidget {
                                         child: Container(
                                           width: getHorizontalSize(150),
                                           child: Text(
-                                            wishlist!.job! != null
+                                            wishlist!.job != null
                                                 ? wishlist!.job!.title!
                                                 : "",
                                             overflow: TextOverflow.ellipsis,
@@ -460,7 +460,7 @@ class SavedItemWidget extends StatelessWidget {
                                 Container(
                                   width: getHorizontalSize(50),
                                   child: Text(
-                                    "${Constants.currency}${wishlist!.job! != null ? wishlist!.job?.salaryMin ?? "" : ""}-${wishlist!.job! != null ? wishlist!.job?.salaryMax ?? "" : ""}/${wishlist!.job! != null ? wishlist!.job!.salaryType!.substring(0, 1) : ""}",
+                                    "${Constants.currency}${wishlist!.job != null ? wishlist!.job?.salaryMin ?? "" : ""}-${wishlist!.job != null ? wishlist!.job?.salaryMax ?? "" : ""}/${wishlist!.job != null ? wishlist!.job!.salaryType!.substring(0, 1) : ""}",
                                     overflow: TextOverflow.clip,
                                     textAlign: TextAlign.end,
                                     style: TextStyle(
@@ -536,7 +536,7 @@ class SavedItemWidget extends StatelessWidget {
                                   ),
                                 ),
                                 child: Text(
-                                  wishlist!.job! != null
+                                  wishlist!.job != null
                                       ? wishlist!.job!.status!
                                       : "",
                                   textAlign: TextAlign.center,
