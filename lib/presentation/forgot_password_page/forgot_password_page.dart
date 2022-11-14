@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/app_export.dart';
 import 'package:hires/core/utils/common_utils.dart';
 import 'package:hires/models/user_model.dart';
+import 'package:hires/presentation/register_screen/widgets/white_jobs_logo_section.dart';
 import 'package:hires/presentation/reset_password_screen/reset_password_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-  String dialCode = '+20';
+  String dialCode = '+91';
   late TextEditingController txtEmailCont;
   late TextEditingController txtPhoneCont;
   bool isLoading = false;
@@ -94,35 +95,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      left: getHorizontalSize(
-                        22.00,
-                      ),
-                      top: getVerticalSize(
-                        28.00,
-                      ),
-                      right: getHorizontalSize(
-                        22.00,
-                      ),
-                    ),
-                    child: Text(
-                      "Hires",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: ColorConstant.teal600,
-                        fontSize: getFontSize(
-                          21.55,
-                        ),
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
+                SizedBox(height: 20,),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(28, 0, 0, 0),
+                  child: logoSection(),
                 ),
+                SizedBox(height: 20,),
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
@@ -138,7 +116,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                       ),
                     ),
                     child: Text(
-                      "Forgot Passowrd",
+                      "Forgot Password",
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -184,47 +162,49 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                   padding: EdgeInsets.only(top: getVerticalSize(80)),
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal: getHorizontalSize(8),
-                        vertical: getVerticalSize(8)),
+                      horizontal: getHorizontalSize(8),
+                      vertical: getVerticalSize(8)),
                     decoration: BoxDecoration(
-                        color: isDark
-                            ? ColorConstant.darkContainer
-                            : ColorConstant.blue50,
-                        borderRadius:
-                            BorderRadius.circular(getHorizontalSize(16))),
+                      color: isDark
+                        ? ColorConstant.darkContainer
+                        : ColorConstant.blue50,
+                      borderRadius:
+                        BorderRadius.circular(getHorizontalSize(16))),
                     child: TabBar(
-                        controller: tabController,
-                        indicator: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(getHorizontalSize(16)),
-                            color: isDark
-                                ? ColorConstant.darkbutton
-                                : Colors.white),
-                        labelColor: isDark ? Colors.white : Colors.black,
-                        unselectedLabelColor:
-                            isDark ? Colors.white : Colors.black,
-                        labelStyle: TextStyle(
-                          fontSize: getFontSize(
-                            14,
-                          ),
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
+                      controller: tabController,
+                      indicator: BoxDecoration(
+                        borderRadius:
+                          BorderRadius.circular(getHorizontalSize(16)),
+                        color: isDark
+                          ? ColorConstant.darkbutton
+                          : Colors.white
+                      ),
+                      labelColor: isDark ? Colors.white : Colors.black,
+                      unselectedLabelColor:
+                        isDark ? Colors.white : Colors.black,
+                      labelStyle: TextStyle(
+                        fontSize: getFontSize(
+                          14,
                         ),
-                        unselectedLabelStyle: TextStyle(
-                          fontSize: getFontSize(
-                            14,
-                          ),
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      unselectedLabelStyle: TextStyle(
+                        fontSize: getFontSize(
+                          14,
                         ),
-                        tabs: [
-                          Tab(
-                            text: "Email",
-                          ),
-                          Tab(
-                            text: "Phone",
-                          )
-                        ]),
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      tabs: [
+                        Tab(
+                          text: "Email",
+                        ),
+                        Tab(
+                          text: "Phone",
+                        )
+                      ]
+                    ),
                   ),
                 ),
                 Container(
@@ -261,15 +241,15 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                                   19.00,
                                 ),
                                 child: isDark
-                                    ? SvgPicture.asset(
-                                        ImageConstant.imgMailoutline1,
-                                        fit: BoxFit.contain,
-                                        color: Colors.white,
-                                      )
-                                    : SvgPicture.asset(
-                                        ImageConstant.imgMailoutline1,
-                                        fit: BoxFit.contain,
-                                      ),
+                                  ? SvgPicture.asset(
+                                      ImageConstant.imgMailoutline1,
+                                      fit: BoxFit.contain,
+                                      color: Colors.white,
+                                    )
+                                  : SvgPicture.asset(
+                                      ImageConstant.imgMailoutline1,
+                                      fit: BoxFit.contain,
+                                    ),
                               ),
                             ),
                             prefixIconConstraints: BoxConstraints(
@@ -301,11 +281,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(
-                            horizontal: getHorizontalSize(16)),
+                          horizontal: getHorizontalSize(16)),
                         decoration: BoxDecoration(
-                            border: Border.all(color: ColorConstant.teal600),
-                            borderRadius:
-                                BorderRadius.circular(getHorizontalSize(16))),
+                          border: Border.all(color: ColorConstant.teal600),
+                          borderRadius:
+                            BorderRadius.circular(getHorizontalSize(16))),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -332,8 +312,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: getVerticalSize(9),
-                                  horizontal: getHorizontalSize(8)),
+                                vertical: getVerticalSize(9),
+                                horizontal: getHorizontalSize(8)),
                               child: VerticalDivider(
                                 color: ColorConstant.gray500,
                               ),
@@ -383,10 +363,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      left: getHorizontalSize(24),
-                      right: getHorizontalSize(24),
-                      top: getVerticalSize(180),
-                      bottom: getVerticalSize(20)),
+                    left: getHorizontalSize(24),
+                    right: getHorizontalSize(24),
+                    top: getVerticalSize(120),
+                    bottom: getVerticalSize(20)),
                   child: StatefulBuilder(
                     builder: (BuildContext context, void Function(void Function()) setState)
                      => GestureDetector(
@@ -398,33 +378,33 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage>
                         }
                         else{
                           setState(() => isLoading = true);
-                           UserProvider prvUser = Provider.of<UserProvider>(context,listen: false);
-                           bool isCodeSnt = false;
-                           if(tabController!.index==0) 
-                              isCodeSnt = await prvUser.forgotPwd('Email', txtEmailCont.text.trim());
-                           else 
-                              isCodeSnt = await prvUser.forgotPwd('Phone', txtPhoneCont.text.trim());
-                            setState(() => isLoading = false);
-                            if(isCodeSnt)
-                             Navigator.pushReplacementNamed(context, ResetPasswordScreen.id);
+                          UserProvider prvUser = Provider.of<UserProvider>(context,listen: false);
+                          bool isCodeSnt = false;
+                          if(tabController!.index==0)
+                            isCodeSnt = await prvUser.forgotPwd('Email', txtEmailCont.text.trim());
+                          else
+                            isCodeSnt = await prvUser.forgotPwd('Phone', txtPhoneCont.text.trim());
+                          setState(() => isLoading = false);
+                          if(isCodeSnt)
+                            Navigator.pushReplacementNamed(context, ResetPasswordScreen.id);
                         }
                       },
                       child: Container(
                         width: getHorizontalSize(350),
                         height: getVerticalSize(55),
                         decoration: BoxDecoration(
-                            color: ColorConstant.teal600,
-                            borderRadius:
-                                BorderRadius.circular(getHorizontalSize(16))),
+                          color: ColorConstant.teal600,
+                          borderRadius:
+                            BorderRadius.circular(getHorizontalSize(16))),
                         child: Center(
                           child: isLoading
                           ? CircularProgressIndicator(color: Colors.white)
                           : Text(
                             'Send code',
                             style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: "Poppins",
-                                fontWeight: FontWeight.w600),
+                              color: Colors.white,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),

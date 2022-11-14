@@ -104,8 +104,11 @@ class _FeaturedJobes extends State<FeaturedJobes> {
                   child: ListView.builder(
                       padding: EdgeInsets.only(top: getVerticalSize(10)),
                       shrinkWrap: true,
+
                       itemCount: value.featuredJobModel!.data!.length,
+
                       itemBuilder: (context, index) {
+                        print(index);
                         return Group59ItemWidget(
                             job: value.featuredJobModel!.data![index]);
                       }

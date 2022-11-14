@@ -234,7 +234,7 @@ class _ManageJobScreenState extends State<ManageJobScreen>
                               );
                             } else
                               return Text(
-                                "You saved ${wishlistModel!.data!.length! ?? "0"} Jobs 👍",
+                                "You saved ${wishlistModel!.data!.length ?? "0"} Jobs 👍",
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   fontSize: getFontSize(

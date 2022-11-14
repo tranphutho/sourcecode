@@ -1,8 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hires/core/app_export.dart';
+
+import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
+
 import 'package:hires/models/job_model.dart';
 import 'package:hires/models/resource_model.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -1108,53 +1112,11 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "Feature Image ",
-                                  style: TextStyle(fontSize: 18),
-                                )),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                                width: 400,
-                                height: 150,
-                                padding: EdgeInsets.all(16.0),
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Color(0xFFD9D9D9)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(12))),
-                                child: imageFile == null
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                            Container(
-                                              height: 150,
-                                              width: 200,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/gallery_image.png"),
-                                                    fit: BoxFit.contain),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  _getFromGallery();
-                                                },
-                                                child:
-                                                    const Text("Upload image"),
-                                              ),
-                                            )
-                                          ])
-                                    : GestureDetector(
-                                        onTap: () => _getFromGallery(),
-                                        child: Image.file(imageFile!))),
+                            customImageUploadDiv(
+                                title: "Feature Image",
+                                imageFile: imageFile,
+                                getFromGallery: _getFromGallery
+                            )
                             SizedBox(
                               height: 50,
                             ),
@@ -1228,6 +1190,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                             ),
                           ])))
             ])));
+
   }
 
   dropDownDiv(

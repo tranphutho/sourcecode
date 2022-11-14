@@ -192,7 +192,7 @@ class _JobDetails1ScreenState extends State<JobDetails1Screen>
                                                 listen: false);
                                         await whislistProvider.addWishlist(
                                             job!.id!.toString(),
-                                            usePrv!.token!);
+                                            usePrv.token!);
                                       },
                                       child: Padding(
                                         padding: EdgeInsets.only(

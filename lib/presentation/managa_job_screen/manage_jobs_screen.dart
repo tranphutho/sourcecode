@@ -78,6 +78,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -187,6 +188,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(15.0),
+
                                               ),
                                               color: Color(0xFFD9D9D9),
                                               child: InkWell(
@@ -441,6 +443,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                                     ],
                                                   ),
                                                 ),
+
                                               ),
                                             ),
                                           );
@@ -450,5 +453,6 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                             )
                           ])))
             ])));
+
   }
 }

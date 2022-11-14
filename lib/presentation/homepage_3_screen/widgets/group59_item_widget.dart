@@ -216,39 +216,19 @@ class Group59ItemWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Container(
-                          //color: Colors.green,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: getVerticalSize(
-                                3.00,
-                              ),
-                              right: getHorizontalSize(
-                                3.00,
-                              ),
-                              bottom: getVerticalSize(
-                                24.00,
-                              ),
-                            ),
-                            child: Container(
-                              height: getSize(
-                                20.00,
-                              ),
-                              width: getSize(
-                                20.00,
-                              ),
-                              child: InkWell(
-                                onTap: () async {
-                                  WishlistProvider whislistProvider =
-                                      Provider.of<WishlistProvider>(context,
-                                          listen: false);
-                                  await whislistProvider.addWishlist(
-                                      job!.id!.toString(), usePrv!.token!);
-                                },
-                                child: SvgPicture.asset(
-                                  ImageConstant.imgFluentbookmark,
-                                  fit: BoxFit.fill,
-                                ),
+                        Expanded(
+                          child: Container(
+                            child: InkWell(
+                              onTap: () async {
+                                WishlistProvider whislistProvider =
+                                    Provider.of<WishlistProvider>(context,
+                                        listen: false);
+                                await whislistProvider.addWishlist(
+                                    job!.id!.toString(), usePrv.token!);
+                              },
+                              child: SvgPicture.asset(
+                                ImageConstant.imgFluentbookmark,
+                                fit: BoxFit.fill,
                               ),
                             ),
                           ),

@@ -1,83 +1,81 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hires/models/applicant_detail_model.dart';
+import 'package:hires/models/job_model.dart';
 
-class ManageApplicantsScreen extends StatefulWidget {
-  static String id = "manageApplicants";
-  const ManageApplicantsScreen({Key? key}) : super(key: key);
+class Employer {
+  String? name;
+  Location? location;
+  Category? category;
+  int? openJobs;
+  String? status;
 
-  @override
-  State<ManageApplicantsScreen> createState() => _ManageApplicantsScreenState();
+
+  Employer({
+    this.name,
+    this.location,
+    this.category,
+    this.openJobs,
+    this.status
+});
 }
 
-class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
-  late TextEditingController txtSearchJob;
-  static List<ApplicantDetailModel> applicants = [
-    ApplicantDetailModel(
-      experience: [
-        ExperienceModel(
-          position: "Flutter Developer",
-        )
-      ]
+class FollowingEmployerScreen extends StatefulWidget {
+  static String id = "followingEmployer";
+  const FollowingEmployerScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FollowingEmployerScreen> createState() => _FollowingEmployerScreenState();
+}
+
+class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
+  late TextEditingController txtSearchEmployer;
+  List<Employer> employers = [
+    Employer(
+      name: "Matin Softech",
+      location: Location(name: "Biratnagar"),
+      category: Category(name: "Development"),
+      openJobs: 2,
+      status: "Active",
     ),
-    ApplicantDetailModel(
-        experience: [
-          ExperienceModel(
-            position: "PHP Developer",
-          )
-        ]
+    Employer(
+      name: "Spinks Softech",
+      location: Location(name: "Kathmandu"),
+      category: Category(name: "Software"),
+      openJobs: 5,
+      status: "Expired",
     ),
   ];
+  List<Employer> searchedEmployers = [];
 
-  String? jobTitlesDWValue = applicants.first.experience?.first.position;
-
-  List<ApplicantDetailModel> searchedApplicants = [];
-
-  getSearchedJobs() {
-    searchedApplicants.clear();
-    applicants.forEach((applicant) {
-      if(applicant.experience?.first.position?.toLowerCase() == jobTitlesDWValue?.toLowerCase()) {
-        searchedApplicants.add(applicant);
+  getSearchedEmployers() {
+    searchedEmployers.clear();
+    employers.forEach((employer) {
+      if(employer.name!.toLowerCase().contains(txtSearchEmployer.text.toLowerCase())) {
+        searchedEmployers.add(employer);
       }
     });
   }
 
-  List<DropdownMenuItem<dynamic>>? jobTitlesList = [
-    DropdownMenuItem(
-        child: Text("--Select Job--", style: TextStyle(color: Colors.black),),
-        value: "--Select Job--"
-    ),
-    DropdownMenuItem(
-      child: Text("Flutter Developer", style: TextStyle(color: Colors.black),),
-      value: "Flutter Developer",
-    ),
-    DropdownMenuItem(
-        child: Text("PHP Developer", style: TextStyle(color: Colors.black),),
-        value: "PHP Developer"
-    ),
-  ];
-
-
   @override
   void initState() {
-    txtSearchJob = TextEditingController(text: "");
+    txtSearchEmployer = TextEditingController(text: "");
     super.initState();
   }
 
   @override
   void dispose() {
-    txtSearchJob.dispose();
+    txtSearchEmployer.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "Manage Applicants",
+          "Following Employers",
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
@@ -86,7 +84,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height / 30,),
+            SizedBox(height: 20,),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -96,11 +94,11 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                      blurRadius: 5.0,
-                      color: Colors.grey,
-                      offset: Offset(
-                          3,3
-                      )
+                    blurRadius: 5.0,
+                    color: Colors.grey,
+                    offset: Offset(
+                      3,3
+                    )
                   ),
                 ],
               ),
@@ -110,49 +108,27 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Manage Applicants",
-                          style: TextStyle(
-                              fontSize: 18
-                          ),
-                        )
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Following Employers",
+                        style: TextStyle(
+                          fontSize: 18
+                        ),
+                      )
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 25,),
+                    SizedBox(height: MediaQuery.of(context).size.height / 30,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
+                        Container(
                           height: 50,
                           width: 225,
-                          child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color:Color(0xFFD9D9D9),
-                                borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
-                              ),
-                              child:Padding(
-                                  padding: EdgeInsets.only(left:30, right:30),
-                                  child:DropdownButton<dynamic>(
-                                    value: jobTitlesDWValue,
-                                    items: jobTitlesList,
-                                    onChanged: (value){ //get value when changed
-                                      setState(() {
-                                        jobTitlesDWValue = value.toString();
-                                      });
-                                    },
-                                    icon: Padding(
-                                        padding: EdgeInsets.only(left:20),
-                                        child:Icon(Icons.arrow_drop_down)
-                                    ),
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
-
-                                    dropdownColor: Color(0xFFD9D9D9), //dropdown background color
-                                    underline: Container(), //remove underline
-                                    isExpanded: true, //make true to make width 100%
-                                  )
-                              )
+                          child: TextFormField(
+                            controller: txtSearchEmployer,
+                            decoration: InputDecoration(
+                              hintText: "Search by name...",
+                              fillColor: Color(0xFFD9D9D9),
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -161,7 +137,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               setState(() {
-                                getSearchedJobs();
+                                getSearchedEmployers();
                               });
                             },
                             child: const Text("Search"),
@@ -178,38 +154,13 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                       ],
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30,),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: SizedBox(
-                        height: 50,
-                        width: 110,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              getSearchedJobs();
-                            });
-                          },
-                          child: const Text("Export"),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.amber),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                                side: BorderSide(color: Colors.amber)
-                              )
-                            )
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height / 30,),
-                    Container(
-                      height: MediaQuery.of(context).size.height / 1.9,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 1.56,
                       child: ListView.builder(
-                        itemCount: searchedApplicants.length == 0 ? applicants.length : searchedApplicants.length,
+                        itemCount: searchedEmployers.length == 0 ? employers.length : searchedEmployers.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: EdgeInsets.fromLTRB(0,0,0,MediaQuery.of(context).size.height / 25),
+                            padding: EdgeInsets.fromLTRB(0,0,0,MediaQuery.of(context).size.height / 25,),
                             child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
@@ -227,15 +178,13 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                           width: 180,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: 'Candidate: ',
+                                              text: 'Name: ',
                                               style: TextStyle(
-                                                color: Colors.blueAccent, fontSize: 17
+                                                  color: Colors.blueAccent, fontSize: 17
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedApplicants.length == 0
-                                                    ? applicants[index].id.toString()
-                                                    : searchedApplicants[index].id.toString(),
+                                                  text: searchedEmployers.length == 0 ? employers[index].name : searchedEmployers[index].name,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -249,13 +198,13 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                           width: 120,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: 'Status: ',
+                                              text: 'Featured: ',
                                               style: TextStyle(
                                                 color: Colors.blueAccent, fontSize: 17
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedApplicants.length == 0 ? applicants[index].education?.first.toString() : searchedApplicants[index].education?.first.toString(),
+                                                  text: searchedEmployers.length == 0 ? employers[index].status : searchedEmployers[index].status,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -267,7 +216,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 50,),
+                                    SizedBox(height: 35.0,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -275,15 +224,15 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                           width: 180,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: 'Job Title: ',
+                                              text: 'Location: ',
                                               style: TextStyle(
-                                                  color: Colors.blueAccent, fontSize: 17
+                                                color: Colors.blueAccent, fontSize: 17
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedApplicants.length == 0
-                                                    ? applicants[index].experience?.first.position
-                                                    : searchedApplicants[index].experience?.first.position,
+                                                  text: searchedEmployers.length == 0
+                                                    ? employers[index].location?.name
+                                                    : searchedEmployers[index].location?.name,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -297,13 +246,15 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                           width: 120,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: 'Date Applied: ',
+                                              text: 'Open Jobs: ',
                                               style: TextStyle(
                                                 color: Colors.blueAccent, fontSize: 17
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedApplicants.length == 0 ? "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}" : "${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}",
+                                                  text: searchedEmployers.length == 0
+                                                    ? employers[index].openJobs.toString()
+                                                    : searchedEmployers[index].openJobs.toString(),
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -315,21 +266,23 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 50,),
+                                    SizedBox(height: 35.0,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width: 120,
+                                          width: 172,
                                           child: RichText(
                                             text: TextSpan(
-                                              text: 'CV: ',
+                                              text: 'Job Category: ',
                                               style: TextStyle(
                                                 color: Colors.blueAccent, fontSize: 17
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedApplicants.length == 0 ? "CV.pdf" : "CV.pdf",
+                                                  text: searchedEmployers.length == 0
+                                                    ? employers[index].category?.name
+                                                    : searchedEmployers[index].category?.name,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -345,26 +298,18 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               IconButton(
-                                                icon: Icon(Icons.check, color: Colors.blueAccent,),
-                                                onPressed: () {},
-                                              ),
-                                              IconButton(
-                                                icon: Icon(CupertinoIcons.xmark_circle, color: Colors.blueAccent,),
-                                                onPressed: () {},
-                                              ),
-                                              IconButton(
-                                                icon: Icon(Icons.remove_red_eye, color: Colors.blueAccent,),
-                                                onPressed: () {},
-                                              ),
-                                              IconButton(
                                                 icon: Icon(Icons.delete_outline, color: Colors.blueAccent,),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  setState(() {
+                                                    employers.removeAt(index);
+                                                  });
+                                                },
                                               ),
                                             ],
                                           ),
                                         ),
                                       ],
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -372,7 +317,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                           );
                         }
                       ),
-                    )
+                    ),
                   ]
                 )
               )

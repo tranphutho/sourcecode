@@ -18,6 +18,7 @@ import 'package:hires/presentation/categories_screen/popular.dart';
 import 'package:hires/presentation/categories_screen/trending.dart';
 import 'package:hires/presentation/companies_screen/companies_screen.dart';
 import 'package:hires/presentation/company_profile/company_profile.dart';
+import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/forgot_password_page/forgot_password_page.dart';
 import 'package:hires/presentation/home_screen/home_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/homepage_3_screen.dart';
@@ -34,6 +35,8 @@ import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
 import 'package:hires/presentation/manage_applicants_screen/manage_applicants_screen.dart';
 import 'package:hires/presentation/messages_screen/messages_screen.dart';
+import 'package:hires/presentation/my_contact_screen/my_contact_screen.dart';
+import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/notifications_screen/notifications_screen.dart';
 import 'package:hires/presentation/profile_drop_draweritem/profile_drop_draweritem.dart';
@@ -54,6 +57,7 @@ import 'package:hires/presentation/set_b5_screen/set_b5_screen.dart';
 import 'package:hires/presentation/set_b6_screen/set_b6_screen.dart';
 import 'package:hires/presentation/settings_screen/language.dart';
 import 'package:hires/presentation/settings_screen/settings_screen.dart';
+import 'package:hires/presentation/shortlisted_resumes_screen/shortlisted_resumes_screen.dart';
 import 'package:hires/presentation/solo_category_job_listing_screen/solo_category_job_listing_screen.dart';
 import 'package:hires/presentation/start1_screen/start1_screen.dart';
 import 'package:hires/presentation/verify1_screen/verify1_screen.dart';
@@ -160,6 +164,7 @@ class _MyAppState extends State<MyApp> {
           ApplicationTrackingScreen.id: (context) =>
               ApplicationTrackingScreen(),
           Popular.id: (context) => Popular(),
+          CandidateProfileScreen.id: (context) => CandidateProfileScreen(),
           SelectLanguage.id: (context) => SelectLanguage(),
           ApplicationsScreen.id: (context) => ApplicationsScreen(),
           Start1Screen.id: (context) => Start1Screen(),
@@ -170,6 +175,7 @@ class _MyAppState extends State<MyApp> {
           CategoriesScreen.id: (context) => CategoriesScreen(),
           CompaniesScreen.id: (context) => CompaniesScreen(),
           ForgotPasswordPage.id: (context) => ForgotPasswordPage(),
+          FollowingEmployerScreen.id: (context) => FollowingEmployerScreen(),
           JobDetailsScreen.id: (context) => JobDetailsScreen(),
           JobDetails1Screen.id: (context) => JobDetails1Screen(),
           JobPreferences2Screen.id: (context) => JobPreferences2Screen(),
@@ -179,6 +185,7 @@ class _MyAppState extends State<MyApp> {
           LogInScreen.id: (context) => LogInScreen(),
           LogIn1Screen.id: (context) => LogIn1Screen(),
           LogIn2Screen.id: (context) => LogIn2Screen(),
+          MyContactScreen.id: (context) => MyContactScreen(),
           MessagesScreen.id: (context) => MessagesScreen(),
           ManageJobScreen.id: (context) => ManageJobScreen(),
           ManageJobsScreen.id: (context) => ManageJobsScreen(),
@@ -203,6 +210,7 @@ class _MyAppState extends State<MyApp> {
           ResumePortfolioUploadingScreen.id: (context) =>
               ResumePortfolioUploadingScreen(),
           SearchOption3Screen.id: (context) => SearchOption3Screen(),
+          ShortlistedResumesScreen.id: (context) => ShortlistedResumesScreen(),
           SetB1Screen.id: (context) => SetB1Screen(),
           SetB2Screen.id: (context) => SetB2Screen(),
           SetB3Screen.id: (context) => SetB3Screen(),
