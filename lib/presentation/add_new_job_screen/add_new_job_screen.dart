@@ -1115,8 +1115,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                             customImageUploadDiv(
                                 title: "Feature Image",
                                 imageFile: imageFile,
-                                getFromGallery: _getFromGallery
-                            )
+                                getFromGallery: _getFromGallery),
                             SizedBox(
                               height: 50,
                             ),
@@ -1190,7 +1189,6 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                             ),
                           ])))
             ])));
-
   }
 
   dropDownDiv(

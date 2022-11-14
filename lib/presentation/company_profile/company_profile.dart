@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:hires/presentation/company_profile/widgets/social_media_div.dart';
-import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
+
+import 'package:hires/models/resource_model.dart';
+import 'package:hires/services/api_urls.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +22,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
   bool upload = true;
   bool uploading = false;
   bool uploaded = false;
+
+  int idMedia = 0;
+  bool allowSearch = true;
 
   late TextEditingController txtEmail;
   late TextEditingController txtName;
@@ -48,12 +53,17 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   String publishDWValue = "Draft";
   String companySizeDWValue = "10 - 50 members";
-  String categoryDWValue = "Development";
-  String nearestCityDWValue = "Delhi";
-
+  String categoryDWValue = "1";
+  String categoryId = "AF";
+  String nearestCityDWValue = "0";
+  String country = "";
+  ResourceModel? resourceModel;
+  Map? countries;
+  UserModel? usePrv;
   @override
   void initState() {
     super.initState();
+
     txtEmail = TextEditingController(text: '');
     txtName = TextEditingController(text: '');
     txtWebSite = TextEditingController(text: '');
@@ -74,6 +84,44 @@ class _CompanyProfileState extends State<CompanyProfile> {
     txtLinkedin = TextEditingController(text: '');
     txtInstagram = TextEditingController(text: '');
     txtGoogle = TextEditingController(text: '');
+
+    usePrv = Provider.of<UserProvider>(context, listen: false).userApp!;
+    resourceModel = Provider.of<ResourceModelProvider>(context, listen: false)
+        .resourceModel!;
+    countries =
+        Provider.of<ResourceModelProvider>(context, listen: false).countries!;
+    if (usePrv!.company != null) {
+      txtName.text = usePrv!.company!.name ?? "";
+      txtEmail.text = usePrv!.company!.email ?? "";
+      txtWebSite.text = usePrv!.company!.website ?? "";
+      txtPhone.text = usePrv!.company!.phone ??= "";
+      txtFoundIn.text = usePrv!.company!.foundedIn ?? "";
+      txtAddress.text = usePrv!.company!.address ?? "";
+      txtCity.text = usePrv!.company!.city ?? "";
+      txtState.text = usePrv!.company!.state ?? "";
+
+      txtZipcode.text = usePrv!.company!.zipCode.toString() ?? "";
+      txtAboutCompany.text = usePrv!.company!.about.toString() ?? "";
+      txtLatitude.text = usePrv!.company!.mapLat ?? "";
+      txtLongitude.text = usePrv!.company!.mapLng ?? "";
+      txtMapZoom.text = "";
+      txtSkype.text = usePrv!.company!.socialMedia?.skype ?? "";
+      txtFacebook.text = usePrv!.company!.socialMedia?.facebook ?? "";
+      txtTwitter.text = usePrv!.company!.socialMedia?.twitter ?? "";
+      txtInstagram.text = usePrv!.company!.socialMedia?.instagram ?? "";
+      txtLinkedin.text = usePrv!.company!.socialMedia?.linkedin ?? "";
+      txtGoogle.text = usePrv!.company!.socialMedia?.google ?? "";
+      nearestCityDWValue = usePrv!.company!.locationId.toString();
+      categoryDWValue = usePrv!.company!.categoryId.toString();
+      companySizeDWValue = usePrv!.company!.teamSize.toString();
+      publishDWValue = usePrv!.company!.status!;
+      country = usePrv!.company!.country ?? "";
+      if (usePrv!.company!.allowSearch == 1)
+        allowSearch = true;
+      else
+        allowSearch = false;
+      //imageFile = File(path)
+    }
   }
 
   @override
@@ -104,31 +152,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
   @override
   Widget build(BuildContext context) {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
-    UserModel usePrv = Provider.of<UserProvider>(
-      context,
-    ).userApp!;
-    if (usePrv.company != null) {
-      txtName.text = usePrv.company!.name ?? "";
-      txtEmail.text = usePrv.company!.email ?? "";
-      txtWebSite.text = usePrv.company!.website ?? "";
-      txtPhone.text = usePrv.company!.phone ??= "";
-      txtFoundIn.text = usePrv.company!.foundedIn ?? "";
-      txtAddress.text = usePrv.company!.address ?? "";
-      txtCity.text = usePrv.company!.city ?? "";
-      txtState.text = usePrv.company!.state ?? "";
-      txtCountry.text = usePrv.company!.country ?? "";
-      txtZipcode.text = usePrv.company!.zipCode.toString() ?? "";
-      txtAboutCompany.text = usePrv.company!.about.toString() ?? "";
-      txtLatitude.text = usePrv.company!.mapLat ?? "";
-      txtLongitude.text = usePrv.company!.mapLng ?? "";
-      txtMapZoom.text = "";
-      txtSkype.text = usePrv.company!.socialMedia?.skype ?? "";
-      txtFacebook.text = usePrv.company!.socialMedia?.facebook ?? "";
-      txtTwitter.text = usePrv.company!.socialMedia?.twitter ?? "";
-      txtInstagram.text = usePrv.company!.socialMedia?.instagram ?? "";
-      txtLinkedin.text = usePrv.company!.socialMedia?.linkedin ?? "";
-      txtGoogle.text = usePrv.company!.socialMedia?.google ?? "";
-    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -143,7 +167,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -152,10 +178,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                   BoxShadow(
                       blurRadius: 5.0,
                       color: Colors.grey,
-                      offset: Offset(
-                          3,3
-                      )
-                  ),
+                      offset: Offset(3, 3)),
                 ],
               ),
               child: Padding(
@@ -167,60 +190,153 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "Company Content",
-                          style: TextStyle(
-                              fontSize: 18
-                          ),
-                        )
+                          style: TextStyle(fontSize: 18),
+                        )),
+                    SizedBox(
+                      height: 30,
                     ),
-                    SizedBox(height: 30,),
                     customRow(
                         title1: "Company name",
-                        hint1: "Netflix",
+                        //hint1: "Netflix",
                         controller1: txtName,
                         title2: "Company email",
-                        hint2: "Email",
-                        controller2: txtEmail
-                    ),
+                        //hint2: "Email",
+                        controller2: txtEmail),
+
                     SizedBox(
                       height: 20,
                     ),
                     customRow(
                         title1: "Phone Number",
-                        hint1: "987654321",
+
+                        //hint1: "987654321",
                         controller1: txtPhone,
                         title2: "Website",
-                        hint2: "Website",
+                        //hint2: "Website",
+
                         controller2: txtWebSite),
                     SizedBox(
                       height: 20,
                     ),
                     customRow(
                         title1: "Est. since",
-                        hint1: "12/10/1200",
+
+                        //hint1: "12/10/1200",
                         controller1: txtFoundIn,
                         title2: "Address",
-                        hint2: "Bannu",
+                        //hint2: "Bannu",
+
                         controller2: txtAddress),
                     SizedBox(
                       height: 20,
                     ),
                     customRow(
                         title1: "City",
-                        hint1: "Bannu",
+
+                        //hint1: "Bannu",
                         controller1: txtCity,
                         title2: "State",
-                        hint2: "Pakistan",
+                        //hint2: "Pakistan",
+
                         controller2: txtState),
                     SizedBox(
                       height: 20,
                     ),
-                    customRow(
-                        title1: "Country",
-                        hint1: "--select--",
-                        controller1: txtCountry,
-                        title2: "Zip code",
-                        hint2: "1234",
-                        controller2: txtZipcode
+
+                    // customRow(
+                    //     title1: "Country",
+                    //     //hint1: "--select--",
+                    //     controller1: txtCountry,
+                    //     title2: "Zip code",
+                    //     //hint2: "1234",
+                    //     controller2: txtZipcode),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Country",
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 150,
+                              child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFD9D9D9),
+                                    borderRadius: BorderRadius.circular(
+                                        15), //border raiuds of dropdown button
+                                  ),
+                                  child: Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 30, right: 5),
+                                      child: DropdownButton<String>(
+                                        value: country,
+                                        selectedItemBuilder:
+                                            (BuildContext context) {
+                                          return countries!.values
+                                              .map<Widget>((value) {
+                                            return Container(
+                                                alignment: Alignment.centerLeft,
+                                                constraints:
+                                                    const BoxConstraints(
+                                                        minWidth: 100),
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ));
+                                          }).toList();
+                                        },
+                                        items: countries!.keys
+                                            .map<DropdownMenuItem<String>>(
+                                                (item) {
+                                          return DropdownMenuItem<String>(
+                                            value: item,
+                                            child: Text(countries![item],
+                                                style: TextStyle(
+                                                    color: Colors.black)),
+                                          );
+                                        }).toList(),
+                                        onChanged: (value) {
+                                          //get value when changed
+                                          setState(() {
+                                            country = value.toString();
+                                          });
+                                        },
+                                        icon: Padding(
+                                            padding: EdgeInsets.only(left: 5),
+                                            child: Icon(Icons.arrow_drop_down)),
+                                        style: TextStyle(fontSize: 16),
+
+                                        dropdownColor: Color(
+                                            0xFFD9D9D9), //dropdown background color
+                                        underline:
+                                            Container(), //remove underline
+                                        isExpanded:
+                                            true, //make true to make width 100%
+                                      ))),
+                            ),
+                          ],
+                        ),
+                        customColumn(
+                          title: "Zip code",
+                          height: 50.0,
+                          width: 150.0,
+                          //hint: hint2,
+                          controller: txtZipcode,
+                          maxLines: 1,
+                          keyboardType: TextInputType.text,
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 30,
@@ -231,12 +347,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           height: 20,
                           width: 30,
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                          ),
-                          child: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.white,
+                          child: Checkbox(
+                            value: allowSearch,
+                            onChanged: (value) {
+                              setState(() {
+                                allowSearch = value!;
+                              });
+                            },
                           ),
                         ),
                         SizedBox(
@@ -244,25 +361,26 @@ class _CompanyProfileState extends State<CompanyProfile> {
                         ),
                         Text(
                           "Allow in search and listing",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16
-                          ),
+                          style: TextStyle(color: Colors.black, fontSize: 16),
                         )
                       ],
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 30,
+                    ),
+
                     customColumn(
                         controller: txtAboutCompany,
                         title: "About company",
                         maxLines: null,
-                        keyboardType: TextInputType.multiline
-                    )
+                        keyboardType: TextInputType.multiline)
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -271,10 +389,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
+                        offset: Offset(3, 3)),
                   ],
                 ),
                 child: Padding(
@@ -286,79 +401,103 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Company Location",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
+                                style: TextStyle(fontSize: 18),
+                              )),
+                          SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(height: 30,),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text("Nearest city", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)
+                              child: Text(
+                                "Nearest city",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              )),
+                          SizedBox(
+                            height: 10,
                           ),
-                          SizedBox(height: 10,),
                           DecoratedBox(
                               decoration: BoxDecoration(
-                                color:Color(0xFFD9D9D9),
-                                borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
+                                color: Color(0xFFD9D9D9),
+                                borderRadius: BorderRadius.circular(
+                                    15), //border raiuds of dropdown button
                               ),
-                              child:Padding(
-                                  padding: EdgeInsets.only(left:30, right:30),
-                                  child:DropdownButton(
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 30, right: 30),
+                                  child: DropdownButton<String>(
                                     value: nearestCityDWValue,
-                                    items: [ //add items in the dropdown
-                                      DropdownMenuItem(
-                                        child: Text("Delhi", style: TextStyle(color: Colors.black),),
-                                        value: "Delhi",
-                                      ),
-                                      DropdownMenuItem(
-                                          child: Text("Kathmandu", style: TextStyle(color: Colors.black),),
-                                          value: "Kathmandu"
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Agra", style: TextStyle(color: Colors.black),),
-                                        value: "Agra",
-                                      )
-                                    ],
-                                    onChanged: (value){ //get value when changed
+                                    selectedItemBuilder:
+                                        (BuildContext context) {
+                                      return resourceModel!.locations!
+                                          .map<Widget>((item) {
+                                        return Container(
+                                            alignment: Alignment.centerLeft,
+                                            constraints: const BoxConstraints(
+                                                minWidth: 100),
+                                            child: Text(
+                                              item.name!,
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ));
+                                      }).toList();
+                                    },
+                                    items: resourceModel!.locations!
+                                        .map<DropdownMenuItem<String>>((item) {
+                                      return DropdownMenuItem<String>(
+                                        value: item.id.toString(),
+                                        child: Text(item.name!,
+                                            style:
+                                                TextStyle(color: Colors.black)),
+                                      );
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      //get value when changed
+
                                       setState(() {
                                         nearestCityDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
-                                        padding: EdgeInsets.only(left:20),
-                                        child:Icon(Icons.arrow_drop_down)
-                                    ),
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Icon(Icons.arrow_drop_down)),
+                                    style: TextStyle(fontSize: 16),
 
-                                    dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                    dropdownColor: Color(
+                                        0xFFD9D9D9), //dropdown background color
                                     underline: Container(), //remove underline
-                                    isExpanded: true, //make true to make width 100%
-                                  )
-                              )
+                                    isExpanded:
+                                        true, //make true to make width 100%
+                                  ))),
+                          SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(height: 30,),
                           Align(
                               alignment: Alignment.topLeft,
-                              child: Text("The geographic coordinate", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)
+                              child: Text(
+                                "The geographic coordinate",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              )),
+                          SizedBox(
+                            height: 10,
                           ),
-                          SizedBox(height: 10,),
                           Container(
                             height: 150,
                             decoration: BoxDecoration(
                               color: Color(0xFFD9D9D9),
                             ),
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(
+                            height: 30,
+                          ),
                           customRow(
                               title1: "Map latitude",
                               title2: "Map longitude",
                               controller1: txtLatitude,
-                              controller2: txtLongitude
+                              controller2: txtLongitude),
+                          SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(height: 30,),
                           Align(
                             alignment: Alignment.topLeft,
                             child: Container(
@@ -367,16 +506,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               child: customColumn(
                                   title: "Map zoom",
                                   controller: txtMapZoom,
-                                  height: 50.0
-                              ),
+                                  height: 50.0),
                             ),
                           ),
-                        ]
-                    )
-                )
+                        ]))),
+            SizedBox(
+              height: 50,
             ),
-            SizedBox(height: 50,),
-
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -385,10 +521,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
+                        offset: Offset(3, 3)),
                   ],
                 ),
                 child: Padding(
@@ -400,66 +533,65 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Categories",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
+                                style: TextStyle(fontSize: 18),
+                              )),
+                          SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(height: 30,),
                           DecoratedBox(
                               decoration: BoxDecoration(
-                                color:Color(0xFFD9D9D9),
-                                borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
+                                color: Color(0xFFD9D9D9),
+                                borderRadius: BorderRadius.circular(
+                                    15), //border raiuds of dropdown button
                               ),
-                              child:Padding(
-                                  padding: EdgeInsets.only(left:30, right:30),
-                                  child:DropdownButton(
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 30, right: 30),
+                                  child: DropdownButton<String>(
                                     value: categoryDWValue,
-                                    items: [ //add items in the dropdown
-                                      DropdownMenuItem(
-                                        child: Text("Marketing", style: TextStyle(color: Colors.black),),
-                                        value: "Marketing",
-                                      ),
-                                      DropdownMenuItem(
-                                          child: Text("Development", style: TextStyle(color: Colors.black),),
-                                          value: "Development"
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Design", style: TextStyle(color: Colors.black),),
-                                        value: "Design",
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Human Resources", style: TextStyle(color: Colors.black),),
-                                        value: "Human Resources",
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("Project Management", style: TextStyle(color: Colors.black),),
-                                        value: "Project Management",
-                                      )
-                                    ],
-                                    onChanged: (value){ //get value when changed
+                                    selectedItemBuilder:
+                                        (BuildContext context) {
+                                      return resourceModel!.categories!
+                                          .map<Widget>((item) {
+                                        return Container(
+                                            alignment: Alignment.centerLeft,
+                                            constraints: const BoxConstraints(
+                                                minWidth: 100),
+                                            child: Text(
+                                              item.name!,
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ));
+                                      }).toList();
+                                    },
+                                    items: resourceModel!.categories!
+                                        .map<DropdownMenuItem<String>>((item) {
+                                      return DropdownMenuItem<String>(
+                                          value: item.id!.toString(),
+                                          child: Text(item.name!,
+                                              style: TextStyle(
+                                                  color: Colors.black)));
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      //get value when changed
+
                                       setState(() {
                                         categoryDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
-                                        padding: EdgeInsets.only(left:20),
-                                        child:Icon(Icons.arrow_drop_down)
-                                    ),
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
-                                    dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Icon(Icons.arrow_drop_down)),
+                                    style: TextStyle(fontSize: 16),
+                                    dropdownColor: Color(
+                                        0xFFD9D9D9), //dropdown background color
                                     underline: Container(), //remove underline
-                                    isExpanded: true, //make true to make width 100%
-                                  )
-                              )
-                          ),
-                        ]
-                    )
-                )
+                                    isExpanded:
+                                        true, //make true to make width 100%
+                                  ))),
+                        ]))),
+            SizedBox(
+              height: 50,
             ),
-            SizedBox(height: 50,),
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -468,10 +600,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
+                        offset: Offset(3, 3)),
                   ],
                 ),
                 child: Padding(
@@ -483,85 +612,67 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Company Size",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
+                                style: TextStyle(fontSize: 18),
+                              )),
+                          SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(height: 30,),
                           DecoratedBox(
                               decoration: BoxDecoration(
-                                color:Color(0xFFD9D9D9),
-                                borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
+                                color: Color(0xFFD9D9D9),
+                                borderRadius: BorderRadius.circular(
+                                    15), //border raiuds of dropdown button
                               ),
-                              child:Padding(
-                                  padding: EdgeInsets.only(left:30, right:30),
-                                  child:DropdownButton(
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 30, right: 30),
+                                  child: DropdownButton<String>(
                                     value: companySizeDWValue,
-                                    items: [ //add items in the d
-                                      DropdownMenuItem(
-                                        child: Text("10 - 50 members", style: TextStyle(color: Colors.black),),
-                                        value: "10 - 50 members",
-                                      ),// ropdown
-                                      DropdownMenuItem(
-                                        child: Text("50 - 100 members", style: TextStyle(color: Colors.black),),
-                                        value: "50 - 100 members",
-                                      ),
-                                      DropdownMenuItem(
-                                          child: Text("100 - 200 members", style: TextStyle(color: Colors.black),),
-                                          value: "100 - 200 members"
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("200 - 500 members", style: TextStyle(color: Colors.black),),
-                                        value: "200 - 500 members",
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("500 - 1000 members", style: TextStyle(color: Colors.black),),
-                                        value: "500 - 1000 members",
-                                      ),
-                                      DropdownMenuItem(
-                                        child: Text("1000 - 10000 members", style: TextStyle(color: Colors.black),),
-                                        value: "1000 - 10000 members",
-                                      )
-                                    ],
-                                    onChanged: (value){ //get value when changed
+                                    selectedItemBuilder: (context) {
+                                      return resourceModel!.terms!.map<Widget>(
+                                        (e) {
+                                          return Container(
+                                              alignment: Alignment.centerLeft,
+                                              constraints: const BoxConstraints(
+                                                  minWidth: 100),
+                                              child: Text(
+                                                e.name!,
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ));
+                                        },
+                                      ).toList();
+                                    },
+                                    items: resourceModel!.terms!
+                                        .map<DropdownMenuItem<String>>((e) {
+                                      return DropdownMenuItem<String>(
+                                          value: e.id!.toString(),
+                                          child: Text(
+                                            e.name!,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ));
+                                    }).toList(),
+                                    onChanged: (value) {
+                                      //get value when changed
+
                                       setState(() {
                                         companySizeDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
-                                        padding: EdgeInsets.only(left:20),
-                                        child:Icon(Icons.arrow_drop_down)
-                                    ),
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
-                                    dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Icon(Icons.arrow_drop_down)),
+                                    style: TextStyle(fontSize: 16),
+                                    dropdownColor: Color(
+                                        0xFFD9D9D9), //dropdown background color
                                     underline: Container(), //remove underline
-                                    isExpanded: true, //make true to make width 100%
-                                  )
-                              )
-                          ),
-                        ]
-                    )
-                )
+                                    isExpanded:
+                                        true, //make true to make width 100%
+                                  ))),
+                        ]))),
+            SizedBox(
+              height: 50,
             ),
-            SizedBox(height: 50,),
-            customImageUploadDiv(
-                title: "Logo (Recommended size image: 330x300px)",
-                imageFile: imageFile,
-                getFromGallery: _getFromGallery()
-            ),
-            SizedBox(height: 50,),
-            customSocialMediaDiv(
-              txtSkype: txtSkype,
-              txtFacebook: txtFacebook,
-              txtTwitter: txtTwitter,
-              txtInstagram: txtInstagram,
-              txtLinkedin: txtLinkedin,
-              txtGoogle: txtGoogle
-            ),
-            SizedBox(height: 50,),
             Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -570,10 +681,171 @@ class _CompanyProfileState extends State<CompanyProfile> {
                     BoxShadow(
                         blurRadius: 5.0,
                         color: Colors.grey,
-                        offset: Offset(
-                            3,3
-                        )
-                    ),
+                        offset: Offset(3, 3)),
+                  ],
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Logo (Recommended size image: 330x300px)",
+                                style: TextStyle(fontSize: 18),
+                              )),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                              width: 400,
+                              height: 300,
+                              padding: EdgeInsets.all(16.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFD9D9D9)),
+                              ),
+                              child: usePrv!.company!.avatarDetail!.filePath !=
+                                          null &&
+                                      imageFile == null
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                          Container(
+                                            height: 210,
+                                            width: 210,
+                                            child: InkWell(
+                                              onTap: () {
+                                                print("Bấm vào đây");
+                                                _getFromGallery();
+                                              },
+                                            ),
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    Api_Url.BASE_URL_IMAGE +
+                                                        usePrv!
+                                                            .company!
+                                                            .avatarDetail!
+                                                            .filePath!,
+                                                  ),
+                                                  fit: BoxFit.fill),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: ElevatedButton(
+                                              onPressed: () {},
+                                              child: const Text("Upload image"),
+                                            ),
+                                          )
+                                        ])
+                                  // : GestureDetector(
+                                  //     onTap: () => _getFromGallery(),
+                                  //     child: Image.file(imageFile!))
+                                  : Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                          Container(
+                                            height: 210,
+                                            width: 210,
+                                            child: InkWell(
+                                              onTap: () {
+                                                print("Bấm vào đây");
+                                                _getFromGallery();
+                                              },
+                                              child: Image.file(
+                                                imageFile!,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: ElevatedButton(
+                                              onPressed: () async {
+                                                // setState(() {
+                                                //   imageFile = null;
+                                                // });
+                                                // rovider.of<UserProvider>(context, listen: false)
+                                                idMedia = (await Provider.of<
+                                                            UserProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .postMedia(imageFile!))!;
+                                              },
+                                              child: const Text("Upload image"),
+                                            ),
+                                          )
+                                        ]))
+                        ]))),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 5.0,
+                        color: Colors.grey,
+                        offset: Offset(3, 3)),
+                  ],
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Social Media",
+                                style: TextStyle(fontSize: 18),
+                              )),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          customRow(
+                              title1: "Skype",
+                              title2: "Facebook",
+                              controller1: txtSkype,
+                              controller2: txtFacebook),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          customRow(
+                              title1: "Twitter",
+                              title2: "Instagram",
+                              controller1: txtTwitter,
+                              controller2: txtInstagram),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          customRow(
+                              title1: "Linkedin",
+                              title2: "Google",
+                              controller1: txtLinkedin,
+                              controller2: txtGoogle),
+                        ]))),
+            SizedBox(
+              height: 50,
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 5.0,
+                        color: Colors.grey,
+                        offset: Offset(3, 3)),
                   ],
                 ),
                 child: Padding(
@@ -585,56 +857,59 @@ class _CompanyProfileState extends State<CompanyProfile> {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Publish",
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
-                              )
+                                style: TextStyle(fontSize: 18),
+                              )),
+                          SizedBox(
+                            height: 30,
                           ),
-                          SizedBox(height: 30,),
                           DecoratedBox(
                               decoration: BoxDecoration(
-                                color:Color(0xFFD9D9D9),
-                                borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
+                                color: Color(0xFFD9D9D9),
+                                borderRadius: BorderRadius.circular(
+                                    15), //border raiuds of dropdown button
                               ),
-                              child:Padding(
-                                  padding: EdgeInsets.only(left:30, right:30),
-                                  child:DropdownButton(
+                              child: Padding(
+                                  padding: EdgeInsets.only(left: 30, right: 30),
+                                  child: DropdownButton(
                                     value: publishDWValue,
-                                    items: [ //add items in the d
+                                    items: [
+                                      //add items in the d
                                       DropdownMenuItem(
-                                        child: Text("Publish", style: TextStyle(color: Colors.black),),
-                                        value: "Publish",
-                                      ),// ropdown
+                                        child: Text(
+                                          "Publish",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        value: "publish",
+                                      ), // ropdown
                                       DropdownMenuItem(
-                                        child: Text("Draft", style: TextStyle(color: Colors.black),),
-                                        value: "Draft",
+                                        child: Text(
+                                          "Draft",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        value: "draft",
                                       ),
                                     ],
-                                    onChanged: (value){ //get value when changed
+                                    onChanged: (value) {
+                                      //get value when changed
                                       setState(() {
                                         publishDWValue = value.toString();
                                       });
                                     },
                                     icon: Padding(
-                                        padding: EdgeInsets.only(left:20),
-                                        child:Icon(Icons.arrow_drop_down)
-                                    ),
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
-                                    dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                        padding: EdgeInsets.only(left: 20),
+                                        child: Icon(Icons.arrow_drop_down)),
+                                    style: TextStyle(fontSize: 16),
+                                    dropdownColor: Color(
+                                        0xFFD9D9D9), //dropdown background color
                                     underline: Container(), //remove underline
-                                    isExpanded: true, //make true to make width 100%
-                                  )
-                              )
-                          ),
-                        ]
-                    )
-                )
+                                    isExpanded:
+                                        true, //make true to make width 100%
+                                  ))),
+                        ]))),
+            SizedBox(
+              height: 50,
             ),
-            SizedBox(height: 50,),
             Container(
-
               width: MediaQuery.of(context).size.width,
               child: InkWell(
                 onTap: () async {
@@ -656,13 +931,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
                   usePrv!.company!.country = country;
                   usePrv!.company!.address = txtAddress.text;
                   usePrv!.company!.teamSize = int.parse(companySizeDWValue);
-                  usePrv!.company!.socialMedia!.facebook = txtFacebook.text;
-                  usePrv!.company!.socialMedia!.google = txtGoogle.text;
-                  usePrv!.company!.socialMedia!.instagram = txtInstagram.text;
-                  usePrv!.company!.socialMedia!.linkedin = txtLinkedin.text;
-                  usePrv!.company!.socialMedia!.skype = txtSkype.text;
-                  usePrv!.company!.socialMedia!.twitter = txtTwitter.text;
-                  usePrv!.company!.foundedIn = txtFoundIn.text;
+
                   usePrv!.company!.zipCode = int.parse(txtZipcode.text);
                   usePrv!.company!.allowSearch = allowSearch ? 1 : 0;
                   await Provider.of<UserProvider>(context, listen: false)
@@ -675,29 +944,34 @@ class _CompanyProfileState extends State<CompanyProfile> {
                   ),
                   width: getHorizontalSize(
                     184.00,
-
                   ),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 5.0,
-                      color: Colors.grey,
-                      offset: Offset(
-                          3,3
-                      )
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(
+                      getHorizontalSize(
+                        16.00,
+                      ),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 5.0,
+                          color: Colors.grey,
+                          offset: Offset(3, 3)),
+                    ],
                   ),
-                ],
-              ),
-              child: Text(
-                "Save Changes",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: ColorConstant.whiteA700,
-                  fontSize: getFontSize(
-                    16,
+                  child: Text(
+                    "Save Changes",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: ColorConstant.whiteA700,
+                      fontSize: getFontSize(
+                        16,
+                      ),
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -712,7 +986,9 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   customColumn({
     final title,
-    final hint,
+
+    //final hint,
+
     required,
     var height,
     var width,
@@ -720,17 +996,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
     var keyboardType,
     var maxLines,
   }) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
           style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-            fontWeight: FontWeight.bold
-          ),
+              fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
         ),
         SizedBox(
           height: 10,
@@ -746,12 +1018,12 @@ class _CompanyProfileState extends State<CompanyProfile> {
             decoration: InputDecoration(
               fillColor: Color(0xFFD9D9D9),
               contentPadding: EdgeInsets.all(18),
-              hintText: hint,
+
+              //hintText: hint,
               hintStyle: TextStyle(
-                fontSize: 14,
-                color: Colors.black.withOpacity(0.5),
-                fontWeight: FontWeight.bold
-              ),
+                  fontSize: 14,
+                  color: Colors.black.withOpacity(0.5),
+                  fontWeight: FontWeight.bold),
             ),
           ),
         )
@@ -761,43 +1033,53 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   customRow(
       {final title1, final title2, final controller1, final controller2}) {
-
     return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      customColumn(
-          title: title1,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        customColumn(
+            title: title1,
+            height: 50.0,
+            width: 150.0,
+            //hint: hint1,
+            controller: controller1,
+            maxLines: 1,
+            keyboardType: TextInputType.text),
+        customColumn(
+          title: title2,
           height: 50.0,
           width: 150.0,
-          hint: hint1,
-          controller: controller1,
+          //hint: hint2,
+          controller: controller2,
           maxLines: 1,
-          keyboardType: TextInputType.text
-      ),
-      customColumn(
-        title: title2,
-        height: 50.0,
-        width: 150.0,
-        hint: hint2,
-        controller: controller2,
-        maxLines: 1,
-        keyboardType: TextInputType.text,
-      ),
-    ],
-  );
-}
-_getFromGallery() async {
-  PickedFile? pickedFile = await ImagePicker().getImage(
-    source: ImageSource.gallery,
-    maxWidth: 330,
-    maxHeight: 300,
-  );
-  if (pickedFile != null) {
-    setState(() {
-      imageFile = File(pickedFile.path);
-    });
+          keyboardType: TextInputType.text,
+        ),
+      ],
+    );
+  }
+
+  _getFromGallery() async {
+    PickedFile? pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 330,
+      maxHeight: 300,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+
+    _getFromGallery() async {
+      PickedFile? pickedFile = await ImagePicker().getImage(
+        source: ImageSource.gallery,
+        maxWidth: 330,
+        maxHeight: 300,
+      );
+      if (pickedFile != null) {
+        setState(() {
+          imageFile = File(pickedFile.path);
+        });
+      }
+    }
   }
 }
-}
-
-
