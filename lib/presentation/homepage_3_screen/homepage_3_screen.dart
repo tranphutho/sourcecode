@@ -22,6 +22,7 @@ import 'package:hires/presentation/log_in_screen/log_in_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_job_screen.dart';
 import 'package:hires/presentation/managa_job_screen/manage_jobs_screen.dart';
 import 'package:hires/presentation/manage_applicants_screen/manage_applicants_screen.dart';
+import 'package:hires/presentation/my_contact_screen/my_contact_screen.dart';
 import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/presentation/my_profile/my_profile.dart';
 import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen.dart';
@@ -490,58 +491,12 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                                 Navigator.of(context).pushNamed(AddNewJobScreen.id),
                             icon: Icon(Icons.add_business_outlined, color: Colors.grey.shade400,)
                         ),
-                        Builder(
-                          builder: (context) {
-                            if (usePrv.role_id != 2) {
-                              return Container();
-                            }
-                            else {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    top: getVerticalSize(16)),
-                                child: GestureDetector(
-                                  onTap: () =>
-                                      Navigator.pushNamed(
-                                          context, ManageApplicantsScreen.id),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .center,
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Container(
-                                          height: getVerticalSize(
-                                            21.67,
-                                          ),
-                                          width: getHorizontalSize(
-                                            17.33,
-                                          ),
-                                          child: Icon(Icons.wallet_giftcard,
-                                            color: Colors.grey.shade400,)
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: getHorizontalSize(12),
-                                        ),
-                                        child: Text(
-                                          "Manage Applicants",
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontSize: getFontSize(
-                                              15,
-                                            ),
-                                            fontFamily: 'Poppins',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-                          }
+                        customEmployerNavBuilder(
+                            title: "Manage Applicants",
+                            usePrv: usePrv,
+                            onTap: () =>
+                                Navigator.of(context).pushNamed(ManageApplicantsScreen.id),
+                            icon: Icon(Icons.wallet_giftcard, color: Colors.grey.shade400,)
                         ),
                         Builder(builder: (context) {
                           if (usePrv.role_id != 3)
@@ -604,6 +559,17 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                             CupertinoIcons.rectangle_stack_person_crop_fill,
                             color: Colors.grey.shade400,
                           )
+                        ),
+                        customEmployerNavBuilder(
+                            title: "My Contact",
+                            usePrv: usePrv,
+                            onTap: () {
+                              Navigator.pushNamed(context, MyContactScreen.id);
+                            },
+                            icon: Icon(
+                              Icons.contact_mail_outlined,
+                              color: Colors.grey.shade400,
+                            )
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: getVerticalSize(16)),
