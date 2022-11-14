@@ -483,7 +483,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                           ),
                         ),
                         Builder(builder: (context) {
-                          if (usePrv!.role_id != 2)
+                          if (usePrv.role_id != 2)
                             return Container();
                           else
                             return Padding(
@@ -534,7 +534,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                             );
                         }),
                         Builder(builder: (context) {
-                          if (usePrv!.role_id != 2) {
+                          if (usePrv.role_id != 2) {
                             return Container();
                           }
                           else {
@@ -583,7 +583,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
 
                         Builder(
                           builder: (context) {
-                            if (usePrv!.role_id != 2) {
+                            if (usePrv.role_id != 2) {
                               return Container();
                             }
                             else {
@@ -635,7 +635,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                           }
                         ),
                         Builder(builder: (context) {
-                          if (usePrv!.role_id != 3)
+                          if (usePrv.role_id != 3)
                             return Container();
                           else
                             return Padding(
@@ -1091,9 +1091,9 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                     ),
                     child: Text(
                       // "Dokkan Agency 👋",
-                      usePrv!.role_id != 3
-                          ? "${usePrv!.company != null ? usePrv!.company!.name! : usePrv!.name} 👋"
-                          : "${usePrv!.name} 👋",
+                      usePrv.role_id != 3
+                          ? "${usePrv.company != null ? usePrv.company!.name! : usePrv.name} 👋"
+                          : "${usePrv.name} 👋",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: getFontSize(

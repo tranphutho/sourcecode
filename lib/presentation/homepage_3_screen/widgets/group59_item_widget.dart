@@ -224,7 +224,7 @@ class Group59ItemWidget extends StatelessWidget {
                                     Provider.of<WishlistProvider>(context,
                                         listen: false);
                                 await whislistProvider.addWishlist(
-                                    job!.id!.toString(), usePrv!.token!);
+                                    job!.id!.toString(), usePrv.token!);
                               },
                               child: SvgPicture.asset(
                                 ImageConstant.imgFluentbookmark,

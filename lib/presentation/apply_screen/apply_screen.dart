@@ -87,7 +87,7 @@ class _ApplyScreen extends State<ApplyScreen> {
                     txtMessage.text,
                     job!.id!.toString(),
                     job!.companyId!.toString(),
-                    usePrv!.token!);
+                    usePrv.token!);
                 if (status!)
                   Navigator.pushNamed(context, ApplySuccess2Screen.id);
               },
@@ -599,7 +599,7 @@ class _ApplyScreen extends State<ApplyScreen> {
                                                   .markNeedsBuild();
                                               return;
                                             }
-                                            final file = result!.files.first;
+                                            final file = result.files.first;
                                             print(file.name);
                                             fileName = file.name;
                                             print(file.path);

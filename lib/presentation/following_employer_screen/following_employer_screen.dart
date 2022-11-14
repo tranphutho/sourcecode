@@ -155,7 +155,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height / 30,),
                     SizedBox(
-                      height: MediaQuery.of(context).size.height! / 1.56,
+                      height: MediaQuery.of(context).size.height / 1.56,
                       child: ListView.builder(
                         itemCount: searchedEmployers.length == 0 ? employers.length : searchedEmployers.length,
                         itemBuilder: (context, index) {

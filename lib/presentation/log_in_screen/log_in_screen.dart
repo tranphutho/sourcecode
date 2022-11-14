@@ -6,6 +6,7 @@ import 'package:hires/models/user_model.dart';
 import 'package:hires/presentation/forgot_password_page/forgot_password_page.dart';
 import 'package:hires/presentation/home_screen/home_screen.dart';
 import 'package:hires/presentation/register_screen/register_screen.dart';
+import 'package:hires/presentation/register_screen/widgets/white_jobs_logo_section.dart';
 import 'package:hires/presentation/verify_screen/verify_screen.dart';
 import 'package:hires/services/login_sevice.dart';
 import 'package:provider/provider.dart';
@@ -80,6 +81,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 right: getHorizontalSize(
                                   18.00,
                                 ),
+                                bottom: getVerticalSize(30.00)
                               ),
                               child: GestureDetector(
                                 onTap: () {
@@ -99,39 +101,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: context.locale == Constants.engLocal
-                                ? Alignment.centerLeft
-                                : Alignment.centerRight,
-                            child: Padding(
-                                padding: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    22.00,
-                                  ),
-                                  top: getVerticalSize(
-                                    28.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    22.00,
-                                  ),
-                                ),
-                                child: Image.asset("assets/images/logo.png",
-                                    height: getSize(70), width: getSize(70))
-                                // child: Text(
-                                //   "Hires",
-                                //   overflow: TextOverflow.ellipsis,
-                                //   textAlign: TextAlign.center,
-                                //   style: TextStyle(
-                                //     color: ColorConstant.teal600,
-                                //     fontSize: getFontSize(
-                                //       21.55,
-                                //     ),
-                                //     fontFamily: 'Poppins',
-                                //     fontWeight: FontWeight.w600,
-                                //   ),
-                                // ),
-                                ),
-                          ),
+                          logoSection(),
                           Align(
                             alignment: context.locale == Constants.engLocal
                                 ? Alignment.centerLeft
