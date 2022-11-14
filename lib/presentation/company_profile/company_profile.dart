@@ -931,7 +931,13 @@ class _CompanyProfileState extends State<CompanyProfile> {
                   usePrv!.company!.country = country;
                   usePrv!.company!.address = txtAddress.text;
                   usePrv!.company!.teamSize = int.parse(companySizeDWValue);
-
+                  usePrv!.company!.socialMedia!.facebook = txtFacebook.text;
+                  usePrv!.company!.socialMedia!.google = txtGoogle.text;
+                  usePrv!.company!.socialMedia!.instagram = txtInstagram.text;
+                  usePrv!.company!.socialMedia!.linkedin = txtLinkedin.text;
+                  usePrv!.company!.socialMedia!.skype = txtSkype.text;
+                  usePrv!.company!.socialMedia!.twitter = txtTwitter.text;
+                  usePrv!.company!.foundedIn = txtFoundIn.text;
                   usePrv!.company!.zipCode = int.parse(txtZipcode.text);
                   usePrv!.company!.allowSearch = allowSearch ? 1 : 0;
                   await Provider.of<UserProvider>(context, listen: false)
@@ -1031,10 +1037,8 @@ class _CompanyProfileState extends State<CompanyProfile> {
     );
   }
 
-
   customRow(
       {final title1, final title2, final controller1, final controller2}) {
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

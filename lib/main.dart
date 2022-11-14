@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hires/models/find_jobs.dart';
+import 'package:hires/models/my_job_model.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/models/wishlist_model.dart';
 import 'package:hires/presentation/add_new_job_screen/add_new_job_screen.dart';
@@ -143,6 +144,7 @@ class _MyAppState extends State<MyApp> {
             create: (_) => WishlistProvider()),
         ChangeNotifierProvider<ResourceModelProvider>(
             create: (_) => ResourceModelProvider()),
+        ChangeNotifierProvider<MyJobProvider>(create: (_) => MyJobProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
