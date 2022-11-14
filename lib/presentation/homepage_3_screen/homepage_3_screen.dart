@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/app_export.dart';
@@ -9,6 +10,7 @@ import 'package:hires/presentation/applications_screen/applications_screen.dart'
 import 'package:hires/presentation/company_profile/company_profile.dart';
 import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/popular_jobs.dart';
+import 'package:hires/presentation/homepage_3_screen/widgets/custom_employer_nav_div.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/presentation/job_details1_screen/job_details1_screen.dart';
 import 'package:hires/presentation/job_details_screen/job_details_screen.dart';
@@ -26,6 +28,7 @@ import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
 import 'package:hires/presentation/searchfilterbottomsheet_page/searchfilterbottomsheet_page.dart';
 import 'package:hires/presentation/settings_screen/settings_screen.dart';
+import 'package:hires/presentation/shortlisted_resumes_screen/shortlisted_resumes_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -49,6 +52,8 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
   JobsModel? featuredJob;
   JobsModel? popularJob;
   bool _isLoading = false;
+
+
   @override
   initState() {
     super.initState();
@@ -401,17 +406,6 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    // Provider.of<ApplicantDetailModelProvider>(
-                                    //         context)
-                                    //     .getApplicantDetail(
-                                    //         usePrv.id!, usePrv.token!);
-                                    // if (usePrv.role_id == 3) {
-                                    //   Navigator.pushNamed(
-                                    //       context, CandidateProfileScreen.id);
-                                    // } else {
-                                    //   Navigator.pushNamed(
-                                    //       context, CompanyProfile.id);
-                                    // }
                                     Navigator.pushNamed(
                                         context, CandidateProfileScreen.id
                                     );
@@ -482,105 +476,20 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                             ),
                           ),
                         ),
-                        Builder(builder: (context) {
-                          if (usePrv.role_id != 2)
-                            return Container();
-                          else
-                            return Padding(
-                              padding:
-                                  EdgeInsets.only(top: getVerticalSize(16)),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, ManageJobsScreen.id);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      height: getVerticalSize(
-                                        20.00,
-                                      ),
-                                      width: getHorizontalSize(
-                                        16.50,
-                                      ),
-                                      child: SvgPicture.asset(
-                                        ImageConstant.imgGroup4,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: getHorizontalSize(12),
-                                      ),
-                                      child: Text(
-                                        "Manage Jobs",
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: getFontSize(
-                                            15,
-                                          ),
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                        }),
-                        Builder(builder: (context) {
-                          if (usePrv.role_id != 2) {
-                            return Container();
-                          }
-                          else {
-                            return Padding(
-                              padding: EdgeInsets.only(top: getVerticalSize(16)),
-                              child: GestureDetector(
-                                onTap: () =>  Navigator.pushNamed(
-                                    context, AddNewJobScreen.id),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                        height: getVerticalSize(
-                                          21.67,
-                                        ),
-                                        width: getHorizontalSize(
-                                          17.33,
-                                        ),
-                                        child: Icon(Icons.post_add_outlined, color: Colors.grey.shade400,)
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: getHorizontalSize(12),
-                                      ),
-                                      child: Text(
-                                        "Add new Job",
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontSize: getFontSize(
-                                            15,
-                                          ),
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }
-                        }),
-
+                        customEmployerNavBuilder(
+                            title: "Manage Jobs",
+                            usePrv: usePrv,
+                            onTap: () =>
+                                Navigator.of(context).pushNamed(ManageJobsScreen.id),
+                            icon: Icon(Icons.event_note_rounded, color: Colors.grey.shade400,)
+                        ),
+                        customEmployerNavBuilder(
+                            title: "Add new Job",
+                            usePrv: usePrv,
+                            onTap: () =>
+                                Navigator.of(context).pushNamed(AddNewJobScreen.id),
+                            icon: Icon(Icons.add_business_outlined, color: Colors.grey.shade400,)
+                        ),
                         Builder(
                           builder: (context) {
                             if (usePrv.role_id != 2) {
@@ -685,140 +594,17 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                               ),
                             );
                         }),
-                        // Padding(
-                        //   padding: EdgeInsets.only(top: getVerticalSize(16)),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     mainAxisSize: MainAxisSize.max,
-                        //     children: [
-                        //       Container(
-                        //         height: getVerticalSize(
-                        //           18.70,
-                        //         ),
-                        //         width: getHorizontalSize(
-                        //           20.00,
-                        //         ),
-                        //         child: SvgPicture.asset(
-                        //           ImageConstant.imgGroup188,
-                        //           fit: BoxFit.fill,
-                        //         ),
-                        //       ),
-                        //       Padding(
-                        //         padding: EdgeInsets.symmetric(
-                        //           horizontal: getHorizontalSize(12),
-                        //         ),
-                        //         child: Text(
-                        //           "Portfolio",
-                        //           overflow: TextOverflow.ellipsis,
-                        //           textAlign: TextAlign.start,
-                        //           style: TextStyle(
-                        //             fontSize: getFontSize(
-                        //               15,
-                        //             ),
-                        //             fontFamily: 'Poppins',
-                        //             fontWeight: FontWeight.w500,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: EdgeInsets.only(top: getVerticalSize(16)),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     mainAxisSize: MainAxisSize.max,
-                        //     children: [
-                        //       Container(
-                        //         height: getVerticalSize(
-                        //           21.00,
-                        //         ),
-                        //         width: getHorizontalSize(
-                        //           16.00,
-                        //         ),
-                        //         child: SvgPicture.asset(
-                        //           ImageConstant.imgVector5,
-                        //           fit: BoxFit.fill,
-                        //         ),
-                        //       ),
-                        //       Padding(
-                        //         padding: EdgeInsets.symmetric(
-                        //           horizontal: getHorizontalSize(12),
-                        //         ),
-                        //         child: Text(
-                        //           "Cover Letters",
-                        //           overflow: TextOverflow.ellipsis,
-                        //           textAlign: TextAlign.start,
-                        //           style: TextStyle(
-                        //             fontSize: getFontSize(
-                        //               15,
-                        //             ),
-                        //             fontFamily: 'Poppins',
-                        //             fontWeight: FontWeight.w500,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        // Padding(
-                        //   padding: EdgeInsets.only(top: getVerticalSize(16)),
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       Navigator.pushNamed(context, SettingsScreen.id);
-                        //     },
-                        //     child: Row(
-                        //       mainAxisAlignment: MainAxisAlignment.start,
-                        //       crossAxisAlignment: CrossAxisAlignment.start,
-                        //       mainAxisSize: MainAxisSize.min,
-                        //       children: [
-                        //         Padding(
-                        //           padding: EdgeInsets.only(
-                        //             top: getVerticalSize(
-                        //               2.00,
-                        //             ),
-                        //             bottom: getVerticalSize(
-                        //               3.00,
-                        //             ),
-                        //           ),
-                        //           child: Container(
-                        //             height: getSize(
-                        //               18.00,
-                        //             ),
-                        //             width: getSize(
-                        //               18.00,
-                        //             ),
-                        //             child: SvgPicture.asset(
-                        //               ImageConstant.imgVector6,
-                        //               fit: BoxFit.fill,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //         Padding(
-                        //           padding: EdgeInsets.symmetric(
-                        //             horizontal: getHorizontalSize(
-                        //               12.00,
-                        //             ),
-                        //           ),
-                        //           child: Text(
-                        //             "Settings",
-                        //             overflow: TextOverflow.ellipsis,
-                        //             textAlign: TextAlign.start,
-                        //             style: TextStyle(
-                        //               fontSize: getFontSize(
-                        //                 15,
-                        //               ),
-                        //               fontFamily: 'Poppins',
-                        //               fontWeight: FontWeight.w500,
-                        //             ),
-                        //           ),
-                        //         ),
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
+                        customEmployerNavBuilder(
+                          title: "Shortlisted Resumes",
+                          usePrv: usePrv,
+                          onTap: () {
+                            Navigator.pushNamed(context, ShortlistedResumesScreen.id);
+                          },
+                          icon: Icon(
+                            CupertinoIcons.rectangle_stack_person_crop_fill,
+                            color: Colors.grey.shade400,
+                          )
+                        ),
                         Padding(
                           padding: EdgeInsets.only(top: getVerticalSize(16)),
                           child: GestureDetector(

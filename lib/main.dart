@@ -55,6 +55,7 @@ import 'package:hires/presentation/set_b5_screen/set_b5_screen.dart';
 import 'package:hires/presentation/set_b6_screen/set_b6_screen.dart';
 import 'package:hires/presentation/settings_screen/language.dart';
 import 'package:hires/presentation/settings_screen/settings_screen.dart';
+import 'package:hires/presentation/shortlisted_resumes_screen/shortlisted_resumes_screen.dart';
 import 'package:hires/presentation/solo_category_job_listing_screen/solo_category_job_listing_screen.dart';
 import 'package:hires/presentation/start1_screen/start1_screen.dart';
 import 'package:hires/presentation/verify1_screen/verify1_screen.dart';
@@ -205,6 +206,7 @@ class _MyAppState extends State<MyApp> {
           ResumePortfolioUploadingScreen.id: (context) =>
               ResumePortfolioUploadingScreen(),
           SearchOption3Screen.id: (context) => SearchOption3Screen(),
+          ShortlistedResumesScreen.id: (context) => ShortlistedResumesScreen(),
           SetB1Screen.id: (context) => SetB1Screen(),
           SetB2Screen.id: (context) => SetB2Screen(),
           SetB3Screen.id: (context) => SetB3Screen(),
