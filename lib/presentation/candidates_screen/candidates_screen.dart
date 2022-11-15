@@ -7,12 +7,16 @@ import 'package:hires/models/user_model.dart';
 import 'package:hires/presentation/candidates_screen/widgets/candidates_card_widget.dart';
 import 'package:hires/presentation/homepage_3_screen/popular_jobs.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/drawer_widget.dart';
+import 'package:hires/presentation/search_candidate_screen/search_candidate_screen.dart';
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
 import 'package:hires/presentation/searchfilterbottomsheet_page/searchfilterbottomsheet_page.dart';
 import 'package:provider/provider.dart';
 
 class CandidatesScreen extends StatefulWidget {
   static String id = "candidatesScreen";
+  final String? keyword;
+
+  CandidatesScreen({this.keyword});
 
   @override
   State<CandidatesScreen> createState() => _CandidatesScreenState();
@@ -32,7 +36,7 @@ class _CandidatesScreenState extends State<CandidatesScreen> {
     setState(() {
       _isLoading = true;
     });
-    Provider.of<CadidatesProvider>(context, listen: false).intit().then((_) {
+    Provider.of<CadidatesProvider>(context, listen: false).intit(keyword: widget.keyword).then((_) {
       setState(() {
         _isLoading = false;
       });
@@ -260,12 +264,13 @@ class _CandidatesScreenState extends State<CandidatesScreen> {
                             ),
                             child: TextFormField(
                               readOnly: true,
+                              initialValue: widget.keyword,
                               onTap: () {
-                                Navigator.pushNamed(
-                                    context, SearchOption3Screen.id);
+                                Navigator.push(context, MaterialPageRoute(builder: (co)=>SearchCandidateScreen()));
                               },
                               decoration: InputDecoration(
                                 hintText: 'Search a candidate',
+
                                 prefixIcon: Padding(
                                   padding: EdgeInsets.only(
                                     left: context.locale == Constants.engLocal

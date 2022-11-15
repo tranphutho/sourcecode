@@ -230,10 +230,10 @@ class Cadidate {
         educationLevel:
             json['education_level'] == null ? null : json['education_level'],
         experienceYear:
-            json['experience_year'] == null ? null : json['experience_year'],
+            json['experience_year'] == null ? null : json['experience_year'].toString(),
         expectedSalary:
-            json['expected_salary'] == null ? null : json['expected_salary'],
-        salaryType: json['salary_type'] == null ? null : json['salary_type'],
+            json['expected_salary'] == null ? null : json['expected_salary'].toString(),
+        salaryType: json['salary_type'] == null ? "   " : json['salary_type'].toString(),
         locationId: json['location_id'] == null ? null : json['location_id'],
         mapLat: json['map_lat'] == null ? null : json['map_lat'],
         mapLng: json['map_lng'] == null ? null : json['map_lng'],
@@ -343,14 +343,15 @@ class CadidatesProvider extends ChangeNotifier {
 
   RefreshController jobRefreshController = RefreshController();
 
-  Future intit() async {
-    await getCandidate();
+  Future intit({String? keyword}) async {
+    await getCandidate(keyword: keyword);
   }
 
   Future intitCategories() async {}
 
-  Future<CadidatesModel?> getCandidate() async {
-    var body = await GetServices.getFeaturedJobs();
+  Future<CadidatesModel?> getCandidate({String? keyword}) async {
+    print("Gettuing candidates");
+    var body = await GetServices.getCandidates(keyword: keyword);
     print(body.toString());
     if (body["status"]) {
       if (body != null) {

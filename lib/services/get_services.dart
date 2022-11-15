@@ -358,4 +358,34 @@ class GetServices {
       return {'status': false, 'error': e};
     }
   }
+  static getCandidates({String? keyword}) async {
+    http.Response response;
+    try {
+      var data={
+        "s":keyword??""
+      };
+
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/find-candidates',
+        queryParameters: data,
+      );
+      //print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        // "Authorization": "Bearer $token"
+      });
+      print("Got candidates");
+      print(response.body);
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
 }
