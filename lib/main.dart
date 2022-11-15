@@ -4,6 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hires/models/candidates_model.dart';
+import 'package:hires/models/employers_model.dart';
 import 'package:hires/models/find_jobs.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/models/wishlist_model.dart';
@@ -12,11 +14,13 @@ import 'package:hires/presentation/application_tracking_screen/application_track
 import 'package:hires/presentation/applications_screen/applications_screen.dart';
 import 'package:hires/presentation/apply_screen/apply_screen.dart';
 import 'package:hires/presentation/apply_success_2_screen/apply_success_2_screen.dart';
+import 'package:hires/presentation/candidates_screen/candidates_screen.dart';
 import 'package:hires/presentation/categories_screen/categories_screen.dart';
 import 'package:hires/presentation/categories_screen/popular.dart';
 import 'package:hires/presentation/categories_screen/trending.dart';
 import 'package:hires/presentation/companies_screen/companies_screen.dart';
 import 'package:hires/presentation/company_profile/company_profile.dart';
+import 'package:hires/presentation/employers_screen/employers_screen.dart';
 import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/forgot_password_page/forgot_password_page.dart';
 import 'package:hires/presentation/home_screen/home_screen.dart';
@@ -138,6 +142,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<EmployersProvider>(create: (_) => EmployersProvider()),
+        ChangeNotifierProvider<CadidatesProvider>(create: (_) => CadidatesProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<ApplicantDetailModelProvider>(
             create: (_) => ApplicantDetailModelProvider()),
@@ -167,10 +173,12 @@ class _MyAppState extends State<MyApp> {
           ApplicationsScreen.id: (context) => ApplicationsScreen(),
           Start1Screen.id: (context) => Start1Screen(),
           EditProfile.id: (context) => EditProfile(),
+          EmployersScreen.id: (context) => EmployersScreen(),
           ApplyScreen.id: (context) => ApplyScreen(),
           AddNewJobScreen.id: (context) => AddNewJobScreen(),
           ApplySuccess2Screen.id: (context) => ApplySuccess2Screen(),
           CategoriesScreen.id: (context) => CategoriesScreen(),
+          CandidatesScreen.id: (context) => CandidatesScreen(),
           CompaniesScreen.id: (context) => CompaniesScreen(),
           ForgotPasswordPage.id: (context) => ForgotPasswordPage(),
           FollowingEmployerScreen.id: (context) => FollowingEmployerScreen(),

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
 import 'package:hires/models/applicant_detail_model.dart';
-import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/services/get_services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -352,6 +351,7 @@ class CadidatesProvider extends ChangeNotifier {
 
   Future<CadidatesModel?> getCandidate() async {
     var body = await GetServices.getFeaturedJobs();
+    print(body.toString());
     if (body["status"]) {
       if (body != null) {
         var data = body["data"];
@@ -361,14 +361,6 @@ class CadidatesProvider extends ChangeNotifier {
         //print(jobsModel);
         return cadidateModel;
       }
-      // } else {
-      //   var mssg = body['message'] ?? Constants.mssgErrTryLater;
-
-      //   if (body['message'].toString().trim().isEmpty)
-      //     mssg = Constants.mssgErrTryLater;
-      //   await getToastMessage(mssg, Colors.red);
-      //   return false;
-      // }
     }
   }
 
