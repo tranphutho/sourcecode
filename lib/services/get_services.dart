@@ -24,20 +24,28 @@ class GetServices {
         "Accept": "application/json",
         "Content-Type": "application/json"
       });
-      // response = await http.post(
-      //   uri,
-      //   headers: {
-      //     "Accept": "application/json",
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: jsonEncode(data),
-      // );
-      // var body = json.decode(response.body);
-      // print(body);
-
-      //return findjobsFromJson(response.body);
       var body = json.decode(response.body);
-      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+
+  static getEmployers() async {
+    http.Response response;
+    try {
+      Uri uri = Uri(
+          scheme: 'https',
+          host: Constants.urlApi,
+          path: 'api/find-companies',
+          );
+      print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      });
+      var body = json.decode(response.body);
 
       return body;
     } catch (e) {
@@ -62,14 +70,6 @@ class GetServices {
         "Accept": "application/json",
         "Content-Type": "application/json"
       });
-      // response = await http.post(
-      //   uri,
-      //   headers: {
-      //     "Accept": "application/json",
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: jsonEncode(data),
-      // );
       var body = json.decode(response.body);
       //print(body);
 
