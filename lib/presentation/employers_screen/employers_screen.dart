@@ -14,9 +14,13 @@ import 'package:hires/presentation/searchfilterbottomsheet_page/searchfilterbott
 import 'package:provider/provider.dart';
 
 import '../../models/employers_model.dart';
+import '../search_employer_screen/search_employer_screen.dart';
 
 class EmployersScreen extends StatefulWidget {
   static String id = "employersScreen";
+
+final String? keyword;
+  EmployersScreen({this.keyword});
 
   @override
   State<EmployersScreen> createState() => _EmployersScreenState();
@@ -35,7 +39,7 @@ class _EmployersScreenState extends State<EmployersScreen> {
     setState(() {
       _isLoading = true;
     });
-    Provider.of<EmployersProvider>(context, listen: false).init().then((_) {
+    Provider.of<EmployersProvider>(context, listen: false).init(keyword:widget.keyword).then((_) {
       setState(() {
         _isLoading = false;
       });
@@ -264,11 +268,10 @@ class _EmployersScreenState extends State<EmployersScreen> {
                               child: TextFormField(
                                 readOnly: true,
                                 onTap: () {
-                                  Navigator.pushNamed(
-                                      context, SearchOption3Screen.id);
+                                  Navigator.push(context, MaterialPageRoute(builder: (c)=>SearchEmployerScreen()));
                                 },
                                 decoration: InputDecoration(
-                                  hintText: 'Search a candidate',
+                                  hintText: 'Search a Company',
                                   prefixIcon: Padding(
                                     padding: EdgeInsets.only(
                                       left: context.locale == Constants.engLocal
@@ -481,7 +484,7 @@ class _EmployersScreenState extends State<EmployersScreen> {
                                           : getHorizontalSize(0),
                                     ),
                                     child: Text(
-                                      "Candidates",
+                                      "Employers",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(

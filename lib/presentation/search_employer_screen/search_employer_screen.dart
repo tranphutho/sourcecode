@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/app_export.dart';
 import 'package:hires/presentation/candidates_screen/candidates_screen.dart';
+import 'package:hires/presentation/employers_screen/employers_screen.dart';
 import 'package:hires/presentation/search_result_2_screen/search_result_2_screen.dart';
 import '../searchfilterbottomsheet_page/searchfilterbottomsheet_page.dart';
 
-class SearchCandidateScreen extends StatelessWidget {
+class SearchEmployerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController controller=TextEditingController();
@@ -112,42 +113,7 @@ class SearchCandidateScreen extends StatelessWidget {
                                     controller: controller,
                                   
                                     decoration: InputDecoration(
-                                      hintText: 'Search Candidate',
-                                      prefixIcon: InkWell(
-                                        onTap: () {
-                                          print("sreach");
-                                          Navigator.pushNamed(
-                                              context, SearchResult2Screen.id);
-                                        },
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                            left: getHorizontalSize(
-                                              24.00,
-                                            ),
-                                            right: getHorizontalSize(
-                                              10.00,
-                                            ),
-                                          ),
-                                          child: Container(
-                                            height: getSize(
-                                              20.00,
-                                            ),
-                                            width: getSize(
-                                              20.00,
-                                            ),
-                                            child: isDark
-                                                ? SvgPicture.asset(
-                                              ImageConstant.imgSearch11,
-                                              fit: BoxFit.contain,
-                                              color: Colors.white,
-                                            )
-                                                : SvgPicture.asset(
-                                              ImageConstant.imgSearch11,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                      hintText: 'Search Employer',
                                       prefixIconConstraints: BoxConstraints(
                                         minWidth: getSize(
                                           20.00,
@@ -208,7 +174,7 @@ class SearchCandidateScreen extends StatelessWidget {
                                   child: Stack(
                                     children: [
                                       IconButton(onPressed: (){
-                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (c)=>CandidatesScreen(keyword: controller.text)));
+                                        Navigator.çcΩ(context, MaterialPageRoute(builder: (c)=>EmployersScreen(keyword: controller.text)));
                                       }, icon: Icon(CupertinoIcons.search)),
                                     ],
                                   ),

@@ -32,13 +32,17 @@ class GetServices {
     }
   }
 
-  static getEmployers() async {
+  static getEmployers({String? keyword}) async {
     http.Response response;
     try {
+      var data={
+        "keyword":keyword
+      };
       Uri uri = Uri(
           scheme: 'https',
           host: Constants.urlApi,
           path: 'api/find-companies',
+        queryParameters: data
           );
       print(uri.toString());
       response = await http.get(uri, headers: {

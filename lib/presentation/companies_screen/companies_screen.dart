@@ -7,6 +7,7 @@ class CompaniesScreen extends StatelessWidget {
   static String id = "CompaniesScreen";
   @override
   Widget build(BuildContext context) {
+    print("Companies screen");
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.gray50,

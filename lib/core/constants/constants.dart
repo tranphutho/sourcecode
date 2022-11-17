@@ -6,6 +6,8 @@ class Constants {
   static Locale engLocal = Locale('en');
   static Locale arLocal = Locale('ar');
   static String urlApi = 'whitejobs.co.in';
+  static int employerRoleId=2;
+  static int candidateRoleId=3;
 
   static String mssgErrEnterEmlPhn =
       'Please enter your email or your phone number!';

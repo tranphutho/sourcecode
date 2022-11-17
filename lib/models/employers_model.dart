@@ -121,12 +121,12 @@ class Employer {
 class EmployersProvider extends ChangeNotifier {
   EmployersModel? employersModel;
 
-  Future init() async {
-    await getEmployer();
+  Future init({String? keyword}) async {
+    await getEmployer(keyword: keyword);
   }
 
-  Future<EmployersModel?> getEmployer() async {
-    var body = await GetServices.getEmployers();
+  Future<EmployersModel?> getEmployer({String? keyword}) async {
+    var body = await GetServices.getEmployers(keyword: keyword);
     print(body.toString());
     if (body["status"]) {
       if (body != null) {

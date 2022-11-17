@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/color_constant.dart';
 import 'package:hires/core/utils/image_constant.dart';
 import 'package:hires/core/utils/math_utils.dart';
@@ -369,7 +370,7 @@ drawerWidget({
                       ),
                     ),
                   ),
-                  Padding(
+                  usePrv.role_id==Constants.candidateRoleId?   Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
                       onTap: () {
@@ -393,7 +394,7 @@ drawerWidget({
                               fit: BoxFit.fill,
                             ),
                           ),
-                          Padding(
+                       Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: getHorizontalSize(12),
                             ),
@@ -413,7 +414,7 @@ drawerWidget({
                         ],
                       ),
                     ),
-                  ),
+                  ):SizedBox(),
                   customEmployerNavBuilder(
                       title: "Manage Jobs",
                       usePrv: usePrv,
@@ -508,7 +509,7 @@ drawerWidget({
                         color: Colors.grey.shade400,
                       )
                   ),
-                  Padding(
+                  usePrv.role_id==Constants.candidateRoleId?     Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
                       child: Row(
@@ -551,8 +552,8 @@ drawerWidget({
                         ],
                       ),
                     ),
-                  ),
-                  Padding(
+                  ):SizedBox(),
+                  usePrv.role_id==Constants.candidateRoleId?   Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
                       child: Row(
@@ -595,7 +596,7 @@ drawerWidget({
                         ],
                       ),
                     ),
-                  ),
+                  ):SizedBox(),
                   Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
