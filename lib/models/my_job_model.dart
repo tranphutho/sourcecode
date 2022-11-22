@@ -867,12 +867,15 @@ class MyJob {
 
 class MyJobProvider extends ChangeNotifier {
   MyJobsModel? myJobsModel;
+  MyJobsModel? searchedJobs=MyJobsModel();
   // JobsModel? popularJobModel;
   // JobsModel? urgenJobModel;
   bool statusLogin = false;
   String mssgLogin = '';
   String emailToVerify = '';
   String resetTypeToVerify = '';
+
+
 
   RefreshController myjobRefreshController = RefreshController();
 
@@ -901,7 +904,10 @@ class MyJobProvider extends ChangeNotifier {
       // }
     }
   }
-
+ searchJobs(String keyword) {
+    searchedJobs!.data=myJobsModel!.data!.where((element) => element.title!.contains(keyword)).toList();
+    notifyListeners();
+}
   Future<bool?> createUpdateJob(MyJob myJob, String token) async {
     var body = await PostServices.createUpdateJob(myJob, token);
 

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hires/models/resource_model.dart';
+import 'package:hires/presentation/candidates_screen/candidates_screen.dart';
 import 'package:hires/presentation/categories_screen/categories_screen.dart';
+import 'package:hires/presentation/employers_screen/employers_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/homepage_3_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/profile.dart';
 import 'package:hires/presentation/messages_screen/messages_screen.dart';
@@ -24,8 +26,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> screens = [
     Homepage3Screen(),
-    CategoriesScreen(),
-    SavedScreen(),
+    CandidatesScreen(),
+    EmployersScreen(),
+    // CategoriesScreen(),
+    // SavedScreen(),
     MyProfile(),
   ];
 
@@ -48,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
+        showUnselectedLabels: true,
         selectedItemColor: ColorConstant.teal600,
         unselectedItemColor: ColorConstant.gray600,
         selectedLabelStyle: TextStyle(
@@ -59,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
           fontWeight: FontWeight.w900,
         ),
         unselectedLabelStyle: TextStyle(
-          color: ColorConstant.gray600,
+          color: ColorConstant.black900,
           fontSize: getFontSize(
             12,
           ),
@@ -69,33 +74,38 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: selectedNavBarIndex,
         onTap: (index) {
           setState(() {
+            if(index==3){
+             Homepage3Screen.skey.currentState!.openDrawer();
+                  return;
+            }
             selectedNavBarIndex = index;
           });
         },
         items: [
           BottomNavigationBarItem(
+
             icon: SvgPicture.asset(ImageConstant.iActiveHome,
                 color: ColorConstant.gray402),
             activeIcon: SvgPicture.asset(
               ImageConstant.activeHome,
             ),
-            label: ".",
+            label: "Home",
           ),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(ImageConstant.inActiveCategory),
               activeIcon: SvgPicture.asset(ImageConstant.inActiveCategory,
                   color: ColorConstant.teal600),
-              label: "."),
+              label: "Candidates"),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(ImageConstant.inActiveBookmark),
               activeIcon: SvgPicture.asset(ImageConstant.inActiveBookmark,
                   color: ColorConstant.teal600),
-              label: "."),
+              label: "Employers"),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(ImageConstant.imgProfile21),
+              icon: Icon(Icons.menu),
               activeIcon: SvgPicture.asset(ImageConstant.imgProfile213,
                   color: ColorConstant.teal600),
-              label: "."),
+              label: "Menu"),
         ],
       ),
       body: screens[selectedNavBarIndex],

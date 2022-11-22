@@ -198,7 +198,7 @@ class Group59ItemWidget extends StatelessWidget {
                                       ),
                                     ),
                                     child: Text(
-                                      "Shell plc",
+                                      job!.jobType!.name!,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(

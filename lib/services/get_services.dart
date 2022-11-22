@@ -56,6 +56,74 @@ class GetServices {
       return {'status': false, 'error': e};
     }
   }
+  static getFollowingEmployers(String token) async {
+    http.Response response;
+    try {
+
+      Uri uri = Uri(
+          scheme: 'https',
+          host: Constants.urlApi,
+          path: 'api/following-employers',
+          );
+      print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+
+      });
+      var body = json.decode(response.body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+  static getShortlistedResumes(String token) async {
+    http.Response response;
+    try {
+
+      Uri uri = Uri(
+          scheme: 'https',
+          host: Constants.urlApi,
+          path: 'api/wishlist',
+          );
+      print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+
+      });
+      var body = json.decode(response.body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+  static removeResume(Map<String,String> data,String token) async {
+    http.Response response;
+    try {
+
+      Uri uri = Uri(
+          scheme: 'https',
+          host: Constants.urlApi,
+          path: 'api/wishlist/remove',
+          );
+      print(uri.toString());
+      response = await http.post(uri, headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token",
+
+      },body: data);
+      var body = json.decode(response.body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
 
   static getFeaturedJobs() async {
     http.Response response;
@@ -98,6 +166,39 @@ class GetServices {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       });
+      // response = await http.post(
+      //   uri,
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: jsonEncode(data),
+      // );
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+  static getMyAppliedJob(String token) async {
+    http.Response response;
+    try {
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/my-applied-jobs',
+        // queryParameters: data
+      );
+      //print(uri.toString());
+      response = await http.get(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+      print(uri.toString());
+      print(response.body);
       // response = await http.post(
       //   uri,
       //   headers: {
@@ -274,6 +375,37 @@ class GetServices {
         "Content-Type": "application/json",
         "Authorization": "Bearer $token"
       });
+      // response = await http.post(
+      //   uri,
+      //   headers: {
+      //     "Accept": "application/json",
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: jsonEncode(data),
+      // );
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
+  static changeApplicantStatus(String token,Map<String,String> data) async {
+    http.Response response;
+    try {
+
+      Uri uri = Uri(
+        scheme: 'https',
+        host: Constants.urlApi,
+        path: 'api/application/change/status',
+        // queryParameters: data,
+      );
+      //print(uri.toString());
+      response = await http.post(uri, headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer $token"
+      },body: data);
       // response = await http.post(
       //   uri,
       //   headers: {

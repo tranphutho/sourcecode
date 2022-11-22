@@ -18,6 +18,7 @@ import '../homepage_3_screen/widgets/group59_item_widget.dart';
 
 class Homepage3Screen extends StatefulWidget {
   static String id = "Homepage3Screen";
+  static GlobalKey<ScaffoldState> skey = GlobalKey();
 
   @override
   State<Homepage3Screen> createState() => _Homepage3ScreenState();
@@ -29,7 +30,6 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
   JobsModel? featuredJob;
   JobsModel? popularJob;
   bool _isLoading = false;
-
 
   @override
   initState() {
@@ -62,8 +62,10 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
     //
     // jobprovider.findJobs();
     bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Scaffold(
+        key: Homepage3Screen.skey,
         drawer: drawerWidget(
           isDark: isDark,
           usePrv: usePrv,
@@ -184,17 +186,13 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                                 ),
                                 bottom: getVerticalSize(5)),
                             //ready
-                            child: Image.asset(
-                              ImageConstant.imgBusinessmanho,
-                              //ImageConstant.education,
-                              height: getSize(
-                                50.00,
+                              child: Image.network(
+                                usePrv!.profilePicture != null
+                                    ?"http://"+Constants.urlApi+"/"+ usePrv!.profilePicture!
+                                    : "https://whitejobs.co.in/images/avatar.png",
+                                fit: BoxFit.fill,
                               ),
-                              width: getSize(
-                                50.00,
-                              ),
-                              fit: BoxFit.fill,
-                            ),
+
                           ),
                         ),
                         Align(

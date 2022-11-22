@@ -37,6 +37,7 @@ class UserModel {
   String? address2;
   String? payment_gateway;
   String? locale;
+  String? profilePicture;
   String? verify_submit_stat;
   int? total_guests;
   int? is_verified;
@@ -74,6 +75,7 @@ class UserModel {
       this.city,
       this.zip_code,
       this.address,
+        this.profilePicture,
       this.address2,
       this.payment_gateway,
       this.locale,
@@ -104,6 +106,7 @@ class UserModel {
     billing_first_name = map['billing_first_name'];
     country = map['country'];
     state = map['state'];
+    profilePicture = map['profile_picture'];
     city = map['city'];
     zip_code = map['zip_code'];
     address = map['address'];
@@ -129,6 +132,7 @@ class UserModel {
         'avatar_id': avatar_id,
         'vendor_commission_amount': vendor_commission_amount,
         'vendor_commission_type': vendor_commission_type,
+        'profile_picture': profilePicture,
         'role_id': role_id,
         'name': name,
         'first_name': first_name,

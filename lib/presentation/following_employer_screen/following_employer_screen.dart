@@ -1,22 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hires/models/employers_model.dart';
 import 'package:hires/models/job_model.dart';
+import 'package:hires/models/user_model.dart';
+import 'package:provider/provider.dart';
 
-class Employer {
-  String? name;
-  Location? location;
-  Category? category;
-  int? openJobs;
-  String? status;
-
-
-  Employer({
-    this.name,
-    this.location,
-    this.category,
-    this.openJobs,
-    this.status
-});
-}
 
 class FollowingEmployerScreen extends StatefulWidget {
   static String id = "followingEmployer";
@@ -28,21 +15,9 @@ class FollowingEmployerScreen extends StatefulWidget {
 
 class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
   late TextEditingController txtSearchEmployer;
+  late UserModel? userApp;
+   EmployersModel? followingEmployers;
   List<Employer> employers = [
-    Employer(
-      name: "Matin Softech",
-      location: Location(name: "Biratnagar"),
-      category: Category(name: "Development"),
-      openJobs: 2,
-      status: "Active",
-    ),
-    Employer(
-      name: "Spinks Softech",
-      location: Location(name: "Kathmandu"),
-      category: Category(name: "Software"),
-      openJobs: 5,
-      status: "Expired",
-    ),
   ];
   List<Employer> searchedEmployers = [];
 
@@ -58,7 +33,15 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
   @override
   void initState() {
     txtSearchEmployer = TextEditingController(text: "");
+
     super.initState();
+    userApp = Provider.of<UserProvider>(context, listen: false).userApp!;
+
+    Provider.of<EmployersProvider>(context,listen: false).getFollowingEmployers(token: userApp!.token).then((value){
+        setState(() {
+          followingEmployers=value;
+        });
+    });
   }
 
   @override
@@ -156,9 +139,10 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                     SizedBox(height: MediaQuery.of(context).size.height / 30,),
                     SizedBox(
                       height: MediaQuery.of(context).size.height / 1.56,
-                      child: ListView.builder(
-                        itemCount: searchedEmployers.length == 0 ? employers.length : searchedEmployers.length,
+                      child: followingEmployers!=null? ListView.builder(
+                        itemCount: searchedEmployers.length == 0 ? followingEmployers!.data!.length : searchedEmployers.length,
                         itemBuilder: (context, index) {
+                          Employer employer=followingEmployers!.data![index];
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0,0,0,MediaQuery.of(context).size.height / 25,),
                             child: Card(
@@ -184,7 +168,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedEmployers.length == 0 ? employers[index].name : searchedEmployers[index].name,
+                                                  text: employer.company!.name,
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -204,7 +188,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedEmployers.length == 0 ? employers[index].status : searchedEmployers[index].status,
+                                                  text: employer.company!.isFeatured==1?"Yes":"No",
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -230,31 +214,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedEmployers.length == 0
-                                                    ? employers[index].location?.name
-                                                    : searchedEmployers[index].location?.name,
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.black
-                                                  ),
-                                                )
-                                              ]
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 120,
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: 'Open Jobs: ',
-                                              style: TextStyle(
-                                                color: Colors.blueAccent, fontSize: 17
-                                              ),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: searchedEmployers.length == 0
-                                                    ? employers[index].openJobs.toString()
-                                                    : searchedEmployers[index].openJobs.toString(),
+                                                  text: employer.company!=null? employer.company!.address:"No location",
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -280,9 +240,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                                               ),
                                               children: <TextSpan>[
                                                 TextSpan(
-                                                  text: searchedEmployers.length == 0
-                                                    ? employers[index].category?.name
-                                                    : searchedEmployers[index].category?.name,
+                                                  text:employer.category!=null? employer.category!.name:"No category",
                                                   style: TextStyle(
                                                     fontSize: 14,
                                                     color: Colors.black
@@ -316,7 +274,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                             ),
                           );
                         }
-                      ),
+                      ):Center(child: CircularProgressIndicator(),),
                     ),
                   ]
                 )

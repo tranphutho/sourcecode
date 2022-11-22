@@ -174,7 +174,7 @@ class SearchEmployerScreen extends StatelessWidget {
                                   child: Stack(
                                     children: [
                                       IconButton(onPressed: (){
-                                        Navigator.çcΩ(context, MaterialPageRoute(builder: (c)=>EmployersScreen(keyword: controller.text)));
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (c)=>EmployersScreen(keyword: controller.text)));
                                       }, icon: Icon(CupertinoIcons.search)),
                                     ],
                                   ),
