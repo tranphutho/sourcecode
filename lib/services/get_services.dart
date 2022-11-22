@@ -4,6 +4,7 @@ import 'package:hires/core/constants/constants.dart';
 import 'package:hires/models/applicant_detail_model.dart';
 import 'package:hires/models/find_jobs.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'api_urls.dart';
 
@@ -35,15 +36,12 @@ class GetServices {
   static getEmployers({String? keyword}) async {
     http.Response response;
     try {
-      var data={
-        "keyword":keyword
-      };
+      var data = {"keyword": keyword};
       Uri uri = Uri(
           scheme: 'https',
           host: Constants.urlApi,
           path: 'api/find-companies',
-        queryParameters: data
-          );
+          queryParameters: data);
       print(uri.toString());
       response = await http.get(uri, headers: {
         "Accept": "application/json",
@@ -362,12 +360,11 @@ class GetServices {
       return {'status': false, 'error': e};
     }
   }
+
   static getCandidates({String? keyword}) async {
     http.Response response;
     try {
-      var data={
-        "s":keyword??""
-      };
+      var data = {"s": keyword ?? ""};
 
       Uri uri = Uri(
         scheme: 'https',
@@ -392,4 +389,32 @@ class GetServices {
     }
   }
 
+  static getMediaImage() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    dynamic token = localStorage.get("token");
+    http.Response response;
+    try {
+      var data = {
+        "featured": "true",
+        "orderBy": "new",
+      };
+      Uri uri = Uri(
+          scheme: 'https',
+          host: Constants.urlApi,
+          path: 'api/my-media',
+          queryParameters: data);
+      //print(uri.toString());
+      response = await http.post(uri, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      });
+      var body = json.decode(response.body);
+      //print(body);
+
+      return body;
+    } catch (e) {
+      return {'status': false, 'error': e};
+    }
+  }
 }

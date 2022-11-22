@@ -39,241 +39,68 @@ class MyJobsModel {
 }
 
 class MyJob {
-  MyJob({
-    this.id,
-    this.title,
-    this.slug,
-    this.content,
-    this.categoryId,
-    this.thumbnailId,
-    this.locationId,
-    this.companyId,
-    this.jobTypeId,
-    this.expirationDate,
-    this.hours,
-    this.hoursType,
-    this.salaryType,
-    this.salaryMin,
-    this.salaryMax,
-    this.gender,
-    this.mapLat,
-    this.mapLng,
-    this.mapZoom,
-    this.experience,
-    this.isFeatured,
-    this.isUrgent,
-    this.status,
-    this.deletedAt,
-    this.createUser,
-    this.updateUser,
-    this.createdAt,
-    this.updatedAt,
-    this.applyType,
-    this.applyLink,
-    this.applyEmail,
-    this.gallery,
-    this.video,
-    this.videoCoverId,
-    this.numberRecruitments,
-    this.wageAgreement,
-    // this.thumbnailImage,
-    // this.category,
-    // this.jobType,
-    // this.location,
-    // this.company,
-    // this.user,
-  });
+  MyJob(
+      {this.id,
+      this.title,
+      this.content,
+      this.thumbnailId,
+      this.categoryId,
+      this.locationId,
+      this.jobTypeId,
+      this.expirationDate,
+      this.hours,
+      this.hoursType,
+      this.salaryMin,
+      this.salaryMax,
+      this.salaryType,
+      this.gender,
+      this.mapLat,
+      this.mapLng,
+      this.mapZoom,
+      this.experience,
+      this.isFeatured,
+      this.isUrgent,
+      this.status,
+      this.applyType,
+      this.applyLink,
+      this.applyEmail,
+      this.wageAgreement,
+      this.gallery,
+      this.video,
+      this.videoCoverId,
+      this.numberRecruitment,
+      this.jobSkills});
 
-// "id": 11,
-// "title": "PHP developer",
-// "slug": "php-developer",
-// "content": "<p>T&ocirc;i cần lập tr&igrave;nh vi&ecirc;n PHP</p>",
-// "category_id": 85,
-// "thumbnail_id": null,
-// "location_id": 10,
-// "company_id": 41,
-// "job_type_id": 2,
-// "expiration_date": "2022-11-30 00:00:00",
-// "hours": null,
-// "hours_type": null,
-// "salary_type": "monthly",
-// "salary_min": "1000.00",
-// "salary_max": "2000.00",
-// "gender": "Both",
-// "map_lat": null,
-// "map_lng": null,
-// "map_zoom": 8,
-// "experience": 2,
-// "is_featured": null,
-// "is_urgent": 1,
-// "status": "publish",
-// "deleted_at": null,
-// "create_user": 212,
-// "update_user": 212,
-// "created_at": "2022-11-03T09:40:44.000000Z",
-// "updated_at": "2022-11-03T09:41:26.000000Z",
-// "apply_type": null,
-// "apply_link": null,
-// "apply_email": null,
-// "gallery": null,
-// "video": null,
-// "video_cover_id": null,
-// "number_recruitments": 2,
-// "wage_agreement": null
-// "gallery":"68,69,70",
-// "video":"https://www.youtube.com/watch?v=bhOiLfkChPo",
-// "video_cover_id":"23",
-// "number_recruitment":7
   int? id;
   String? title;
-  String? slug;
   String? content;
+  int? thumbnailId;
   int? categoryId;
-  dynamic thumbnailId;
   int? locationId;
-  int? companyId;
   int? jobTypeId;
-  DateTime? expirationDate;
+  String? expirationDate;
   String? hours;
   String? hoursType;
+  int? salaryMin;
+  int? salaryMax;
   String? salaryType;
-  String? salaryMin;
-  String? salaryMax;
   String? gender;
-  dynamic mapLat;
-  dynamic mapLng;
+  String? mapLat;
+  String? mapLng;
   int? mapZoom;
   int? experience;
   int? isFeatured;
-  int? isUrgent;
+  String? isUrgent;
   String? status;
-  dynamic deletedAt;
-  int? createUser;
-  int? updateUser;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  dynamic applyType;
-  dynamic applyLink;
-  dynamic applyEmail;
-  dynamic gallery;
-  dynamic video;
-  dynamic videoCoverId;
-  int? numberRecruitments;
-  dynamic wageAgreement;
-
-  // String? thumbnailImage;
-  // Category? category;
-  // JobType? jobType;
-  // Location? location;
-  // Company? company;
-  // User? user;
-
-  factory MyJob.fromJson(Map<String, dynamic> json) => MyJob(
-        id: json["id"] == null ? null : json["id"],
-        title: json["title"] == null ? null : json["title"],
-        slug: json["slug"] == null ? null : json["slug"],
-        content: json["content"] == null ? null : json["content"],
-        categoryId: json["category_id"] == null ? null : json["category_id"],
-        thumbnailId: json["thumbnail_id"],
-        locationId: json["location_id"] == null ? null : json["location_id"],
-        companyId: json["company_id"] == null ? null : json["company_id"],
-        jobTypeId: json["job_type_id"] == null ? null : json["job_type_id"],
-        expirationDate: json["expiration_date"] == null
-            ? null
-            : DateTime.parse(json["expiration_date"]),
-        hours: json["hours"] == null ? null : json["hours"],
-        hoursType: json["hours_type"] == null ? null : json["hours_type"],
-        salaryType: json["salary_type"] == null ? null : json["salary_type"],
-        salaryMin: json["salary_min"] == null ? null : json["salary_min"],
-        salaryMax: json["salary_max"] == null ? null : json["salary_max"],
-        gender: json["gender"] == null ? null : json["gender"],
-        mapLat: json["map_lat"],
-        mapLng: json["map_lng"],
-        mapZoom: json["map_zoom"] == null ? null : json["map_zoom"],
-        experience: json["experience"] == null ? null : json["experience"],
-        isFeatured: json["is_featured"] == null ? null : json["is_featured"],
-        isUrgent: json["is_urgent"] == null ? null : json["is_urgent"],
-        status: json["status"] == null ? null : json["status"],
-        deletedAt: json["deleted_at"],
-        createUser: json["create_user"] == null ? null : json["create_user"],
-        updateUser: json["update_user"] == null ? null : json["update_user"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        applyType: json["apply_type"],
-        applyLink: json["apply_link"],
-        applyEmail: json["apply_email"],
-        gallery: json["gallery"],
-        video: json["video"],
-        videoCoverId: json["video_cover_id"],
-        numberRecruitments: json["number_recruitments"] == null
-            ? null
-            : json["number_recruitments"],
-        wageAgreement: json["wage_agreement"],
-        // thumbnailImage: json["thumbnail_image"],
-        // category: json["category"] == null
-        //     ? null
-        //     : Category.fromJson(json["category"]),
-        // jobType: json["job_type"] == null
-        //     ? null
-        //     : JobType.fromJson(json["job_type"]),
-        // location: json["location"] == null
-        //     ? null
-        //     : Location.fromJson(json["location"]),
-        // company:
-        //     json["company"] == null ? null : Company.fromJson(json["company"]),
-        // user: json["user"] == null ? null : User.fromJson(json["user"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "title": title == null ? null : title,
-        "slug": slug == null ? null : slug,
-        "content": content == null ? null : content,
-        "category_id": categoryId == null ? null : categoryId,
-        "thumbnail_id": thumbnailId,
-        "location_id": locationId == null ? null : locationId,
-        "company_id": companyId == null ? null : companyId,
-        "job_type_id": jobTypeId == null ? null : jobTypeId,
-        "expiration_date":
-            expirationDate == null ? null : expirationDate!.toIso8601String(),
-        "hours": hours == null ? null : hours,
-        "hours_type": hoursType == null ? null : hoursType,
-        "salary_type": salaryType == null ? null : salaryType,
-        "salary_min": salaryMin == null ? null : salaryMin,
-        "salary_max": salaryMax == null ? null : salaryMax,
-        "gender": gender == null ? null : gender,
-        "map_lat": mapLat,
-        "map_lng": mapLng,
-        "map_zoom": mapZoom == null ? null : mapZoom,
-        "experience": experience == null ? null : experience,
-        "is_featured": isFeatured == null ? null : isFeatured,
-        "is_urgent": isUrgent == null ? null : isUrgent,
-        "status": status == null ? null : status,
-        "deleted_at": deletedAt,
-        "create_user": createUser == null ? null : createUser,
-        "update_user": updateUser == null ? null : updateUser,
-        "created_at": createdAt == null ? null : createdAt!.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt!.toIso8601String(),
-        "apply_type": applyType,
-        "apply_link": applyLink,
-        "apply_email": applyEmail,
-        "gallery": gallery,
-        "video": video,
-        "video_cover_id": videoCoverId,
-        "number_recruitments":
-            numberRecruitments == null ? null : numberRecruitments,
-        "wage_agreement": wageAgreement,
-        // "thumbnail_image": thumbnailImage,
-        // "category": category == null ? null : category!.toJson(),
-        // "job_type": jobType == null ? null : jobType!.toJson(),
-        // "location": location == null ? null : location!.toJson(),
-        // "company": company == null ? null : company!.toJson(),
-        // "user": user == null ? null : user!.toJson(),
-      };
+  String? applyType;
+  String? applyLink;
+  String? applyEmail;
+  int? wageAgreement;
+  String? gallery;
+  String? video;
+  String? videoCoverId;
+  int? numberRecruitment;
+  List<int>? jobSkills;
 }
 
 // class Category {
@@ -902,8 +729,8 @@ class MyJobProvider extends ChangeNotifier {
     }
   }
 
-  Future<bool?> createUpdateJob(MyJob myJob, String token) async {
-    var body = await PostServices.createUpdateJob(myJob, token);
+  Future<bool?> createUpdateJob(MyJob myJob) async {
+    var body = await PostServices.createUpdateJob(myJob);
 
     var mssg = body['message'] ?? Constants.mssgErrTryLater;
     if (body["status"] == 1) {

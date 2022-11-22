@@ -14,6 +14,7 @@ import 'package:hires/models/applicant_detail_model.dart';
 import 'package:hires/models/my_job_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:chunked_uploader/chunked_uploader.dart';
 
 import '../models/user_model.dart';
@@ -185,11 +186,15 @@ class PostServices {
     }
   }
 
-  static createUpdateJob(MyJob myJob, String token) async {
-    //var pref = await SharedPreferences.getInstance();
-    //String token = pref.getString("token");
+  static createUpdateJob(MyJob myJob) async {
+    var pref = await SharedPreferences.getInstance();
+    dynamic token = pref.get("token");
     try {
-      var headers = {"Authorization": "Bearer $token"};
+      var headers = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $token"
+      };
       var data = {};
       if (myJob.id == 0) {
         data = {
@@ -217,10 +222,13 @@ class PostServices {
           "apply_link": myJob.applyLink,
           "apply_email": myJob.applyEmail,
           "wage_agreement": myJob.wageAgreement,
-          "gallery": myJob.gallery,
+          "gallery": myJob.gallery != null
+              ? myJob.gallery!.replaceAll(r'(', '').replaceAll(r')', '')
+              : "",
           "video": myJob.video,
           "video_cover_id": myJob.videoCoverId,
-          "number_recruitment": myJob.numberRecruitments
+          "number_recruitments": myJob.numberRecruitment,
+          "job_skills": myJob.jobSkills,
         };
       } else {
         data = {
@@ -252,13 +260,15 @@ class PostServices {
           "gallery": myJob.gallery,
           "video": myJob.video,
           "video_cover_id": myJob.videoCoverId,
-          "number_recruitment": myJob.numberRecruitments
+          "number_recruitments": myJob.numberRecruitment,
+          "job_skills": myJob.jobSkills,
         };
       }
+      print(data);
       http.Response response = await http.post(
           Uri.parse(Api_Url.CREATE_UPDATE_MYJOB),
           headers: headers,
-          body: data);
+          body: jsonEncode(data));
       print(response.body);
       var body = json.decode(response.body);
       //print(body);
