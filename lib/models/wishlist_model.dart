@@ -71,6 +71,7 @@ class Wishlist {
         id: json["id"] == null ? null : json["id"],
         objectId: json["object_id"] == null ? null : json["object_id"],
         userId: json["user_id"] == null ? null : json["user_id"],
+        objectModel: json["object_model"] == null ? null : json["object_model"],
         createUser: json["create_user"] == null ? null : json["create_user"],
         updateUser: json["update_user"] == null ? null : json["update_user"],
         createdAt: json["created_at"] == null

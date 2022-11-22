@@ -66,6 +66,8 @@ import 'package:hires/presentation/solo_category_job_listing_screen/solo_categor
 import 'package:hires/presentation/start1_screen/start1_screen.dart';
 import 'package:hires/presentation/verify1_screen/verify1_screen.dart';
 import 'package:hires/presentation/verify_screen/verify_screen.dart';
+import 'package:hires/providers/applicants_provider.dart';
+import 'package:hires/providers/resumes_provider.dart';
 import 'package:hires/translations/codegen_loader.g.dart';
 import 'package:provider/provider.dart';
 
@@ -159,9 +161,14 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<ResourceModelProvider>(
             create: (_) => ResourceModelProvider()),
         ChangeNotifierProvider<MyJobProvider>(create: (_) => MyJobProvider()),
+
         ChangeNotifierProvider<MediaProvider>(
           create: (_) => MediaProvider(),
         ),
+
+        ChangeNotifierProvider<ApplicantProvider>(create: (_) => ApplicantProvider()),
+        ChangeNotifierProvider<ResumeProvider>(create: (_) => ResumeProvider())
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

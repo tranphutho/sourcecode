@@ -1,3 +1,7 @@
+import 'package:provider/provider.dart';
+
+import '../../models/job_model.dart';
+import '../../models/user_model.dart';
 import '../applications_screen/widgets/applications_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/app_export.dart';
@@ -12,12 +16,25 @@ class ApplicationsScreen extends StatefulWidget {
 class _ApplicationsScreenState extends State<ApplicationsScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-
+  UserModel? userApp;
+  JobsModel? appliedJobs;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    tabController = tabController = TabController(length: 4, vsync: this);
+    userApp = Provider.of<UserProvider>(context, listen: false).userApp!;
+    Provider.of<JobProvider>(context, listen: false)
+        .myAppliedJobs(userApp!.token!)
+        .then(
+          (value) {
+setState(() {
+  appliedJobs=value;
+
+});
+     
+      },
+    );
+    tabController = tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -199,7 +216,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                       ),
                     ),
                     child: Text(
-                      "You have\n27 Applications 👍",
+                      "You have\n ${appliedJobs!=null?appliedJobs!.data!.length:0} Applications 👍",
                       maxLines: null,
                       textAlign: TextAlign.start,
                       style: TextStyle(
@@ -262,7 +279,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                                   BorderRadius.circular(getHorizontalSize(25)),
                             ),
                             child: Tab(
-                              text: 'Delivered',
+                              text: 'Approved',
                             )),
                         Container(
                             padding: EdgeInsets.symmetric(
@@ -273,7 +290,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                                   BorderRadius.circular(getHorizontalSize(25)),
                             ),
                             child: Tab(
-                              text: 'Reviewing',
+                              text: 'Published',
                             )),
                         Container(
                             padding: EdgeInsets.symmetric(
@@ -284,7 +301,18 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                                   BorderRadius.circular(getHorizontalSize(25)),
                             ),
                             child: Tab(
-                              text: 'Manager',
+                              text: 'Pending',
+                            )),
+                        Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: getHorizontalSize(12)),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: ColorConstant.teal600),
+                              borderRadius:
+                                  BorderRadius.circular(getHorizontalSize(25)),
+                            ),
+                            child: Tab(
+                              text: 'Draft',
                             )),
                       ]),
                 ),
@@ -310,14 +338,15 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               43.00,
                             ),
                           ),
-                          child: ListView.builder(
+                          child:appliedJobs!=null? ListView.builder(
                             physics: BouncingScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 3,
+                            itemCount: appliedJobs!.data!.length,
                             itemBuilder: (context, index) {
-                              return ApplicationsItemWidget();
+                              var job=appliedJobs!.data![index];
+                              return ApplicationsItemWidget(appliedJob: job,);
                             },
-                          ),
+                          ):CircularProgressIndicator(),
                         ),
                       ),
                       Align(
@@ -328,7 +357,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               10.00,
                             ),
                             top: getVerticalSize(
-                              40.00,
+                              20.00,
                             ),
                             right: getHorizontalSize(
                               10.00,
@@ -337,14 +366,15 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               43.00,
                             ),
                           ),
-                          child: ListView.builder(
+                          child:appliedJobs!=null? ListView.builder(
                             physics: BouncingScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 3,
+                            itemCount: Provider.of<JobProvider>(context).appliedJobsDeliverd!.length,
                             itemBuilder: (context, index) {
-                              return ApplicationsItemWidget();
+                              var job=Provider.of<JobProvider>(context).appliedJobsDeliverd![index];
+                              return ApplicationsItemWidget(appliedJob: job,);
                             },
-                          ),
+                          ):CircularProgressIndicator(),
                         ),
                       ),
                       Align(
@@ -355,7 +385,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               10.00,
                             ),
                             top: getVerticalSize(
-                              40.00,
+                              20.00,
                             ),
                             right: getHorizontalSize(
                               10.00,
@@ -364,14 +394,15 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               43.00,
                             ),
                           ),
-                          child: ListView.builder(
+                          child:appliedJobs!=null? ListView.builder(
                             physics: BouncingScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 3,
+                            itemCount: Provider.of<JobProvider>(context).publishedJobsDeliverd!.length,
                             itemBuilder: (context, index) {
-                              return ApplicationsItemWidget();
+                              var job=Provider.of<JobProvider>(context).publishedJobsDeliverd![index];
+                              return ApplicationsItemWidget(appliedJob: job,);
                             },
-                          ),
+                          ):CircularProgressIndicator(),
                         ),
                       ),
                       Align(
@@ -382,7 +413,7 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               10.00,
                             ),
                             top: getVerticalSize(
-                              40.00,
+                              20.00,
                             ),
                             right: getHorizontalSize(
                               10.00,
@@ -391,16 +422,46 @@ class _ApplicationsScreenState extends State<ApplicationsScreen>
                               43.00,
                             ),
                           ),
-                          child: ListView.builder(
+                          child:appliedJobs!=null? ListView.builder(
                             physics: BouncingScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: 3,
+                            itemCount: Provider.of<JobProvider>(context).pendingJobs!.length,
                             itemBuilder: (context, index) {
-                              return ApplicationsItemWidget();
+                              var job=Provider.of<JobProvider>(context).pendingJobs![index];
+                              return ApplicationsItemWidget(appliedJob: job,);
                             },
-                          ),
+                          ):CircularProgressIndicator(),
                         ),
                       ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: getHorizontalSize(
+                              10.00,
+                            ),
+                            top: getVerticalSize(
+                              20.00,
+                            ),
+                            right: getHorizontalSize(
+                              10.00,
+                            ),
+                            bottom: getVerticalSize(
+                              43.00,
+                            ),
+                          ),
+                          child:appliedJobs!=null? ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: Provider.of<JobProvider>(context).draftJobs!.length,
+                            itemBuilder: (context, index) {
+                              var job=Provider.of<JobProvider>(context).draftJobs![index];
+                              return ApplicationsItemWidget(appliedJob: job,);
+                            },
+                          ):CircularProgressIndicator(),
+                        ),
+                      ),
+
                     ],
                   ),
                 ),

@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/app_export.dart';
 import 'package:hires/models/job_model.dart';
@@ -23,7 +25,7 @@ class _JobDetails1ScreenState extends State<JobDetails1Screen>
   void initState() {
     // TODO: implement initState
     super.initState();
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -177,10 +179,13 @@ class _JobDetails1ScreenState extends State<JobDetails1Screen>
                                       width: getSize(
                                         80.00,
                                       ),
-                                      child: SvgPicture.asset(
-                                        ImageConstant.imgGroup242,
+                                      child: Image.network(
+                                        job!.thumbnailImage != null
+                                            ? job!.thumbnailImage!
+                                            : "https://whitejobs.co.in/images/avatar.png",
                                         fit: BoxFit.fill,
                                       ),
+
                                     ),
                                     InkWell(
                                       onTap: () async {
@@ -478,138 +483,29 @@ class _JobDetails1ScreenState extends State<JobDetails1Screen>
                               ),
                               tabs: [
                                 Tab(text: 'Description'),
-                                Tab(text: 'Recuierment'),
-                                Tab(text: 'About'),
-                                Tab(text: ' Reviews'),
                               ],
                             ),
                           ),
                         ),
                         Container(
-                          height: getVerticalSize(350),
-                          child: TabBarView(
-                            controller: tabController,
-                            children: [
-                              Container(
-                                width: getHorizontalSize(
-                                  327.00,
-                                ),
-                                margin: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                  top: getVerticalSize(
-                                    16.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                ),
-                                child: Text(
-                                  //"Master's degree in Design, Computer Science, Computer Interaction, or a related field.\n3 years of relevant industry experience.\nAbility to lead and ideate products from scratch and improve features, all with a user-centered design process.\nSkills in communicating and influencing product design strategy.\nExcellent problem-solving skills and familiarity with technical constraints and limitations.\nExperience designing across multiple platform.\nPortfolio highlighting multiple projects.",
-                                  job!.content != null ? job!.content! : " ",
-                                  maxLines: null,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: ColorConstant.gray500,
-                                    fontSize: getFontSize(
-                                      14,
-                                    ),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: getHorizontalSize(
-                                  327.00,
-                                ),
-                                margin: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                  top: getVerticalSize(
-                                    16.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Master's degree in Design, Computer Science, Computer Interaction, or a related field.\n3 years of relevant industry experience.\nAbility to lead and ideate products from scratch and improve features, all with a user-centered design process.\nSkills in communicating and influencing product design strategy.\nExcellent problem-solving skills and familiarity with technical constraints and limitations.\nExperience designing across multiple platform.\nPortfolio highlighting multiple projects.",
-                                  maxLines: null,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: ColorConstant.gray500,
-                                    fontSize: getFontSize(
-                                      14,
-                                    ),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: getHorizontalSize(
-                                  327.00,
-                                ),
-                                margin: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                  top: getVerticalSize(
-                                    16.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Master's degree in Design, Computer Science, Computer Interaction, or a related field.\n3 years of relevant industry experience.\nAbility to lead and ideate products from scratch and improve features, all with a user-centered design process.\nSkills in communicating and influencing product design strategy.\nExcellent problem-solving skills and familiarity with technical constraints and limitations.\nExperience designing across multiple platform.\nPortfolio highlighting multiple projects.",
-                                  maxLines: null,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: ColorConstant.gray500,
-                                    fontSize: getFontSize(
-                                      14,
-                                    ),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                width: getHorizontalSize(
-                                  327.00,
-                                ),
-                                margin: EdgeInsets.only(
-                                  left: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                  top: getVerticalSize(
-                                    16.00,
-                                  ),
-                                  right: getHorizontalSize(
-                                    24.00,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Master's degree in Design, Computer Science, Computer Interaction, or a related field.\n3 years of relevant industry experience.\nAbility to lead and ideate products from scratch and improve features, all with a user-centered design process.\nSkills in communicating and influencing product design strategy.\nExcellent problem-solving skills and familiarity with technical constraints and limitations.\nExperience designing across multiple platform.\nPortfolio highlighting multiple projects.",
-                                  maxLines: null,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: ColorConstant.gray500,
-                                    fontSize: getFontSize(
-                                      14,
-                                    ),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          child: Html(
+                            //"Master's degree in Design, Computer Science, Computer Interaction, or a related field.\n3 years of relevant industry experience.\nAbility to lead and ideate products from scratch and improve features, all with a user-centered design process.\nSkills in communicating and influencing product design strategy.\nExcellent problem-solving skills and familiarity with technical constraints and limitations.\nExperience designing across multiple platform.\nPortfolio highlighting multiple projects.",
+                            data:  job!.content != null ? job!.content! : " ",
+
                           ),
                         ),
+                        Card(child: ListTile(title: Text("Date Posted"),subtitle: Text(DateFormat.yMMMMd().format(job!.createdAt!),style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("Expiration Date"),subtitle: Text(DateFormat.yMMMMd().format(job!.expirationDate!),style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("Location"),subtitle: Text(job!.location!.name!,style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("Hours"),subtitle: Text(job!.hours.toString()!,style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("Salary"),subtitle: Text(job!.salaryMax.toString()!,style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("Experience"),subtitle: Text(job!.experience.toString(),style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("No. of Requirements"),subtitle: Text(job!.numberRecruitments.toString(),style: TextStyle(color: Colors.grey),),)),
+                        Card(child: ListTile(title: Text("Gender"),subtitle: Text(job!.gender!,style: TextStyle(color: Colors.grey),),)),
+
+
+                        //Sizedbox for extra space at bottom
+                        SizedBox(height: 100,)
                       ],
                     ),
                   ),

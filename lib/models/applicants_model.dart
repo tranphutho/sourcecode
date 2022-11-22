@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
+import 'package:hires/models/find_jobs.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/services/get_services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -23,12 +24,12 @@ class ApplicantsModel {
     this.data,
   });
 
-  List<Applicant>? data;
+  List<Applicant>? data=[];
 
   factory ApplicantsModel.fromJson(Map<String, dynamic> json) =>
       ApplicantsModel(
         data: json["data"] == null
-            ? null
+            ? []
             : List<Applicant>.from(
                 json["data"].map((x) => Applicant.fromJson(x))),
       );
@@ -503,7 +504,9 @@ class CandidateInfo {
     this.gallry,
     this.video,
     this.allowSearch,
+    this.user
   });
+  User? user;
   int? id;
   String? title;
   String? website;
@@ -519,6 +522,7 @@ class CandidateInfo {
         gender: json["gender"],
         gallry: json["gallry"],
         video: json["video"],
+        user:User.fromJson(json['user']),
         allowSearch: json["allow_search"],
       );
 

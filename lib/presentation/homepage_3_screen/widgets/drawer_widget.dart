@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/color_constant.dart';
@@ -22,7 +23,10 @@ import 'package:hires/presentation/my_contact_screen/my_contact_screen.dart';
 import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen.dart';
 import 'package:hires/presentation/shortlisted_resumes_screen/shortlisted_resumes_screen.dart';
+import 'package:hires/presentation/web_view_screen/web_view_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 drawerWidget({
   required final isDark,
@@ -171,84 +175,64 @@ drawerWidget({
                                   12.00,
                                 ),
                               ),
-                              child: Text(
-                                usePrv.name ?? '',
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: getFontSize(
-                                    20,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    usePrv.name ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: getFontSize(
+                                        20,
+                                      ),
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: getHorizontalSize(
+                                        4.00,
+                                      ),
+                                      top: getVerticalSize(
+                                        4.00,
+                                      ),
+                                      bottom: getVerticalSize(
+                                        3.00,
+                                      ),
+                                    ),
+                                    child: Container(
+                                      height: getSize(
+                                        12.00,
+                                      ),
+                                      width: getSize(
+                                        12.00,
+                                      ),
+                                      child: SvgPicture.asset(
+                                        ImageConstant.imgIcroundverifi,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+
+                                ],
                               ),
                             ),
                           ),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  top: getVerticalSize(
-                                    4.00,
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      usePrv.bio ?? '',
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: ColorConstant.gray500,
-                                        fontSize: getFontSize(
-                                          12,
-                                        ),
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        left: getHorizontalSize(
-                                          4.00,
-                                        ),
-                                        top: getVerticalSize(
-                                          4.00,
-                                        ),
-                                        bottom: getVerticalSize(
-                                          3.00,
-                                        ),
-                                      ),
-                                      child: Container(
-                                        height: getSize(
-                                          12.00,
-                                        ),
-                                        width: getSize(
-                                          12.00,
-                                        ),
-                                        child: SvgPicture.asset(
-                                          ImageConstant.imgIcroundverifi,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                          SizedBox(width:180,height:40,child: Html(data:usePrv.bio,style: {
+                            "padding":Style(padding: EdgeInsets.all(0),margin: EdgeInsets.zero)
+                          },)),
+
                           Padding(
                             padding: EdgeInsets.only(
                               top: getVerticalSize(4),
                             ),
                             child: GestureDetector(
                               onTap: () async {
+                                Navigator.pushNamed(
+                                    context, CandidateProfileScreen.id
+                                );
+                                return;
                                 //PHUTHO
                                 ApplicantDetailModelProvider
                                 applicantDetail = Provider.of<
@@ -422,13 +406,7 @@ drawerWidget({
                           Navigator.of(context).pushNamed(ManageJobsScreen.id),
                       icon: Icon(Icons.event_note_rounded, color: Colors.grey.shade400,)
                   ),
-                  customEmployerNavBuilder(
-                      title: "Add new Job",
-                      usePrv: usePrv,
-                      onTap: () =>
-                          Navigator.of(context).pushNamed(AddNewJobScreen.id),
-                      icon: Icon(Icons.add_business_outlined, color: Colors.grey.shade400,)
-                  ),
+
                   customEmployerNavBuilder(
                       title: "Manage Applicants",
                       usePrv: usePrv,
@@ -601,6 +579,290 @@ drawerWidget({
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
                       onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (c)=>WebViewScreen(url:Constants.privacyPolicyUrl)));
+
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                3.00,
+                              ),
+                              bottom: getVerticalSize(
+                                3.33,
+                              ),
+                            ),
+                            child: Container(
+                              height: getVerticalSize(
+                                16.67,
+                              ),
+                              width: getHorizontalSize(
+                                20.00,
+                              ),
+                              child: Icon(Icons.person,color: Colors.grey,),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                14.00,
+                              ),
+                              right: getHorizontalSize(
+                                14.00,
+                              ),
+                            ),
+                            child: Text(
+                              "About us",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (c)=>WebViewScreen(url:Constants.contactUrl)));
+
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                3.00,
+                              ),
+                              bottom: getVerticalSize(
+                                3.33,
+                              ),
+                            ),
+                            child: Container(
+                              height: getVerticalSize(
+                                16.67,
+                              ),
+                              width: getHorizontalSize(
+                                20.00,
+                              ),
+                              child: Icon(Icons.call,color: Colors.grey,),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                14.00,
+                              ),
+                              right: getHorizontalSize(
+                                14.00,
+                              ),
+                            ),
+                            child: Text(
+                              "Contact Us",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (c)=>WebViewScreen(url:Constants.termsConditionsUrl)));
+
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                3.00,
+                              ),
+                              bottom: getVerticalSize(
+                                3.33,
+                              ),
+                            ),
+                            child: Container(
+                              height: getVerticalSize(
+                                16.67,
+                              ),
+                              width: getHorizontalSize(
+                                20.00,
+                              ),
+                              child: Icon(Icons.contact_page_rounded,color: Colors.grey,),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                14.00,
+                              ),
+                              right: getHorizontalSize(
+                                14.00,
+                              ),
+                            ),
+                            child: Text(
+                              "Terms & Conditions",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      onTap: () {
+launchUrl(Uri.parse("http://play.google.com/store/apps/details?id=${Constants.packageName}"));
+
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                3.00,
+                              ),
+                              bottom: getVerticalSize(
+                                3.33,
+                              ),
+                            ),
+                            child: Container(
+                              height: getVerticalSize(
+                                16.67,
+                              ),
+                              width: getHorizontalSize(
+                                20.00,
+                              ),
+                              child: Icon(Icons.star,color: Colors.grey,),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                14.00,
+                              ),
+                              right: getHorizontalSize(
+                                14.00,
+                              ),
+                            ),
+                            child: Text(
+                              "Terms & Conditions",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Share.share('http://play.google.com/store/apps/details?id=${Constants.packageName}');
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(
+                              top: getVerticalSize(
+                                3.00,
+                              ),
+                              bottom: getVerticalSize(
+                                3.33,
+                              ),
+                            ),
+                            child: Container(
+                              height: getVerticalSize(
+                                16.67,
+                              ),
+                              width: getHorizontalSize(
+                                20.00,
+                              ),
+                              child: Icon(Icons.share,color: Colors.grey,),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: getHorizontalSize(
+                                14.00,
+                              ),
+                              right: getHorizontalSize(
+                                14.00,
+                              ),
+                            ),
+                            child: Text(
+                              "Share App",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      onTap: () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -737,89 +999,22 @@ drawerWidget({
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: getVerticalSize(30),
-                        bottom: getVerticalSize(20)),
-                    child: Container(
-                      width: getHorizontalSize(240),
-                      decoration: BoxDecoration(
-                        color: ColorConstant.teal600,
-                        borderRadius: BorderRadius.circular(
-                          getHorizontalSize(
-                            16.00,
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                32.00,
-                              ),
-                              right: getHorizontalSize(
-                                32.00,
-                              ),
-                              top: getVerticalSize(
-                                16.00,
-                              ),
-                              bottom: getVerticalSize(
-                                16.00,
-                              ),
-                            ),
-                            child: Container(
-                              height: getVerticalSize(
-                                24.00,
-                              ),
-                              width: getHorizontalSize(
-                                18.63,
-                              ),
-                              child: SvgPicture.asset(
-                                ImageConstant.imgGroup181,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: getHorizontalSize(
-                                11.00,
-                              ),
-                              right: getHorizontalSize(
-                                11.00,
-                              ),
-                              top: getVerticalSize(
-                                16.00,
-                              ),
-                              bottom: getVerticalSize(
-                                16.00,
-                              ),
-                            ),
-                            child: Text(
-                              "Upgrade Premium",
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: ColorConstant.whiteA700,
-                                fontSize: getFontSize(
-                                  16,
-                                ),
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+
                 ],
               ),
             ),
+            Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ElevatedButton(onPressed: (){Navigator.of(context).pushNamed(AddNewJobScreen.id);}, child: Row(
+              children: [
+                Icon(Icons.add),
+                Text("Add New Job"),
+              ],
+            ),style: ElevatedButton.styleFrom(primary: Colors.lightGreen,elevation: 0,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40))),),
+          ],
+        )
           ],
         ),
       )
