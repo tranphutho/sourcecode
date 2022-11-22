@@ -257,7 +257,9 @@ class PostServices {
           "apply_link": myJob.applyLink,
           "apply_email": myJob.applyEmail,
           "wage_agreement": myJob.wageAgreement,
-          "gallery": myJob.gallery,
+          "gallery": myJob.gallery != null
+              ? myJob.gallery!.replaceAll(r'(', '').replaceAll(r')', '')
+              : "",
           "video": myJob.video,
           "video_cover_id": myJob.videoCoverId,
           "number_recruitments": myJob.numberRecruitment,
