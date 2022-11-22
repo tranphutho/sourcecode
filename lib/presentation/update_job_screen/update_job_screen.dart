@@ -212,15 +212,19 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
         Provider.of<MediaProvider>(context, listen: false).mediasModel!;
     if (job!.videoCoverId != null) {
       // ignore: unrelated_type_equality_checks
+
       mediaVideo = mediasModel!.data!.singleWhere(
-          (element) => element.id == int.parse(job!.videoCoverId!));
+          (element) => element.id == int.parse(job!.videoCoverId!),
+          orElse: () => MediaModel());
       idVideo = int.parse(job!.videoCoverId!);
     }
 
     if (job!.thumbnailId != null) {
       // ignore: unrelated_type_equality_checks
-      mediaFile = mediasModel!.data!
-          .singleWhere((element) => element.id == job!.thumbnailId!);
+      mediaFile = mediasModel!.data!.singleWhere(
+        (element) => element.id == job!.thumbnailId!,
+        orElse: () => MediaModel(),
+      );
       idImage = job!.thumbnailId!;
     }
 
@@ -228,9 +232,11 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
       dynamic idGallery = job!.gallery!.split(',');
       mediaModel = [];
       for (dynamic e in idGallery) {
-        dynamic gallery = mediasModel!.data!
-            .singleWhere((element) => element.id == int.parse(e.trim()));
-        mediaModel!.add(gallery);
+        MediaModel gallery = mediasModel!.data!.singleWhere(
+          (element) => element.id == int.parse(e.trim()),
+          orElse: () => MediaModel(),
+        );
+        if (gallery.fileName != null) mediaModel!.add(gallery);
       }
     }
 
@@ -794,7 +800,9 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
                                                     imageVideo!,
                                                     fit: BoxFit.fill,
                                                   )
-                                                : job!.videoCoverId != null
+                                                : job!.videoCoverId != null &&
+                                                        mediaVideo!.filePath !=
+                                                            null
                                                     ? Image.network(
                                                         Api_Url.BASE_URL_IMAGE +
                                                             mediaVideo!
@@ -1353,7 +1361,8 @@ class _UpdateJobScreenState extends State<UpdateJobScreen> {
                                           imageFile!,
                                           fit: BoxFit.fill,
                                         )
-                                      : job!.thumbnailId != null
+                                      : job!.thumbnailId != null &&
+                                              mediaFile!.filePath != null
                                           ? Image.network(
                                               Api_Url.BASE_URL_IMAGE +
                                                   mediaFile!.filePath!,

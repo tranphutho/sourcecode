@@ -10,7 +10,6 @@ import 'package:hires/presentation/update_job_screen/update_job_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-
 import '../../models/media_model.dart';
 
 import '../../core/utils/common_utils.dart';
@@ -48,7 +47,6 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
   //       expirationDate: DateTime.now())
   // ];
   List<Job> searchedJobs = [];
-
 
   UserModel? userApp;
   bool? _loading = true;
@@ -129,11 +127,11 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                   width: 225,
                                   child: TextFormField(
                                     controller: txtSearchJob,
-                                    onChanged: (value){
+                                    onChanged: (value) {
                                       print(value);
-                                      Provider.of<MyJobProvider>(context,listen: false).searchJobs(txtSearchJob.text);
-
-
+                                      Provider.of<MyJobProvider>(context,
+                                              listen: false)
+                                          .searchJobs(txtSearchJob.text);
                                     },
                                     decoration: InputDecoration(
                                       hintText: "Search by name...",
@@ -146,7 +144,9 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                   width: 110,
                                   child: ElevatedButton(
                                       onPressed: () {
-                                        Provider.of<MyJobProvider>(context,listen: false).searchJobs(txtSearchJob.text);
+                                        Provider.of<MyJobProvider>(context,
+                                                listen: false)
+                                            .searchJobs(txtSearchJob.text);
                                       },
                                       child: const Text("Search"),
                                       style: ButtonStyle(
@@ -181,585 +181,454 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           .intit(userApp!.token!);
                                     },
                                     footer: LazyLoaderFooter(),
-                                    child:(value.searchedJobs!.data==null || value.searchedJobs!.data!.length<=0)? ListView.builder(
-                                        itemCount:
-                                            value.myJobsModel!.data!.length,
-                                        itemBuilder: (context, index) {
-
-                                          return Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 0, 0, 30),
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15.0),
-                                              ),
-                                              color: Color(0xFFD9D9D9),
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    Navigator.pushNamed(context,
-                                                        JobDetails1Screen.id,
-                                                        arguments: value
-                                                            .myJobsModel!
-                                                            .data![index]),
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 16.0,
-                                                      vertical: 30),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 180,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                      'Title:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                          17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text: value
-                                                                          .myJobsModel!
-                                                                          .data![
-                                                                              index]
-                                                                          .title,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              14,
-                                                                          color:
-                                                                              Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 120,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                      'Status:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                          17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text: value
-                                                                          .myJobsModel!
-                                                                          .data![
-                                                                              index]
-                                                                          .status,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              14,
-                                                                          color:
-                                                                              Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                        ],
+                                    child:
+                                        (value.searchedJobs!.data == null ||
+                                                value.searchedJobs!.data!
+                                                        .length <=
+                                                    0)
+                                            ? ListView.builder(
+                                                itemCount: value
+                                                    .myJobsModel!.data!.length,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(0, 0, 0, 30),
+                                                    child: Card(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.0),
                                                       ),
-                                                      SizedBox(
-                                                        height: 25,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 180,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                      'Location:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                          17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text:
-                                                                          "Ấn độ",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              14,
-                                                                          color:
-                                                                              Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 120,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                      'Date:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                          17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text: DateFormat('yyyy-MM-dd').format(value
-                                                                          .myJobsModel!
-                                                                          .data![
-                                                                              index]
-                                                                          .createdAt!),
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              14,
-                                                                          color:
-                                                                              Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 25,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 172,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                      'Category:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                          17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text:
-                                                                          "Lập trình",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              14,
-                                                                          color:
-                                                                              Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            height: 30,
-                                                            // color: Colors.blue,
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                // IconButton(
-                                                                //   icon: Icon(
-                                                                //     Icons
-                                                                //         .remove_red_eye,
-                                                                //     color: Colors
-                                                                //         .blueAccent,
-                                                                //   ),
-                                                                //   onPressed:
-                                                                //       () {},
-                                                                // ),
-
-                                                                Container(
-                                                                  child: Center(
+                                                      color: Color(0xFFD9D9D9),
+                                                      child: InkWell(
+                                                        onTap: () =>
+                                                            Navigator.pushNamed(
+                                                                context,
+                                                                JobDetails1Screen
+                                                                    .id,
+                                                                arguments: value
+                                                                    .myJobsModel!
+                                                                    .data![index]),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      16.0,
+                                                                  vertical: 30),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 180,
                                                                     child:
-                                                                        IconButton(
-                                                                      icon:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .edit,
-                                                                        color: Colors
-                                                                            .blueAccent,
-                                                                      ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        print(
-                                                                            "object2");
-
-                                                                        MyJob myJob = MyJob(
-                                                                            id: value.myJobsModel!.data![index].id,
-                                                                            title: value.myJobsModel!.data![index].title,
-                                                                            content: value.myJobsModel!.data![index].content,
-                                                                            thumbnailId: value.myJobsModel!.data![index].thumbnailId,
-                                                                            categoryId: value.myJobsModel!.data![index].categoryId,
-                                                                            locationId: value.myJobsModel!.data![index].locationId,
-                                                                            jobTypeId: value.myJobsModel!.data![index].jobTypeId,
-                                                                            expirationDate: DateFormat('yyyy-MM-dd').format(value.myJobsModel!.data![index].expirationDate!),
-                                                                            hours: value.myJobsModel!.data![index].hours,
-                                                                            hoursType: value.myJobsModel!.data![index].hoursType,
-                                                                            salaryMin: double.parse(value.myJobsModel!.data![index].salaryMin!).toInt(),
-                                                                            salaryMax: double.parse(value.myJobsModel!.data![index].salaryMax!).toInt(),
-                                                                            salaryType: value.myJobsModel!.data![index].salaryType,
-                                                                            gender: value.myJobsModel!.data![index].gender,
-                                                                            mapLat: value.myJobsModel!.data![index].mapLat,
-                                                                            mapLng: value.myJobsModel!.data![index].mapLng,
-                                                                            mapZoom: value.myJobsModel!.data![index].mapZoom,
-                                                                            experience: value.myJobsModel!.data![index].experience,
-                                                                            isFeatured: value.myJobsModel!.data![index].isFeatured,
-                                                                            isUrgent: value.myJobsModel!.data![index].isUrgent.toString(),
-                                                                            status: value.myJobsModel!.data![index].status,
-                                                                            applyEmail: value.myJobsModel!.data![index].applyEmail,
-                                                                            applyLink: value.myJobsModel!.data![index].applyLink,
-                                                                            applyType: value.myJobsModel!.data![index].applyType,
-                                                                            wageAgreement: value.myJobsModel!.data![index].wageAgreement,
-                                                                            gallery: value.myJobsModel!.data![index].gallery,
-                                                                            video: value.myJobsModel!.data![index].video,
-                                                                            videoCoverId: value.myJobsModel!.data![index].videoCoverId.toString(),
-                                                                            numberRecruitment: value.myJobsModel!.data![index].numberRecruitments,
-                                                                            jobSkills: value.myJobsModel!.data![index].skills!.map((e) => e.id!).toList());
-
-                                                                        Navigator.pushNamed(
-                                                                            context,
-                                                                            UpdateJobScreen
-                                                                                .id,
-                                                                            arguments:
-                                                                                myJob);
-                                                                      },
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Title:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.myJobsModel!.data![index].title,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Container(
-                                                                  child:
-                                                                      IconButton(
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .delete_outline,
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                    ),
-                                                                    onPressed:
-                                                                        () {
-                                                                          loadingDialog(context);
-
-                                                                      Provider.of<MyJobProvider>(
-                                                                              context,
-                                                                              listen:
-                                                                                  false)
-                                                                          .destroyMyJob(
-                                                                              value.myJobsModel!.data![index].id.toString(),
-                                                                              userApp!.token!)
-                                                                          .then(
-                                                                        (value) {
-                                                                          Navigator.pop(context);
-                                                                          Provider.of<MyJobProvider>(context, listen: false)
-                                                                              .intit(userApp!.token!);
-                                                                        },
-                                                                      );
-                                                                    },
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-
-                                              ),
-                                            ),
-                                          );
-                                        }):ListView.builder(
-                                        itemCount:
-                                        value.searchedJobs!.data!.length,
-                                        itemBuilder: (context, index) {
-
-                                          return Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 0, 0, 30),
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                BorderRadius.circular(15.0),
-
-                                              ),
-                                              color: Color(0xFFD9D9D9),
-                                              child: InkWell(
-                                                onTap: () =>
-                                                    Navigator.pushNamed(context,
-                                                        JobDetails1Screen.id,
-                                                        arguments: value.searchedJobs!
-                                                            .data![index]),
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 16.0,
-                                                      vertical: 30),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 180,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                  'Title:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                      17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text: value.searchedJobs!
-                                                                          .data![
-                                                                      index]
-                                                                          .title,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          color:
-                                                                          Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 120,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                  'Status:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                      17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text:value.searchedJobs!
-                                                                          .data![
-                                                                      index]
-                                                                          .status,
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          color:
-                                                                          Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 25,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 180,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                  'Location:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                      17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text:
-                                                                      "Ấn độ",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          color:
-                                                                          Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 120,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                  'Date:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                      17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text: DateFormat('yyyy-MM-dd').format(value.searchedJobs!
-                                                                          .data![
-                                                                      index]
-                                                                          .createdAt!),
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          color:
-                                                                          Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: 25,
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            width: 172,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                  text:
-                                                                  'Category:  ',
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .blueAccent,
-                                                                      fontSize:
-                                                                      17),
-                                                                  children: <
-                                                                      TextSpan>[
-                                                                    TextSpan(
-                                                                      text:
-                                                                      "Lập trình",
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                          14,
-                                                                          color:
-                                                                          Colors.black),
-                                                                    )
-                                                                  ]),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            height: 30,
-                                                            // color: Colors.blue,
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                              crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                              children: [
-                                                                // IconButton(
-                                                                //   icon: Icon(
-                                                                //     Icons
-                                                                //         .remove_red_eye,
-                                                                //     color: Colors
-                                                                //         .blueAccent,
-                                                                //   ),
-                                                                //   onPressed:
-                                                                //       () {},
-                                                                // ),
-
-                                                                Container(
-                                                                  child: Center(
+                                                                  Container(
+                                                                    width: 120,
                                                                     child:
-                                                                    IconButton(
-                                                                      icon:
-                                                                      Icon(
-                                                                        Icons
-                                                                            .edit,
-                                                                        color: Colors
-                                                                            .blueAccent,
-                                                                      ),
-                                                                      onPressed:
-                                                                          () {
-                                                                        print(
-                                                                            "object2");
-                                                                      },
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Status:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.myJobsModel!.data![index].status,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Container(
-                                                                  child:
-                                                                  IconButton(
-                                                                    icon: Icon(
-                                                                      Icons
-                                                                          .delete_outline,
-                                                                      color: Colors
-                                                                          .blueAccent,
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 25,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 180,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Location:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.myJobsModel!.data![index].location!.name!,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
                                                                     ),
-                                                                    onPressed:
-                                                                        () {
-                                                                      Provider.of<MyJobProvider>(
-                                                                          context,
-                                                                          listen:
-                                                                          false)
-                                                                          .destroyMyJob(
-                                                                          value.myJobsModel!.data![index].id.toString(),
-                                                                          userApp!.token!)
-                                                                          .then(
-                                                                            (value) {
-                                                                          Provider.of<MyJobProvider>(context, listen: false)
-                                                                              .intit(userApp!.token!);
-                                                                        },
-                                                                      );
-                                                                    },
                                                                   ),
-                                                                ),
-                                                              ],
-                                                            ),
+                                                                  Container(
+                                                                    width: 120,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Date:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: DateFormat('yyyy-MM-dd').format(value.myJobsModel!.data![index].createdAt!),
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 25,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 172,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Category:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.myJobsModel!.data![index].category!.name!,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    height: 30,
+                                                                    // color: Colors.blue,
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        // IconButton(
+                                                                        //   icon: Icon(
+                                                                        //     Icons
+                                                                        //         .remove_red_eye,
+                                                                        //     color: Colors
+                                                                        //         .blueAccent,
+                                                                        //   ),
+                                                                        //   onPressed:
+                                                                        //       () {},
+                                                                        // ),
+
+                                                                        Container(
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                IconButton(
+                                                                              icon: Icon(
+                                                                                Icons.edit,
+                                                                                color: Colors.blueAccent,
+                                                                              ),
+                                                                              onPressed: () {
+                                                                                print("object2");
+
+                                                                                MyJob myJob = MyJob(id: value.myJobsModel!.data![index].id, title: value.myJobsModel!.data![index].title, content: value.myJobsModel!.data![index].content, thumbnailId: value.myJobsModel!.data![index].thumbnailId, categoryId: value.myJobsModel!.data![index].categoryId, locationId: value.myJobsModel!.data![index].locationId, jobTypeId: value.myJobsModel!.data![index].jobTypeId, expirationDate: DateFormat('yyyy-MM-dd').format(value.myJobsModel!.data![index].expirationDate!), hours: value.myJobsModel!.data![index].hours, hoursType: value.myJobsModel!.data![index].hoursType, salaryMin: double.parse(value.myJobsModel!.data![index].salaryMin!).toInt(), salaryMax: double.parse(value.myJobsModel!.data![index].salaryMax!).toInt(), salaryType: value.myJobsModel!.data![index].salaryType, gender: value.myJobsModel!.data![index].gender, mapLat: value.myJobsModel!.data![index].mapLat, mapLng: value.myJobsModel!.data![index].mapLng, mapZoom: value.myJobsModel!.data![index].mapZoom, experience: value.myJobsModel!.data![index].experience, isFeatured: value.myJobsModel!.data![index].isFeatured, isUrgent: value.myJobsModel!.data![index].isUrgent.toString(), status: value.myJobsModel!.data![index].status, applyEmail: value.myJobsModel!.data![index].applyEmail, applyLink: value.myJobsModel!.data![index].applyLink, applyType: value.myJobsModel!.data![index].applyType, wageAgreement: value.myJobsModel!.data![index].wageAgreement, gallery: value.myJobsModel!.data![index].gallery, video: value.myJobsModel!.data![index].video, videoCoverId: value.myJobsModel!.data![index].videoCoverId.toString(), numberRecruitment: value.myJobsModel!.data![index].numberRecruitments, jobSkills: value.myJobsModel!.data![index].skills!.map((e) => e.id!).toList());
+
+                                                                                Navigator.pushNamed(context, UpdateJobScreen.id, arguments: myJob);
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Container(
+                                                                          child:
+                                                                              IconButton(
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.delete_outline,
+                                                                              color: Colors.blueAccent,
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              loadingDialog(context);
+
+                                                                              Provider.of<MyJobProvider>(context, listen: false).destroyMyJob(value.myJobsModel!.data![index].id.toString(), userApp!.token!).then(
+                                                                                (value) {
+                                                                                  Navigator.pop(context);
+                                                                                  Provider.of<MyJobProvider>(context, listen: false).intit(userApp!.token!);
+                                                                                },
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ],
                                                           ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                })
+                                            : ListView.builder(
+                                                itemCount: value
+                                                    .searchedJobs!.data!.length,
+                                                itemBuilder: (context, index) {
+                                                  return Padding(
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(0, 0, 0, 30),
+                                                    child: Card(
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(15.0),
+                                                      ),
+                                                      color: Color(0xFFD9D9D9),
+                                                      child: InkWell(
+                                                        onTap: () =>
+                                                            Navigator.pushNamed(
+                                                                context,
+                                                                JobDetails1Screen
+                                                                    .id,
+                                                                arguments: value
+                                                                    .searchedJobs!
+                                                                    .data![index]),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      16.0,
+                                                                  vertical: 30),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 180,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Title:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.searchedJobs!.data![index].title,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    width: 120,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Status:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.searchedJobs!.data![index].status,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 25,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 180,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Location:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.searchedJobs!.data![index].location!.name!,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    width: 120,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Date:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: DateFormat('yyyy-MM-dd').format(value.searchedJobs!.data![index].createdAt!),
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 25,
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    width: 172,
+                                                                    child:
+                                                                        RichText(
+                                                                      text: TextSpan(
+                                                                          text:
+                                                                              'Category:  ',
+                                                                          style: TextStyle(
+                                                                              color: Colors.blueAccent,
+                                                                              fontSize: 17),
+                                                                          children: <TextSpan>[
+                                                                            TextSpan(
+                                                                              text: value.searchedJobs!.data![index].category!.name!,
+                                                                              style: TextStyle(fontSize: 14, color: Colors.black),
+                                                                            )
+                                                                          ]),
+                                                                    ),
+                                                                  ),
+                                                                  Container(
+                                                                    height: 30,
+                                                                    // color: Colors.blue,
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        // IconButton(
+                                                                        //   icon: Icon(
+                                                                        //     Icons
+                                                                        //         .remove_red_eye,
+                                                                        //     color: Colors
+                                                                        //         .blueAccent,
+                                                                        //   ),
+                                                                        //   onPressed:
+                                                                        //       () {},
+                                                                        // ),
+
+                                                                        Container(
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                IconButton(
+                                                                              icon: Icon(
+                                                                                Icons.edit,
+                                                                                color: Colors.blueAccent,
+                                                                              ),
+                                                                              onPressed: () {
+                                                                                print("object2");
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Container(
+                                                                          child:
+                                                                              IconButton(
+                                                                            icon:
+                                                                                Icon(
+                                                                              Icons.delete_outline,
+                                                                              color: Colors.blueAccent,
+                                                                            ),
+                                                                            onPressed:
+                                                                                () {
+                                                                              Provider.of<MyJobProvider>(context, listen: false).destroyMyJob(value.myJobsModel!.data![index].id.toString(), userApp!.token!).then(
+                                                                                (value) {
+                                                                                  Provider.of<MyJobProvider>(context, listen: false).intit(userApp!.token!);
+                                                                                },
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
                                   );
                               }),
                             )
