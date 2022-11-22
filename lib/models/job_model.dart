@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
+import 'package:hires/models/resource_model.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/services/get_services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -38,50 +39,50 @@ class JobsModel {
 }
 
 class Job {
-  Job({
-    this.id,
-    this.title,
-    this.slug,
-    this.content,
-    this.categoryId,
-    this.thumbnailId,
-    this.locationId,
-    this.companyId,
-    this.jobTypeId,
-    this.expirationDate,
-    this.hours,
-    this.hoursType,
-    this.salaryType,
-    this.salaryMin,
-    this.salaryMax,
-    this.gender,
-    this.mapLat,
-    this.mapLng,
-    this.mapZoom,
-    this.experience,
-    this.isFeatured,
-    this.isUrgent,
-    this.status,
-    this.deletedAt,
-    this.createUser,
-    this.updateUser,
-    this.createdAt,
-    this.updatedAt,
-    this.applyType,
-    this.applyLink,
-    this.applyEmail,
-    this.gallery,
-    this.video,
-    this.videoCoverId,
-    this.numberRecruitments,
-    this.wageAgreement,
-    this.thumbnailImage,
-    this.category,
-    this.jobType,
-    this.location,
-    this.company,
-    this.user,
-  });
+  Job(
+      {this.id,
+      this.title,
+      this.slug,
+      this.content,
+      this.categoryId,
+      this.thumbnailId,
+      this.locationId,
+      this.companyId,
+      this.jobTypeId,
+      this.expirationDate,
+      this.hours,
+      this.hoursType,
+      this.salaryType,
+      this.salaryMin,
+      this.salaryMax,
+      this.gender,
+      this.mapLat,
+      this.mapLng,
+      this.mapZoom,
+      this.experience,
+      this.isFeatured,
+      this.isUrgent,
+      this.status,
+      this.deletedAt,
+      this.createUser,
+      this.updateUser,
+      this.createdAt,
+      this.updatedAt,
+      this.applyType,
+      this.applyLink,
+      this.applyEmail,
+      this.gallery,
+      this.video,
+      this.videoCoverId,
+      this.numberRecruitments,
+      this.wageAgreement,
+      this.thumbnailImage,
+      this.category,
+      this.jobType,
+      this.location,
+      this.company,
+      this.user,
+      this.skills});
 
   int? id;
   String? title;
@@ -125,6 +126,7 @@ class Job {
   Location? location;
   CompanyJob? company;
   User? user;
+  List<Skills>? skills;
 
   factory Job.fromJson(Map<String, dynamic> json) => Job(
         id: json["id"] == null ? null : json["id"],
@@ -185,6 +187,9 @@ class Job {
             ? null
             : CompanyJob.fromJson(json["company"]),
         user: json["user"] == null ? null : User.fromJson(json["user"]),
+        skills: json!["skills"] == null
+            ? null
+            : List<Skills>.from(json["skills"].map((x) => Skills.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -232,6 +237,9 @@ class Job {
         "location": location == null ? null : location!.toJson(),
         "company": company == null ? null : company!.toJson(),
         "user": user == null ? null : user!.toJson(),
+        "skills": skills == null
+            ? null
+            : List<Skills>.from(skills!.map((x) => x.toJson())),
       };
 }
 

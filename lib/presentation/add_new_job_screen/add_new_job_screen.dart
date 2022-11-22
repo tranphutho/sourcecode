@@ -1,16 +1,23 @@
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/app_export.dart';
+import 'package:hires/models/applicants_model.dart';
+import 'package:hires/models/media_model.dart';
 
 import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
 
 import 'package:hires/models/job_model.dart';
 import 'package:hires/models/resource_model.dart';
+import 'package:hires/services/api_urls.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
+
+import '../../models/my_job_model.dart';
+import '../../models/user_model.dart';
 
 class modelList {
   String? id;
@@ -40,9 +47,9 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
   late TextEditingController txtLongitude;
   late TextEditingController txtMapZoom;
 
-  String hoursDWValue = "/day";
+  String hoursDWValue = "day";
   String genderDWValue = "Male";
-  String salaryDWValue = "/hourly";
+  String salaryDWValue = "hourly";
   String nearestCityDWValue = "0";
   String categoryDWValue = "0";
   String jobTypeDWValue = "Full Time";
@@ -53,11 +60,17 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
   bool? enableUrgent = true;
 
   File? imageFile;
+  File? imageVideo;
+
+  int idVideo = 0;
+  int idImage = 0;
 
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFiles;
-  Job? job;
+  List<Skills>? skills;
+  MyJob? job;
   ResourceModel? resourceModel;
+  List<MediaModel>? mediaModel;
   static List<JobSkills> _jobSkillsList = [
     JobSkills(id: 1, jobTitle: "App"),
     JobSkills(id: 2, jobTitle: "Administrative"),
@@ -126,7 +139,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
     txtVideoUrl = TextEditingController(text: "");
     txtLatitude = TextEditingController(text: "");
     txtLongitude = TextEditingController(text: "");
-    txtMapZoom = TextEditingController(text: "");
+    txtMapZoom = TextEditingController(text: "3");
     resourceModel = Provider.of<ResourceModelProvider>(context, listen: false)
         .resourceModel!;
     nearestCityDWValue = resourceModel!.locations![0].id.toString();
@@ -138,7 +151,9 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
     applyTypeList.add(modelList(id: "external", name: "External"));
     publishList.add(modelList(id: "publish", name: "Publish"));
     publishList.add(modelList(id: "draft", name: "Draft"));
-
+    // setState(() {
+    //   mediaModel = [];
+    // });
     super.initState();
   }
 
@@ -286,7 +301,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                       color: Colors.black,
                                                       fontSize: 14),
                                                 ),
-                                                value: "/day",
+                                                value: "day",
                                               ),
                                               DropdownMenuItem(
                                                   child: Text(
@@ -295,7 +310,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                         color: Colors.black,
                                                         fontSize: 14),
                                                   ),
-                                                  value: "/week"),
+                                                  value: "week"),
                                               DropdownMenuItem(
                                                 child: Text(
                                                   "/month",
@@ -303,7 +318,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                       color: Colors.black,
                                                       fontSize: 14),
                                                 ),
-                                                value: "/month",
+                                                value: "month",
                                               ),
                                               DropdownMenuItem(
                                                 child: Text(
@@ -312,7 +327,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                       color: Colors.black,
                                                       fontSize: 14),
                                                 ),
-                                                value: "/year",
+                                                value: "year",
                                               ),
                                             ],
                                             onChanged: (value) {
@@ -582,7 +597,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                       color: Colors.black,
                                                       fontSize: 14),
                                                 ),
-                                                value: "/hourly",
+                                                value: "hourly",
                                               ),
                                               DropdownMenuItem(
                                                   child: Text(
@@ -591,7 +606,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                         color: Colors.black,
                                                         fontSize: 14),
                                                   ),
-                                                  value: "/weekly"),
+                                                  value: "weekly"),
                                               DropdownMenuItem(
                                                 child: Text(
                                                   "/monthly",
@@ -599,7 +614,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                       color: Colors.black,
                                                       fontSize: 14),
                                                 ),
-                                                value: "/monthly",
+                                                value: "monthly",
                                               ),
                                               DropdownMenuItem(
                                                 child: Text(
@@ -608,7 +623,7 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                                       color: Colors.black,
                                                       fontSize: 14),
                                                 ),
-                                                value: "/yearly",
+                                                value: "yearly",
                                               ),
                                             ],
                                             onChanged: (value) {
@@ -692,43 +707,91 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                               height: 10,
                             ),
                             Container(
-                                width: 400,
-                                height: 150,
+                                width: getHorizontalSize(400),
+                                height: getVerticalSize(345),
                                 padding: EdgeInsets.all(16.0),
                                 decoration: BoxDecoration(
                                     border:
                                         Border.all(color: Color(0xFFD9D9D9)),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(12))),
-                                child: imageFile == null
-                                    ? Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                            Container(
-                                              height: 150,
-                                              width: 200,
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: AssetImage(
-                                                        "assets/images/gallery_image.png"),
-                                                    fit: BoxFit.contain),
-                                              ),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  _getFromGallery();
-                                                },
-                                                child:
-                                                    const Text("Upload image"),
-                                              ),
-                                            )
-                                          ])
-                                    : GestureDetector(
-                                        onTap: () => _getFromGallery(),
-                                        child: Image.file(imageFile!))),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      height: 210,
+                                      width: 210,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          print("Bấm vào đây");
+
+                                          File file = await _getFromGallery();
+                                          if (file != null)
+                                            setState(() {
+                                              imageVideo = file;
+                                            });
+                                        },
+                                        child: imageVideo != null
+                                            ? Image.file(
+                                                imageVideo!,
+                                                fit: BoxFit.fill,
+                                              )
+                                            : Container(
+                                                // width: 40,
+                                                // height: 10,
+                                                // color: Colors.amber,
+                                                alignment: Alignment.center,
+                                                // height: getVerticalSize(
+                                                //   90.00,
+                                                // ),
+                                                // width: getHorizontalSize(
+                                                //   263.00,
+                                                // ),
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      // isDark
+                                                      //     ? ColorConstant.darkbutton
+                                                      //     :
+                                                      ColorConstant.gray100,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                    getHorizontalSize(
+                                                      12.00,
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Center(
+                                                    child: Text("Choose Imgage",
+                                                        style: TextStyle(
+                                                          color: ColorConstant
+                                                              .teal600,
+                                                          fontSize: getFontSize(
+                                                            20,
+                                                          ),
+                                                          fontFamily: 'Poppins',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        )))),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          // setState(() {
+                                          //   imageFile = null;
+                                          // });
+                                          // rovider.of<UserProvider>(context, listen: false)
+                                          idVideo =
+                                              (await Provider.of<UserProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .postMedia(imageVideo!))!;
+                                        },
+                                        child: const Text("Upload image"),
+                                      ),
+                                    )
+                                  ],
+                                )),
                             SizedBox(
                               height: 20,
                             ),
@@ -750,8 +813,14 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                 children: [
                                   ElevatedButton.icon(
                                     icon: Icon(Icons.add_circle_outline),
-                                    onPressed: () {
-                                      openImages();
+                                    onPressed: () async {
+                                      dynamic result =
+                                          await _openMedia(context);
+                                      if (result != null)
+                                        setState(() {
+                                          mediaModel = result;
+                                        });
+                                      //print(result);
                                     },
                                     label: Text("Select images"),
                                     style: ButtonStyle(
@@ -764,27 +833,67 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                   ),
                                   Divider(),
                                   Text("Selected images:"),
-                                  Divider(),
-                                  imageFiles != null
-                                      ? Wrap(
-                                          children: imageFiles!.map((imageOne) {
+                                  Builder(builder: (context) {
+                                    if (mediaModel == null)
+                                      return Container(
+                                        height: 150,
+                                      );
+                                    else
+                                      return Container(
+                                        height: 150,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: mediaModel!.length,
+                                          itemBuilder: (context, index) {
                                             return Container(
-                                                child: Card(
-                                              child: Container(
-                                                height: 100,
-                                                width: 100,
-                                                child: Image.file(
-                                                    File(imageOne.path)),
-                                              ),
+                                                child: Stack(
+                                              children: [
+                                                Container(
+                                                  height: 150,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: Color(
+                                                              0xFFD9D9D9)),
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  12))),
+                                                  child: Container(
+                                                    height: getSize(300),
+                                                    width: getSize(300),
+                                                    child: Image.network(
+                                                        Api_Url.BASE_URL_IMAGE +
+                                                            mediaModel![index]
+                                                                .filePath!,
+                                                        fit: BoxFit.fill),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 150,
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    icon: Icon(
+                                                        CupertinoIcons.delete,
+                                                        color: Colors.red),
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        mediaModel!.remove(
+                                                            mediaModel![index]);
+                                                      });
+                                                    },
+                                                  ),
+                                                )
+                                              ],
                                             ));
-                                          }).toList(),
-                                        )
-                                      : Container()
+                                          },
+                                        ),
+                                      );
+                                  }),
                                 ],
                               ),
-                            ),
-                            SizedBox(
-                              height: 30,
                             ),
                           ]))),
               SizedBox(
@@ -1013,8 +1122,13 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(12)),
                                 ),
-                                items: _jobSkills,
-                                onConfirm: (values) {})
+                                items: resourceModel!.skills!
+                                    .map((e) =>
+                                        MultiSelectItem<Skills>(e, e.name!))
+                                    .toList(),
+                                onConfirm: (values) {
+                                  skills = values as List<Skills>;
+                                })
                           ]))),
               SizedBox(
                 height: 50,
@@ -1097,97 +1211,237 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
                 height: 50,
               ),
               Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 5.0,
-                          color: Colors.grey,
-                          offset: Offset(3, 3)),
-                    ],
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            customImageUploadDiv(
-                                title: "Feature Image",
-                                imageFile: imageFile,
-                                getFromGallery: _getFromGallery),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            // dropDownDiv(
-                            //     title: "Publish",
-                            //     dropDownVal: publishDWValue,
-                            //     dropDownList: publishList),
-                            dropDownDiv(
-                              title: "Publish",
-                              dropDownVal: publishDWValue,
-                              dropDownList: publishList,
-                              name: "name",
-                              onChange: (value) {
-                                setState(() {
-                                  publishDWValue = value.toString();
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              height: 50,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                job = new Job(
-                                  title: txtTitle.text,
-                                  content: txtContent.text,
-                                  // thumbnailId:
-                                );
-                              },
-                              child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: getVerticalSize(
-                                    56.00,
-                                  ),
-                                  width: getHorizontalSize(
-                                    184.00,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(
-                                      getHorizontalSize(
-                                        16.00,
-                                      ),
-                                    ),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 5.0,
-                                          color: Colors.grey,
-                                          offset: Offset(3, 3)),
-                                    ],
-                                  ),
+                  // padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                    //   customImageUploadDiv(
+                    //       title: "Feature Image",
+                    //       imageFile: imageFile,
+                    //       getFromGallery: _getFromGallery),
+                    // SizedBox(
+                    //   height: 50,
+                    // ),
+                    Container(
+                      height: getVerticalSize(
+                        380.00,
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                          boxShadow: [
+                            BoxShadow(
+                                blurRadius: 5.0,
+                                color: Colors.grey,
+                                offset: Offset(3, 3))
+                          ]),
+                      child: Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Align(
+                                  alignment: Alignment.topLeft,
                                   child: Text(
-                                    "Save Changes",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: ColorConstant.whiteA700,
-                                      fontSize: getFontSize(
-                                        16,
-                                      ),
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                    "Feature Image",
+                                    style: TextStyle(fontSize: 18),
+                                  )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 210,
+                                width: 210,
+                                child: InkWell(
+                                  onTap: () async {
+                                    print("Bấm vào đây");
+                                    File file = await _getFromGallery();
+                                    if (file != null)
+                                      setState(() {
+                                        imageFile = file;
+                                      });
+                                  },
+                                  child: imageFile != null
+                                      ? Image.file(
+                                          imageFile!,
+                                          fit: BoxFit.fill,
+                                        )
+                                      : Container(
+                                          // width: 40,
+                                          // height: 10,
+                                          // color: Colors.amber,
+                                          alignment: Alignment.center,
+                                          // height: getVerticalSize(
+                                          //   90.00,
+                                          // ),
+                                          // width: getHorizontalSize(
+                                          //   263.00,
+                                          // ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                // isDark
+                                                //     ? ColorConstant.darkbutton
+                                                //     :
+                                                ColorConstant.gray100,
+                                            borderRadius: BorderRadius.circular(
+                                              getHorizontalSize(
+                                                12.00,
+                                              ),
+                                            ),
+                                          ),
+                                          child: Center(
+                                              child: Text("Choose Imgage",
+                                                  style: TextStyle(
+                                                    color:
+                                                        ColorConstant.teal600,
+                                                    fontSize: getFontSize(
+                                                      20,
+                                                    ),
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w500,
+                                                  )))),
                                 ),
                               ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    // setState(() {
+                                    //   imageFile = null;
+                                    // });
+                                    // rovider.of<UserProvider>(context, listen: false)
+                                    idImage = (await Provider.of<UserProvider>(
+                                            context,
+                                            listen: false)
+                                        .postMedia(imageFile!))!;
+                                  },
+                                  child: const Text("Upload image"),
+                                ),
+                              )
+                            ]),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    // dropDownDiv(
+                    //     title: "Publish",
+                    //     dropDownVal: publishDWValue,
+                    //     dropDownList: publishList),
+                    dropDownDiv(
+                      title: "Publish",
+                      dropDownVal: publishDWValue,
+                      dropDownList: publishList,
+                      name: "name",
+                      onChange: (value) {
+                        setState(() {
+                          publishDWValue = value.toString();
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        job = new MyJob(
+                            id: 0,
+                            title: txtTitle.text,
+                            content: txtContent.text,
+                            thumbnailId: idImage,
+                            categoryId: int.parse(categoryDWValue),
+                            locationId: int.parse(nearestCityDWValue),
+                            jobTypeId: int.parse(jobTypeDWValue),
+                            expirationDate: txtExpirationDate.text,
+                            hours: txtHours.text,
+                            hoursType: hoursDWValue,
+                            salaryMin: txtMinSalary.text.length > 0
+                                ? int.parse(txtMinSalary.text)
+                                : null,
+                            salaryMax: txtMaxSalary.text.length > 0
+                                ? int.parse(txtMaxSalary.text)
+                                : null,
+                            salaryType: salaryDWValue,
+                            gender: genderDWValue,
+                            mapLat: txtLatitude.text,
+                            mapLng: txtLongitude.text,
+                            mapZoom: txtMapZoom.text.length > 0
+                                ? int.parse(txtMapZoom.text)
+                                : null,
+                            experience: txtExperience.text.length > 0
+                                ? int.parse(txtExperience.text)
+                                : null,
+                            isFeatured: 1,
+                            isUrgent: enableUrgent! ? "1" : "0",
+                            status: publishDWValue,
+                            applyType: applyTypeDWValue,
+                            applyLink: "",
+                            applyEmail: "",
+                            wageAgreement: agreement! ? 1 : 0,
+                            gallery: mediaModel != null
+                                ? mediaModel!.map((e) {
+                                    return "${e.id!.toString()}";
+                                  }).toString()
+                                : "",
+                            video: txtVideoUrl.text,
+                            videoCoverId: idVideo.toString(),
+                            numberRecruitment: txtRecruitments.text.length > 0
+                                ? int.parse(txtRecruitments.text)
+                                : null,
+                            jobSkills: skills != null
+                                ? skills!.map((e) => e.id!).toList()
+                                : null
+                            // thumbnailId:
+                            );
+                        print(job);
+
+                        await Provider.of<MyJobProvider>(context, listen: false)
+                            .createUpdateJob(job!);
+                      },
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: getVerticalSize(
+                            56.00,
+                          ),
+                          width: getHorizontalSize(
+                            184.00,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(
+                              getHorizontalSize(
+                                16.00,
+                              ),
                             ),
-                            SizedBox(
-                              height: 20,
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 5.0,
+                                  color: Colors.grey,
+                                  offset: Offset(3, 3)),
+                            ],
+                          ),
+                          child: Text(
+                            "Save Changes",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: ColorConstant.whiteA700,
+                              fontSize: getFontSize(
+                                16,
+                              ),
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
                             ),
-                          ])))
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ]))
             ])));
   }
 
@@ -1349,32 +1603,243 @@ class _AddNewJobScreenState extends State<AddNewJobScreen> {
     );
   }
 
-  _getFromGallery() async {
+  Future<File> _getFromGallery() async {
+    File? file;
     PickedFile? pickedFile = await ImagePicker().getImage(
       source: ImageSource.gallery,
       maxWidth: 330,
       maxHeight: 300,
     );
     if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
+      file = File(pickedFile.path);
     }
+    return file!;
   }
 
-  openImages() async {
-    try {
-      var pickedfiles = await imagePicker.pickMultiImage();
-      //you can use ImageCourse.camera for Camera capture
-      if (pickedfiles != null) {
-        imageFiles = pickedfiles;
-        setState(() {});
-      } else {
-        print("No image is selected.");
-      }
-    } catch (e) {
-      print("error while picking file.");
-    }
+  Future<dynamic> _openMedia(BuildContext context) async {
+    // try {
+    //   var pickedfiles = await imagePicker.pickMultiImage();
+    //   //you can use ImageCourse.camera for Camera capture
+    //   if (pickedfiles != null) {
+    //     imageFiles = pickedfiles;
+    //     setState(() {});
+    //   } else {
+    //     print("No image is selected.");
+    //   }
+    // } catch (e) {
+    //   print("error while picking file.");
+    // }
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SelectionScreen()),
+    );
+
+    // When a BuildContext is used from a StatefulWidget, the mounted property
+    // must be checked after an asynchronous gap.
+    if (!mounted) return "";
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    return result;
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('$result')));
+  }
+}
+
+class SelectionScreen extends StatefulWidget {
+  SelectionScreen({key});
+  @override
+  _SelectionScreen createState() => _SelectionScreen();
+}
+
+class _SelectionScreen extends State<SelectionScreen> {
+  // final List<Map<String, String>> anh = [
+  //   {"id": "1", "anh": "Ảnh 1"},
+  //   {"id": "2", "anh": "Ảnh 2"},
+  //   {"id": "3", "anh": "Ảnh 3"},
+  //   {"id": "4", "anh": "Ảnh 4"},
+  //   {"id": "5", "anh": "Ảnh 5"},
+  //   {"id": "6", "anh": "Ảnh 6"},
+  //   {"id": "7", "anh": "Ảnh 7"},
+  //   {"id": "8", "anh": "Ảnh 8"},
+  // ];
+  late List<MediaModel>? ds = [];
+  MediasModel? mediasModel;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setState(() {
+      _isLoading = true;
+    });
+    Provider.of<MediaProvider>(context, listen: false)
+        .getMediaImage()
+        .then((value) {
+      mediasModel =
+          Provider.of<MediaProvider>(context, listen: false).mediasModel!;
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Choose File From Your Gallery'),
+      ),
+      bottomNavigationBar: BottomAppBar(
+          child: ElevatedButton.icon(
+        icon: Icon(Icons.add_circle_outline),
+        onPressed: () async {
+          // dynamic result =
+          //     await _openMedia(context);
+          // print(result);
+          Navigator.pop(context, ds);
+        },
+        label: Text("Choose File"),
+        style: ButtonStyle(
+            padding: MaterialStateProperty.all(
+                EdgeInsets.symmetric(horizontal: 16, vertical: 13)),
+            backgroundColor: MaterialStateProperty.all(Colors.teal)),
+      )),
+      body: Builder(builder: (context) {
+        if (_isLoading)
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        else
+          return Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                itemCount: mediasModel!.data!.length,
+                itemBuilder: (context, index) => Container(
+                  height: 330,
+                  child: InkWell(
+                    onTap: () {
+                      if (ds!.contains(mediasModel!.data![index])) {
+                        setState(() {
+                          ds!.remove(mediasModel!.data![index]);
+                        });
+                      } else {
+                        setState(() {
+                          ds!.add(mediasModel!.data![index]);
+                        });
+                      }
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Checkbox(
+                            value: ds!.contains(mediasModel!.data![index]),
+                            onChanged: (value) {
+                              if (value!) {
+                                setState(() {
+                                  ds!.add(mediasModel!.data![index]);
+                                });
+                              } else {
+                                setState(() {
+                                  ds!.remove(mediasModel!.data![index]);
+                                });
+                              }
+                            },
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                height: 300,
+                                width: 330,
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Color(0xFFD9D9D9)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(12))),
+                                child: Container(
+                                  height: getSize(300),
+                                  width: getSize(300),
+                                  child: Image.network(
+                                      Api_Url.BASE_URL_IMAGE +
+                                          mediasModel!.data![index].filePath!,
+                                      fit: BoxFit.fill),
+                                ),
+                              ),
+                              // Text(
+                              //   mediasModel!.data![index].fileName.toString(),
+                              //   overflow: TextOverflow.clip,
+                              //   style: TextStyle(
+                              //       fontSize: 15,
+                              //       color: Colors.black.withOpacity(0.5),
+                              //       fontWeight: FontWeight.bold),
+                              // )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+              // Center(
+              //   child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              //     // ListView(
+              //     //   children: [
+              //     //     Container(
+              //     //       height: 100,
+              //     //       width: 300,
+              //     //       child: Row(
+              //     //         children: [
+              //     //           Checkbox(
+              //     //             value: false,
+              //     //             onChanged: (value) {},
+              //     //           ),
+              //     //           SizedBox(
+              //     //             height: 10,
+              //     //           ),
+              //     //           Container(
+              //     //             width: 50,
+              //     //             height: 50,
+              //     //             child: Image.asset("assets/images/gallery_image.png"),
+              //     //           )
+              //     //         ],
+              //     //       ),
+              //     //     ),
+              //     //     Container(
+              //     //       height: 100,
+              //     //       width: 300,
+              //     //       child: Row(
+              //     //         children: [
+              //     //           Checkbox(
+              //     //             value: false,
+              //     //             onChanged: (value) {},
+              //     //           ),
+              //     //           SizedBox(
+              //     //             height: 10,
+              //     //           ),
+              //     //           Container(
+              //     //             width: 50,
+              //     //             height: 50,
+              //     //             child: Image.asset("assets/images/gallery_image.png"),
+              //     //           )
+              //     //         ],
+              //     //       ),
+              //     //     )
+              //     //   ],
+              //     // )
+
+              );
+      }),
+    );
   }
 }
 
