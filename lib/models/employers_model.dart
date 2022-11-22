@@ -3,6 +3,7 @@
 //     final findjobs = findjobsFromJson(jsonString);
 
 import 'package:flutter/material.dart';
+import 'package:hires/models/user_model.dart';
 import 'package:hires/services/get_services.dart';
 
 import '../services/post_services.dart';
@@ -51,6 +52,7 @@ class Employer {
     this.teamSize,
     this.about,
     this.category,
+    this.company,
     this.location,
   });
 
@@ -70,6 +72,7 @@ class Employer {
   int? teamSize;
   String? about;
   Category? category;
+  Company? company;
   Location? location;
 
   factory Employer.fromJson(Map<String, dynamic> json) => Employer(
@@ -88,6 +91,7 @@ class Employer {
     categoryId: json['category_id'] == null ? null : json['category_id'],
     teamSize: json['team_size'] == null ? null : json['team_size'],
     about: json['about'] == null ? null : json['about'],
+    company: Company.fromJson(json['company']),
     category: json["category"] == null
         ? null
         : Category.fromJson(json["category"]),
@@ -120,6 +124,7 @@ class Employer {
 
 class EmployersProvider extends ChangeNotifier {
   EmployersModel? employersModel;
+  EmployersModel? followingEmployers;
 
   Future init({String? keyword}) async {
     await getEmployer(keyword: keyword);
@@ -134,6 +139,18 @@ class EmployersProvider extends ChangeNotifier {
         employersModel = EmployersModel.fromJson(data);
         notifyListeners();
         return employersModel;
+      }
+    }
+  }
+  Future<EmployersModel?> getFollowingEmployers({String? token}) async {
+    var body = await GetServices.getFollowingEmployers(token!);
+    print(body.toString());
+    if (body["status"]) {
+      if (body != null) {
+        var data = body["data"];
+        followingEmployers = EmployersModel.fromJson(data);
+        notifyListeners();
+        return followingEmployers;
       }
     }
   }

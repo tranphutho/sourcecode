@@ -3,9 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/app_export.dart';
 import 'package:hires/core/theme/theme_constants.dart';
 
+import '../../../models/job_model.dart';
+
 // ignore: must_be_immutable
 class ApplicationsItemWidget extends StatelessWidget {
-  ApplicationsItemWidget();
+  final Job appliedJob;
+  ApplicationsItemWidget({required this.appliedJob});
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +78,10 @@ class ApplicationsItemWidget extends StatelessWidget {
                                       width: getSize(
                                         44.00,
                                       ),
-                                      child: SvgPicture.asset(
-                                        ImageConstant.imgGoogle13,
+                                      child: Image.network(
+                                        appliedJob.thumbnailImage != null
+                                            ? appliedJob.thumbnailImage!
+                                            : "https://whitejobs.co.in/images/avatar.png",
                                         fit: BoxFit.fill,
                                       ),
                                     ),
@@ -120,7 +125,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                           ),
                                         ),
                                         child: Text(
-                                          "Jr Executive home 1",
+                                          appliedJob.title!,
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
@@ -133,7 +138,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "${Constants.currency}115,000/y",
+                                        "${Constants.currency} ${appliedJob.salaryMax}/y",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
@@ -164,7 +169,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        "Google",
+                                        appliedJob.company!.name!,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
@@ -179,7 +184,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "Los Angels, US",
+                                        appliedJob.location!.name!,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
@@ -239,10 +244,10 @@ class ApplicationsItemWidget extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                "Cancelled",
+                                appliedJob.status!,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: ColorConstant.red700,
+                                  color: ColorConstant.blue50,
                                   fontSize: getFontSize(
                                     13,
                                   ),
@@ -313,7 +318,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                               ),
                             ),
                             decoration: BoxDecoration(
-                              color: ColorConstant.whiteA700,
+                              color: ColorConstant.black900,
                               borderRadius: BorderRadius.circular(
                                 getHorizontalSize(
                                   119.00,
@@ -343,10 +348,13 @@ class ApplicationsItemWidget extends StatelessWidget {
                                       width: getSize(
                                         44.00,
                                       ),
-                                      child: SvgPicture.asset(
-                                        ImageConstant.imgGoogle13,
+                                      child: Image.network(
+                                        appliedJob.thumbnailImage != null
+                                            ? appliedJob.thumbnailImage!
+                                            : "https://whitejobs.co.in/images/avatar.png",
                                         fit: BoxFit.fill,
                                       ),
+
                                     ),
                                   ),
                                 ],
@@ -376,9 +384,9 @@ class ApplicationsItemWidget extends StatelessWidget {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Padding(
@@ -388,7 +396,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                           ),
                                         ),
                                         child: Text(
-                                          "Jr Executive home 1_1",
+                                          appliedJob.title??"Unknown",
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
@@ -401,7 +409,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "${Constants.currency}115,000/y",
+                                        "${Constants.currency} ${appliedJob.salaryMax}/${appliedJob.salaryType.toString().substring(0,1)}",
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.right,
                                         style: TextStyle(
@@ -426,30 +434,19 @@ class ApplicationsItemWidget extends StatelessWidget {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        "Google",
+                                        appliedJob.company!.name!,
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
-                                          color: ColorConstant.gray90087,
-                                          fontSize: getFontSize(
-                                            13,
-                                          ),
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      Text(
-                                        "Los Angels, US",
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.right,
-                                        style: TextStyle(
-                                          color: ColorConstant.gray90087,
+                                          color: isDark
+                                              ? Colors.white
+                                              : ColorConstant.gray90087,
                                           fontSize: getFontSize(
                                             13,
                                           ),
@@ -495,7 +492,7 @@ class ApplicationsItemWidget extends StatelessWidget {
                                 114.00,
                               ),
                               decoration: BoxDecoration(
-                                color: ColorConstant.red50,
+                                color: ColorConstant.gray50,
                                 borderRadius: BorderRadius.circular(
                                   getHorizontalSize(
                                     52.00,
@@ -503,10 +500,10 @@ class ApplicationsItemWidget extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                "Cancelled",
+                                appliedJob.status!,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: ColorConstant.red700,
+                                  color: ColorConstant.black900,
                                   fontSize: getFontSize(
                                     13,
                                   ),

@@ -836,6 +836,11 @@ class JobProvider extends ChangeNotifier {
   JobsModel? featuredJobModel;
   JobsModel? popularJobModel;
   JobsModel? urgenJobModel;
+  JobsModel? appliedJobs;
+  List<Job>? get appliedJobsDeliverd => appliedJobs!.data!.where((element) => element.status=="approved").toList();
+  List<Job>? get publishedJobsDeliverd => appliedJobs!.data!.where((element) => element.status=="published").toList();
+  List<Job>? get draftJobs => appliedJobs!.data!.where((element) => element.status=="draft").toList();
+  List<Job>? get pendingJobs => appliedJobs!.data!.where((element) => element.status=="pending").toList();
   bool statusLogin = false;
   String mssgLogin = '';
   String emailToVerify = '';
@@ -846,6 +851,17 @@ class JobProvider extends ChangeNotifier {
   Future intit() async {
     await findFeaturedJobs();
     await findPobularJobs();
+  }
+
+  Future myAppliedJobs(String token)async{
+    print("Getting applied obs");
+    var body = await GetServices.getMyAppliedJob(token);
+    if (body != null) {
+      var data = body["data"];
+      appliedJobs = JobsModel.fromJson(body);
+      notifyListeners();
+      return appliedJobs;
+    }
   }
 
   Future intitCategories() async {
