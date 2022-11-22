@@ -73,7 +73,6 @@ import 'core/theme/theme_constants.dart';
 import 'core/theme/theme_manager.dart';
 import 'models/applicant_detail_model.dart';
 import 'models/job_model.dart';
-import 'models/media_model.dart';
 import 'models/resource_model.dart';
 import 'presentation/edit_profile/edit_profile_screen.dart';
 import 'presentation/job_proposal_screen/job_proposal_screen.dart';
@@ -85,7 +84,6 @@ import 'presentation/reset_password_screen/reset_password_screen.dart';
 import 'presentation/resume_portfolio_uploaded_screen/resume_portfolio_uploaded_screen.dart';
 import 'presentation/search_result_2_screen/search_result_2_screen.dart';
 import 'presentation/set_b4_get_started1_screen/set_b4_get_started1_screen.dart';
-import 'presentation/update_job_screen/update_job_screen.dart';
 
 class myHttpOverrides extends HttpOverrides {
   @override
@@ -145,10 +143,8 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<EmployersProvider>(
-            create: (_) => EmployersProvider()),
-        ChangeNotifierProvider<CadidatesProvider>(
-            create: (_) => CadidatesProvider()),
+        ChangeNotifierProvider<EmployersProvider>(create: (_) => EmployersProvider()),
+        ChangeNotifierProvider<CadidatesProvider>(create: (_) => CadidatesProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<ApplicantDetailModelProvider>(
             create: (_) => ApplicantDetailModelProvider()),
@@ -158,10 +154,7 @@ class _MyAppState extends State<MyApp> {
             create: (_) => WishlistProvider()),
         ChangeNotifierProvider<ResourceModelProvider>(
             create: (_) => ResourceModelProvider()),
-        ChangeNotifierProvider<MyJobProvider>(create: (_) => MyJobProvider()),
-        ChangeNotifierProvider<MediaProvider>(
-          create: (_) => MediaProvider(),
-        ),
+        ChangeNotifierProvider<MyJobProvider>(create: (_) => MyJobProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -247,7 +240,6 @@ class _MyAppState extends State<MyApp> {
               SoloCategoryJobListingScreen(),
           Trending.id: (context) => Trending(),
           Profile.id: (context) => Profile(),
-          UpdateJobScreen.id: (context) => UpdateJobScreen(),
         },
       ),
     );

@@ -5,11 +5,9 @@ import 'package:hires/models/my_job_model.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/presentation/job_details1_screen/job_details1_screen.dart';
 import 'package:hires/presentation/job_details_screen/job_details_screen.dart';
-import 'package:hires/presentation/update_job_screen/update_job_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../models/media_model.dart';
 import '../common_widget/LazyLoaderFooter.dart';
 
 class ManageJobsScreen extends StatefulWidget {
@@ -65,11 +63,9 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
         .intit(userApp!.token!)
         .then(
       (value) {
-        Provider.of<MediaProvider>(context, listen: false)
-            .getMediaImage()
-            .then((value) => setState(() {
-                  _loading = false;
-                }));
+        setState(() {
+          _loading = false;
+        });
       },
     );
   }
@@ -82,6 +78,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -191,6 +188,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(15.0),
+
                                               ),
                                               color: Color(0xFFD9D9D9),
                                               child: InkWell(
@@ -406,45 +404,6 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                                                           () {
                                                                         print(
                                                                             "object2");
-
-                                                                        MyJob myJob = MyJob(
-                                                                            id: value.myJobsModel!.data![index].id,
-                                                                            title: value.myJobsModel!.data![index].title,
-                                                                            content: value.myJobsModel!.data![index].content,
-                                                                            thumbnailId: value.myJobsModel!.data![index].thumbnailId,
-                                                                            categoryId: value.myJobsModel!.data![index].categoryId,
-                                                                            locationId: value.myJobsModel!.data![index].locationId,
-                                                                            jobTypeId: value.myJobsModel!.data![index].jobTypeId,
-                                                                            expirationDate: DateFormat('yyyy-MM-dd').format(value.myJobsModel!.data![index].expirationDate!),
-                                                                            hours: value.myJobsModel!.data![index].hours,
-                                                                            hoursType: value.myJobsModel!.data![index].hoursType,
-                                                                            salaryMin: double.parse(value.myJobsModel!.data![index].salaryMin!).toInt(),
-                                                                            salaryMax: double.parse(value.myJobsModel!.data![index].salaryMax!).toInt(),
-                                                                            salaryType: value.myJobsModel!.data![index].salaryType,
-                                                                            gender: value.myJobsModel!.data![index].gender,
-                                                                            mapLat: value.myJobsModel!.data![index].mapLat,
-                                                                            mapLng: value.myJobsModel!.data![index].mapLng,
-                                                                            mapZoom: value.myJobsModel!.data![index].mapZoom,
-                                                                            experience: value.myJobsModel!.data![index].experience,
-                                                                            isFeatured: value.myJobsModel!.data![index].isFeatured,
-                                                                            isUrgent: value.myJobsModel!.data![index].isUrgent.toString(),
-                                                                            status: value.myJobsModel!.data![index].status,
-                                                                            applyEmail: value.myJobsModel!.data![index].applyEmail,
-                                                                            applyLink: value.myJobsModel!.data![index].applyLink,
-                                                                            applyType: value.myJobsModel!.data![index].applyType,
-                                                                            wageAgreement: value.myJobsModel!.data![index].wageAgreement,
-                                                                            gallery: value.myJobsModel!.data![index].gallery,
-                                                                            video: value.myJobsModel!.data![index].video,
-                                                                            videoCoverId: value.myJobsModel!.data![index].videoCoverId.toString(),
-                                                                            numberRecruitment: value.myJobsModel!.data![index].numberRecruitments,
-                                                                            jobSkills: value.myJobsModel!.data![index].skills!.map((e) => e.id!).toList());
-
-                                                                        Navigator.pushNamed(
-                                                                            context,
-                                                                            UpdateJobScreen
-                                                                                .id,
-                                                                            arguments:
-                                                                                myJob);
                                                                       },
                                                                     ),
                                                                   ),
@@ -484,6 +443,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                                     ],
                                                   ),
                                                 ),
+
                                               ),
                                             ),
                                           );
@@ -493,5 +453,6 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                             )
                           ])))
             ])));
+
   }
 }
