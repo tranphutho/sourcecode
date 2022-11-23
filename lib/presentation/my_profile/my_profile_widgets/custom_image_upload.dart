@@ -10,15 +10,16 @@ customImageUploadDiv({
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(15)),
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 5.0,
-              color: Colors.grey,
-              offset: Offset(
-                  3,3
-              )
-          ),
-        ],
+        border: Border.all(color: Colors.grey.shade300)
+        // boxShadow: [
+        //   BoxShadow(
+        //       blurRadius: 5.0,
+        //       color: Colors.grey,
+        //       offset: Offset(
+        //           3,3
+        //       )
+        //   ),
+        // ],
       ),
       child: Padding(
           padding: const EdgeInsets.all(18.0),

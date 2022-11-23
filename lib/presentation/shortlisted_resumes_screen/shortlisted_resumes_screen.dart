@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hires/core/utils/color_constant.dart';
 import 'package:hires/core/utils/math_utils.dart';
+import 'package:hires/models/applicants_model.dart';
 import 'package:hires/models/candidates_model.dart';
 import 'package:hires/models/find_jobs.dart';
 import 'package:hires/models/wishlist_model.dart';
@@ -62,6 +63,7 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -69,6 +71,7 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Consumer<ResumeProvider>(
           builder: (context,provider,_) {
@@ -81,18 +84,10 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(12),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5.0,
-                        color: Colors.grey,
-                        offset: Offset(
-                          3,3
-                        )
-                      ),
-                    ],
+                    border: Border.all(color: Colors.grey.shade300)
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(18.0),
@@ -115,11 +110,25 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                             Container(
                               height: 50,
                               width: 225,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 7,
+                                    offset: Offset(3,3),
+                                    color: Colors.grey.shade300
+                                  )
+                                ]
+                              ),
                               child: TextFormField(
                                 controller: txtSearchResume,
                                 decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none
+                                  ),
                                   hintText: "Search by name...",
-                                  fillColor: Color(0xFFD9D9D9),
+                                  fillColor: ColorConstant.gray100,
                                 ),
                               ),
                             ),
@@ -136,7 +145,7 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: BorderRadius.circular(12.0),
                                       side: BorderSide(color: Colors.blue)
                                     )
                                   )
@@ -147,19 +156,26 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height / 30,),
                         SizedBox(
-                          height: 520,
-                          width: 400,
+                          width: MediaQuery.of(context).size.width,
                           child:provider.shortlistedResumes!=null? ListView.builder(
+                            shrinkWrap: true,
                             itemCount:(provider.searchedResumes!.data==null || provider.searchedResumes!.data!.isEmpty)? provider.shortlistedResumes!.data!.length:provider.searchedResumes!.data!.length,
                             itemBuilder: (context, index) {
                               Wishlist wishlist=(provider.searchedResumes!.data==null || provider.searchedResumes!.data!.isEmpty)? provider.shortlistedResumes!.data![index]:provider.searchedResumes!.data![index];
                               return Padding(
                                 padding: const EdgeInsets.fromLTRB(0,0,0,40),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: ColorConstant.gray100,
                                     borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade300,
+                                        blurRadius: 7,
+                                        offset: Offset(3,3)
+                                      )
+                                    ]
                                   ),
-                                  color: Color(0xFFD9D9D9),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 30.0,

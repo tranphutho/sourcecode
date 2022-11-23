@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hires/core/app_export.dart';
 import 'package:hires/models/employers_model.dart';
 import 'package:hires/models/job_model.dart';
 import 'package:hires/models/user_model.dart';
@@ -55,6 +56,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -62,6 +64,7 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -71,19 +74,11 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
+                border: Border.all(color: Colors.grey.shade300),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15),
                   topRight: Radius.circular(15),
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -106,11 +101,24 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                         Container(
                           height: 50,
                           width: 225,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                offset: Offset(3,3),
+                                blurRadius: 7
+                              )
+                            ]
+                          ),
                           child: TextFormField(
                             controller: txtSearchEmployer,
                             decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
                               hintText: "Search by name...",
-                              fillColor: Color(0xFFD9D9D9),
+                              fillColor: ColorConstant.gray100,
                             ),
                           ),
                         ),
@@ -127,8 +135,8 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  side: BorderSide(color: Colors.blue)
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  side: BorderSide(color: Colors.blue),
                                 )
                               )
                             )
@@ -145,11 +153,19 @@ class _FollowingEmployerScreenState extends State<FollowingEmployerScreen> {
                           Employer employer=followingEmployers!.data![index];
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0,0,0,MediaQuery.of(context).size.height / 25,),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorConstant.gray100,
+                                borderRadius: BorderRadius.circular(12.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade300,
+                                    blurRadius: 7,
+                                    offset: Offset(3,3)
+
+                                  ),
+                                ]
                               ),
-                              color: Color(0xFFD9D9D9),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
                                 child: Column(

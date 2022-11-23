@@ -304,6 +304,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -311,6 +312,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -321,15 +323,16 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
+                border: Border.all(color: Colors.grey.shade300)
+                // boxShadow: [
+                //   BoxShadow(
+                //     blurRadius: 5.0,
+                //     color: Colors.grey,
+                //     offset: Offset(
+                //       3,3
+                //     )
+                //   ),
+                // ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -374,12 +377,25 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                   child: Text("Birthday", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)
                               ),
                               SizedBox(height: 10,),
-                              SizedBox(
+                              Container(
                                 height: 50,
                                 width: 150,
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 7,
+                                      color: Colors.grey.shade300,
+                                      offset: Offset(3,3)
+                                    )
+                                  ]
+                                ),
                                 child: TextField(
                                   decoration: InputDecoration(
-                                      fillColor: Color(0xFFD9D9D9),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12)
+                                    ),
+                                      fillColor: ColorConstant.gray100,
                                       hintText: "YYYY-MM-DD"
                                   ),
                                   controller: txtBirthday, //editing controller of this TextField
@@ -432,15 +448,16 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
+                  border: Border.all(color: Colors.grey.shade300)
+                // boxShadow: [
+                //   BoxShadow(
+                //     blurRadius: 5.0,
+                //     color: Colors.grey,
+                //     offset: Offset(
+                //       3,3
+                //     )
+                //   ),
+                // ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -493,7 +510,14 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                               width: 160,
                               child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                    color:Color(0xFFD9D9D9),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 7,
+                                        color: Colors.grey.shade300,
+                                        offset: Offset(3,3)
+                                      )
+                                    ],
+                                    color:ColorConstant.gray100,
                                     borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
                                   ),
                                   child:Padding(
@@ -514,7 +538,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                             fontSize: 16
                                         ),
 
-                                        dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                        dropdownColor: ColorConstant.gray100, //dropdown background color
                                         underline: Container(), //remove underline
                                         isExpanded: true, //make true to make width 100%
                                       )
@@ -530,73 +554,86 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                         child: Text("Expected salary", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)
                     ),
                     SizedBox(height: 10,),
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          width: 200,
-                          child: Theme(
-                            data: ThemeData(
-                                inputDecorationTheme: InputDecorationTheme(
-                                  filled: true,
-                                  fillColor: Color(0xFFD9D9D9),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12),
-                                        bottomLeft: Radius.circular(12)
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 7,
+                            offset: Offset(3,3)
+                          )
+                        ]
+                      ),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            width: 199,
+                            child: Theme(
+                              data: ThemeData(
+                                  inputDecorationTheme: InputDecorationTheme(
+                                    filled: true,
+                                    fillColor: ColorConstant.gray100,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(12),
+                                          bottomLeft: Radius.circular(12)
+                                      ),
                                     ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: ColorConstant.teal600),
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(12),
-                                        bottomLeft: Radius.circular(12)
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(color: ColorConstant.teal600),
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(12),
+                                          bottomLeft: Radius.circular(12)
+                                      ),
                                     ),
-                                  ),
+                                  )
+                              ),
+                              child: TextField(
+                                controller: txtSalary,
+                                keyboardType: TextInputType.number,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            width: 155,
+                            child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color:Color(0xFFD9D9D9),
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(12),
+                                      bottomRight: Radius.circular(12)
+                                  ), //border radius of dropdown button
+                                ),
+                                child:Padding(
+                                    padding: EdgeInsets.only(left:30, right:30),
+                                    child:DropdownButton<dynamic>(
+                                      value: salaryDWValue,
+                                      items: salaryList,
+                                      onChanged: (value){ //get value when changed
+                                        setState(() {
+                                          salaryDWValue = value.toString();
+                                        });
+                                      },
+                                      icon: Padding(
+                                          padding: EdgeInsets.only(left:20),
+                                          child:Icon(Icons.arrow_drop_down)
+                                      ),
+                                      style: TextStyle(
+                                          fontSize: 16
+                                      ),
+                                      dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                      underline: Container(), //remove underline
+                                      isExpanded: true, //make true to make width 100%
+                                    )
                                 )
                             ),
-                            child: TextField(
-                              controller: txtSalary,
-                              keyboardType: TextInputType.number,
-                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 155,
-                          child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color:Color(0xFFAAAFB4),
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(12),
-                                    bottomRight: Radius.circular(12)
-                                ), //border radius of dropdown button
-                              ),
-                              child:Padding(
-                                  padding: EdgeInsets.only(left:30, right:30),
-                                  child:DropdownButton<dynamic>(
-                                    value: salaryDWValue,
-                                    items: salaryList,
-                                    onChanged: (value){ //get value when changed
-                                      setState(() {
-                                        salaryDWValue = value.toString();
-                                      });
-                                    },
-                                    icon: Padding(
-                                        padding: EdgeInsets.only(left:20),
-                                        child:Icon(Icons.arrow_drop_down)
-                                    ),
-                                    style: TextStyle(
-                                        fontSize: 16
-                                    ),
-                                    dropdownColor: Color(0xFFD9D9D9), //dropdown background color
-                                    underline: Container(), //remove underline
-                                    isExpanded: true, //make true to make width 100%
-                                  )
-                              )
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     SizedBox(height: 20,),
                     Row(
@@ -632,12 +669,21 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                 child: Text("Education level", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)
                             ),
                             SizedBox(height: 10,),
-                            SizedBox(
+                            Container(
                               height: 50,
                               width: 200,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade300,
+                                    blurRadius: 7,
+                                    offset: Offset(3,3)
+                                  )
+                                ]
+                              ),
                               child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                    color:Color(0xFFD9D9D9),
+                                    color:ColorConstant.gray100,
                                     borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
                                   ),
                                   child:Padding(
@@ -770,15 +816,16 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
+                border: Border.all(color: Colors.grey.shade300)
+                // boxShadow: [
+                //   BoxShadow(
+                //     blurRadius: 5.0,
+                //     color: Colors.grey,
+                //     offset: Offset(
+                //       3,3
+                //     )
+                //   ),
+                // ],
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -807,12 +854,13 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                 child: Text("Country", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),)
                             ),
                             SizedBox(height: 10,),
-                            SizedBox(
+                            Container(
+                              decoration: BoxDecoration(),
                               height: 50,
                               width: 175,
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  color:Color(0xFFD9D9D9),
+                                  color:ColorConstant.gray100,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child:Padding(
@@ -875,7 +923,14 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                     SizedBox(height: 10,),
                     DecoratedBox(
                       decoration: BoxDecoration(
-                        color:Color(0xFFD9D9D9),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 7,
+                            offset: Offset(3,3),
+                            color: Colors.grey.shade300
+                          )
+                        ],
+                        color:ColorConstant.gray100,
                         borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
                       ),
                       child:Padding(
@@ -911,7 +966,15 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                     Container(
                       height: 150,
                       decoration: BoxDecoration(
-                        color: Color(0xFFD9D9D9),
+                        borderRadius: BorderRadius.circular(12),
+                        color: ColorConstant.gray100,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(3,3),
+                            color: Colors.grey.shade300,
+                            blurRadius: 7
+                          )
+                        ]
                       ),
                     ),
                     SizedBox(height: 30,),
@@ -945,15 +1008,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
+                border: Border.all(color: Colors.grey.shade300)
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -1030,15 +1085,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5.0,
-                    color: Colors.grey,
-                    offset: Offset(
-                      3,3
-                    )
-                  ),
-                ],
+                border: Border.all(color: Colors.grey.shade300)
               ),
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -1063,11 +1110,18 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: EdgeInsets.fromLTRB(0,0,0,screenHeight /30),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: ColorConstant.gray100,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade300,
+                                    blurRadius: 7,
+                                    offset: Offset(3,3)
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(12.0),
                               ),
-                              color: Color(0xFFD9D9D9),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
                                 child: Column(

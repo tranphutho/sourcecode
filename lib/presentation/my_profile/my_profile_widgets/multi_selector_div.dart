@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hires/core/app_export.dart';
 import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 
 multiSelectorDiv({
@@ -9,15 +10,7 @@ multiSelectorDiv({
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(15)),
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 5.0,
-              color: Colors.grey,
-              offset: Offset(
-                  3,3
-              )
-          ),
-        ],
+        border: Border.all(color: Colors.grey.shade300)
       ),
       child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -25,24 +18,31 @@ multiSelectorDiv({
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                          fontSize: 18
-                      ),
-                    )
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 18
+                    ),
+                  )
                 ),
                 SizedBox(height: 30,),
                 MultiSelectDialogField(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    items: itemsList,
-                    onConfirm: (values) {
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(3,3),
+                        blurRadius: 7,
+                        color: Colors.grey.shade300
+                      )
+                    ],
+                    color: ColorConstant.gray100,
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  items: itemsList,
+                  onConfirm: (values) {
 
-                    }
+                  }
                 )
               ]
           )

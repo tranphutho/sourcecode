@@ -86,6 +86,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
           title: Text(
@@ -93,6 +94,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
             style: TextStyle(fontSize: 20, color: Colors.black),
           ),
         ),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -106,15 +108,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                              blurRadius: 5.0,
-                              color: Colors.grey,
-                              offset: Offset(
-                                  3,3
-                              )
-                          ),
-                        ],
+                        border: Border.all(color: Colors.grey.shade300)
                       ),
                       child: Padding(
                           padding: const EdgeInsets.all(18.0),
@@ -137,11 +131,23 @@ class _MyContactScreenState extends State<MyContactScreen> {
                                     Container(
                                       height: 50,
                                       width: 200,
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.grey.shade300,
+                                            blurRadius: 7,
+                                            offset: Offset(3,3)
+                                          )
+                                        ]
+                                      ),
                                       child: TextFormField(
                                         controller: txtSearchContact,
                                         decoration: InputDecoration(
                                           hintText: "Search by name...",
-                                          fillColor: Color(0xFFD9D9D9),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide.none
+                                          ),
+                                          fillColor: ColorConstant.gray100,
                                         ),
                                       ),
                                     ),
@@ -158,7 +164,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
                                           style: ButtonStyle(
                                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                                   RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(15.0),
+                                                      borderRadius: BorderRadius.circular(12.0),
                                                       side: BorderSide(color: Colors.blue)
                                                   )
                                               )
@@ -175,7 +181,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
                                     width: 140,
                                     child: DecoratedBox(
                                         decoration: BoxDecoration(
-                                          color:Color(0xFFAAAFB4),
+                                          color:Color(0xFFD9D9D9),
                                           borderRadius: BorderRadius.circular(12.0)
                                         ),
                                         child:Padding(
@@ -212,7 +218,7 @@ class _MyContactScreenState extends State<MyContactScreen> {
                                               style: TextStyle(
                                                   fontSize: 12
                                               ),
-                                              dropdownColor: Color(0xFFD9D9D9), //dropdown background color
+                                              dropdownColor: ColorConstant.gray100, //dropdown background color
                                             )
                                         )
                                     ),
@@ -228,11 +234,18 @@ class _MyContactScreenState extends State<MyContactScreen> {
                                         itemBuilder: (context, index) {
                                           return Padding(
                                             padding: const EdgeInsets.fromLTRB(0,0,0,40),
-                                            child: Card(
-                                              shape: RoundedRectangleBorder(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: ColorConstant.gray100,
                                                 borderRadius: BorderRadius.circular(12),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                        color: Colors.grey.shade300,
+                                                        blurRadius: 7,
+                                                        offset: Offset(3,3)
+                                                    )
+                                                  ]
                                               ),
-                                              color: Color(0xFFD9D9D9),
                                               child: Padding(
                                                 padding: const EdgeInsets.symmetric(
                                                     vertical: 30.0,

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hires/core/app_export.dart';
 import 'package:hires/models/applicant_detail_model.dart';
 import 'package:hires/models/applicants_model.dart';
 import 'package:hires/providers/applicants_provider.dart';
@@ -55,6 +56,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -62,6 +64,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Consumer<ApplicantProvider>(
           builder: (context,provider,_) {
@@ -77,15 +80,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 5.0,
-                          color: Colors.grey,
-                          offset: Offset(
-                              3,3
-                          )
-                      ),
-                    ],
+                    border: Border.all(color: Colors.grey.shade300)
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(18.0),
@@ -110,8 +105,15 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                               width: 225,
                               child: DecoratedBox(
                                   decoration: BoxDecoration(
-                                    color:Color(0xFFD9D9D9),
-                                    borderRadius: BorderRadius.circular(15), //border raiuds of dropdown button
+                                    color: ColorConstant.gray100,
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade300,
+                                        offset: Offset(3,3),
+                                        blurRadius: 7
+                                      )
+                                    ]
                                   ),
                                   child:Padding(
                                       padding: EdgeInsets.only(left:30, right:30),
@@ -147,7 +149,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: BorderRadius.circular(12.0),
                                       side: BorderSide(color: Colors.blue)
                                     )
                                   )
@@ -172,7 +174,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                 backgroundColor: MaterialStateProperty.all(Colors.amber),
                                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
+                                    borderRadius: BorderRadius.circular(12.0),
                                     side: BorderSide(color: Colors.amber)
                                   )
                                 )
@@ -189,11 +191,18 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                               Applicant applicant=provider.applicantsModel!.data![index];
                               return Padding(
                                 padding: EdgeInsets.fromLTRB(0,0,0,MediaQuery.of(context).size.height / 25),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: ColorConstant.gray100,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade300,
+                                        blurRadius: 7,
+                                        offset: Offset(3,3)
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(12.0),
                                   ),
-                                  color: Color(0xFFD9D9D9),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
                                     child: Column(
@@ -212,7 +221,7 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                                                   ),
                                                   children: <TextSpan>[
                                                     TextSpan(
-                                                      text: applicant.candidateInfo!.user!.name,
+                                                      text: applicant.candidateInfo?.user?.name ?? "",
                                                       style: TextStyle(
                                                         fontSize: 14,
                                                         color: Colors.black

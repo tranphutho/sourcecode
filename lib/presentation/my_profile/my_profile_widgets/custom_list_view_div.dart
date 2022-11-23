@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hires/core/app_export.dart';
 customListViewDiv({
   final index,
   final screenHeight,
@@ -28,11 +29,18 @@ customListViewDiv({
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.fromLTRB(0,0,0,screenHeight /30),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorConstant.gray100,
+                    borderRadius: BorderRadius.circular(12.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.shade300,
+                        blurRadius: 7,
+                        offset: Offset(3,3)
+                      )
+                    ]
                   ),
-                  color: Color(0xFFD9D9D9),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
                     child: Column(

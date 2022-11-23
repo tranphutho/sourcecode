@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hires/core/utils/color_constant.dart';
 
 customColumn({
   final title,
@@ -28,19 +29,33 @@ customColumn({
       Container(
         height: height,
         width: width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 4,
+              color: Colors.grey.shade300,
+              offset: Offset(3,3)
+            )
+          ]
+        ) ,
         child: TextFormField(
           style: TextStyle(color: Colors.black),
           maxLines: maxLines,
           keyboardType: keyboardType,
           controller: controller,
           decoration: InputDecoration(
-            fillColor: Color(0xFFD9D9D9),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+            fillColor: ColorConstant.gray100,
             contentPadding: EdgeInsets.all(18),
             hintText: hint,
             hintStyle: TextStyle(
-            fontSize: 14,
-            color: Colors.black.withOpacity(0.5),
-            fontWeight: FontWeight.bold
+              fontSize: 14,
+              color: Colors.black.withOpacity(0.5),
+              fontWeight: FontWeight.bold
             ),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hires/core/app_export.dart';
 import 'package:hires/models/job_model.dart';
 import 'package:hires/models/my_job_model.dart';
 import 'package:hires/models/user_model.dart';
@@ -26,26 +27,6 @@ class ManageJobsScreen extends StatefulWidget {
 
 class _ManageJobsScreenState extends State<ManageJobsScreen> {
   late TextEditingController txtSearchJob;
-  // List<Job> jobs = [
-  //   Job(
-  //       title: "Software Engineer",
-  //       location: Location(name: "Biratnagar"),
-  //       category: Category(name: "Development"),
-  //       status: "Active",
-  //       expirationDate: DateTime.now()),
-  //   Job(
-  //       title: "Social Media Manager",
-  //       location: Location(name: "Kathmandu"),
-  //       category: Category(name: "Marketing"),
-  //       status: "Expired",
-  //       expirationDate: DateTime.now()),
-  //   Job(
-  //       title: "PHP Developer",
-  //       location: Location(name: "Bihar"),
-  //       category: Category(name: "Development"),
-  //       status: "Expired",
-  //       expirationDate: DateTime.now())
-  // ];
   List<Job> searchedJobs = [];
 
   UserModel? userApp;
@@ -79,6 +60,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.white,
           elevation: 0,
           centerTitle: true,
           title: Text(
@@ -86,6 +68,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
             style: TextStyle(fontSize: 20, color: Colors.black),
           ),
         ),
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -97,13 +80,8 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
               Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 5.0,
-                          color: Colors.grey,
-                          offset: Offset(3, 3)),
-                    ],
+                    borderRadius: BorderRadius.all(Radius.circular(12)),
+                    border: Border.all(color: Colors.grey.shade300)
                   ),
                   child: Padding(
                       padding: const EdgeInsets.all(18.0),
@@ -125,6 +103,15 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                 Container(
                                   height: 50,
                                   width: 225,
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade300,
+                                        blurRadius: 7,
+                                        offset: Offset(3,3)
+                                      )
+                                    ]
+                                  ),
                                   child: TextFormField(
                                     controller: txtSearchJob,
                                     onChanged: (value) {
@@ -134,8 +121,11 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                           .searchJobs(txtSearchJob.text);
                                     },
                                     decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide.none
+                                      ),
                                       hintText: "Search by name...",
-                                      fillColor: Color(0xFFD9D9D9),
+                                      fillColor: ColorConstant.gray100,
                                     ),
                                   ),
                                 ),
@@ -155,7 +145,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                               RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          15.0),
+                                                          12.0),
                                                   side: BorderSide(
                                                       color: Colors.blue))))),
                                 ),
@@ -165,7 +155,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                               height: 30,
                             ),
                             Container(
-                              height: 530,
+                              height: 450,
                               child: Consumer<MyJobProvider>(
                                   builder: (context, value, child) {
                                 if (_loading!)
@@ -193,14 +183,25 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                                   return Padding(
                                                     padding: const EdgeInsets
                                                         .fromLTRB(0, 0, 0, 30),
-                                                    child: Card(
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
+                                                    child: Container(
+                                                      decoration:
+                                                          BoxDecoration(
+                                                            color:
+                                                              ColorConstant.gray100,
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                color: Colors.grey.shade300,
+                                                                blurRadius: 7,
+                                                                offset: Offset(
+                                                                  3,3
+                                                                )
+                                                              )
+                                                            ],
+
+                                                            borderRadius:
                                                             BorderRadius
-                                                                .circular(15.0),
+                                                                .circular(12.0),
                                                       ),
-                                                      color: Color(0xFFD9D9D9),
                                                       child: InkWell(
                                                         onTap: () =>
                                                             Navigator.pushNamed(
