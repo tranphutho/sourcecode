@@ -66,7 +66,11 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
     return Scaffold(
       body: Scaffold(
         key: Homepage3Screen.skey,
-        drawer: drawerWidget(
+        endDrawer: drawerWidget(
+          isDark: isDark,
+          usePrv: usePrv,
+          context: context,
+        ),drawer: drawerWidget(
           isDark: isDark,
           usePrv: usePrv,
           context: context,

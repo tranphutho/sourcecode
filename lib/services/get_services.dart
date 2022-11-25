@@ -9,11 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'api_urls.dart';
 
 class GetServices {
-  static findJobs() async {
+  static findJobs({int page=0}) async {
     http.Response response;
     try {
       var data = {
         "orderBy": "new",
+        "page":page.toString()
       };
       Uri uri = Uri(
           scheme: 'https',

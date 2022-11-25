@@ -1046,7 +1046,7 @@ launchUrl(Uri.parse("http://play.google.com/store/apps/details?id=${Constants.pa
               ),
             ),
             Spacer(),
-        Row(
+      usePrv.role_id==Constants.candidateRoleId?SizedBox():  Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton(onPressed: (){Navigator.of(context).pushNamed(AddNewJobScreen.id);}, child: Row(
