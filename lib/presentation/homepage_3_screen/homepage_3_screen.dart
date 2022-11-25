@@ -174,26 +174,11 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  12.00,
-                                ),
-                                right: getHorizontalSize(
-                                  2.00,
-                                ),
-                                bottom: getVerticalSize(5)),
-                            //ready
-                              child: Image.network(
-                                usePrv!.profilePicture != null
-                                    ?"http://"+Constants.urlApi+"/"+ usePrv!.profilePicture!
-                                    : "https://whitejobs.co.in/images/avatar.png",
-                                fit: BoxFit.fill,
-                              ),
-
-                          ),
+                        Image.network(
+                          usePrv!.profilePicture != null
+                              ?"http://"+Constants.urlApi+"/"+ usePrv!.profilePicture!
+                              : "https://whitejobs.co.in/images/avatar.png",
+                          fit: BoxFit.fill,
                         ),
                         Align(
                           alignment: Alignment.topRight,
@@ -681,7 +666,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
                                 child: ListView.builder(
                                   physics: BouncingScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: popularJob!.data!.length,
+                                  itemCount: 10,
                                   itemBuilder: (context, index) {
                                     return Group568ItemWidget(
                                         job: popularJob!.data![index]);

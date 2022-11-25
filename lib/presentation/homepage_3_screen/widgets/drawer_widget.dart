@@ -354,6 +354,48 @@ drawerWidget({
                       ),
                     ),
                   ),
+                  usePrv.role_id!=Constants.candidateRoleId?   Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, CompanyProfile.id);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            height: getVerticalSize(
+                              21.00,
+                            ),
+                            width: getHorizontalSize(
+                              16.00,
+                            ),
+                            child: Icon(Icons.person),
+                          ),
+                       Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: getHorizontalSize(12),
+                            ),
+                            child: Text(
+                              "Company Profile",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: getFontSize(
+                                  15,
+                                ),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ):SizedBox(),
                   usePrv.role_id==Constants.candidateRoleId?   Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(

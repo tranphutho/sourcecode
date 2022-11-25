@@ -202,7 +202,7 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              wishlist.company!=null?  wishlist.company!.name!:"Null",
+                                              wishlist.company!=null?  wishlist.company!.name!:"",
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w500

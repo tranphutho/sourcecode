@@ -84,7 +84,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
     txtLinkedin = TextEditingController(text: '');
     txtInstagram = TextEditingController(text: '');
     txtGoogle = TextEditingController(text: '');
-
+    Provider.of<ResourceModelProvider>(context, listen: false).init();
     usePrv = Provider.of<UserProvider>(context, listen: false).userApp!;
     resourceModel = Provider.of<ResourceModelProvider>(context, listen: false)
         .resourceModel!;
@@ -538,56 +538,56 @@ class _CompanyProfileState extends State<CompanyProfile> {
                           SizedBox(
                             height: 30,
                           ),
-                          DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFD9D9D9),
-                                borderRadius: BorderRadius.circular(
-                                    15), //border raiuds of dropdown button
-                              ),
-                              child: Padding(
-                                  padding: EdgeInsets.only(left: 30, right: 30),
-                                  child: DropdownButton<String>(
-                                    value: categoryDWValue,
-                                    selectedItemBuilder:
-                                        (BuildContext context) {
-                                      return resourceModel!.categories!
-                                          .map<Widget>((item) {
-                                        return Container(
-                                            alignment: Alignment.centerLeft,
-                                            constraints: const BoxConstraints(
-                                                minWidth: 100),
-                                            child: Text(
-                                              item.name!,
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ));
-                                      }).toList();
-                                    },
-                                    items: resourceModel!.categories!
-                                        .map<DropdownMenuItem<String>>((item) {
-                                      return DropdownMenuItem<String>(
-                                          value: item.id!.toString(),
-                                          child: Text(item.name!,
-                                              style: TextStyle(
-                                                  color: Colors.black)));
-                                    }).toList(),
-                                    onChanged: (value) {
-                                      //get value when changed
-
-                                      setState(() {
-                                        categoryDWValue = value.toString();
-                                      });
-                                    },
-                                    icon: Padding(
-                                        padding: EdgeInsets.only(left: 20),
-                                        child: Icon(Icons.arrow_drop_down)),
-                                    style: TextStyle(fontSize: 16),
-                                    dropdownColor: Color(
-                                        0xFFD9D9D9), //dropdown background color
-                                    underline: Container(), //remove underline
-                                    isExpanded:
-                                        true, //make true to make width 100%
-                                  ))),
+                          // DecoratedBox(
+                          //     decoration: BoxDecoration(
+                          //       color: Color(0xFFD9D9D9),
+                          //       borderRadius: BorderRadius.circular(
+                          //           15), //border raiuds of dropdown button
+                          //     ),
+                          //     child: Padding(
+                          //         padding: EdgeInsets.only(left: 30, right: 30),
+                          //         child: DropdownButton<String>(
+                          //           value: categoryDWValue,
+                          //           selectedItemBuilder:
+                          //               (BuildContext context) {
+                          //             return resourceModel!.categories!
+                          //                 .map<Widget>((item) {
+                          //               return Container(
+                          //                   alignment: Alignment.centerLeft,
+                          //                   constraints: const BoxConstraints(
+                          //                       minWidth: 100),
+                          //                   child: Text(
+                          //                     item.name!,
+                          //                     style: TextStyle(
+                          //                         color: Colors.black),
+                          //                   ));
+                          //             }).toList();
+                          //           },
+                          //           items: resourceModel!.categories!
+                          //               .map<DropdownMenuItem<String>>((item) {
+                          //             return DropdownMenuItem<String>(
+                          //                 value: item.id!.toString(),
+                          //                 child: Text(item.name!,
+                          //                     style: TextStyle(
+                          //                         color: Colors.black)));
+                          //           }).toList(),
+                          //           onChanged: (value) {
+                          //             //get value when changed
+                          //
+                          //             setState(() {
+                          //               categoryDWValue = value.toString();
+                          //             });
+                          //           },
+                          //           icon: Padding(
+                          //               padding: EdgeInsets.only(left: 20),
+                          //               child: Icon(Icons.arrow_drop_down)),
+                          //           style: TextStyle(fontSize: 16),
+                          //           dropdownColor: Color(
+                          //               0xFFD9D9D9), //dropdown background color
+                          //           underline: Container(), //remove underline
+                          //           isExpanded:
+                          //               true, //make true to make width 100%
+                          //         ))),
                         ]))),
             SizedBox(
               height: 50,
