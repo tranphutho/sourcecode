@@ -46,11 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
         label: "Home",
       ),
       BottomNavigationBarItem(
-        icon: SvgPicture.asset(ImageConstant.iActiveHome,
-        ),
-        activeIcon: SvgPicture.asset(
-          ImageConstant.activeHome,
-        ),
+        icon: Icon(Icons.accessibility),
+        activeIcon: Icon(Icons.accessibility,color: Colors.green,),
         label: "Jobs",
       ),
       BottomNavigationBarItem(
