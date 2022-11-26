@@ -8,16 +8,16 @@ import 'package:hires/models/wishlist_model.dart';
 import 'package:hires/providers/resumes_provider.dart';
 import 'package:provider/provider.dart';
 
-class ShortlistedResumesScreen extends StatefulWidget {
+class WishListScreen extends StatefulWidget {
   static String id = "shortlistedResumes";
-  const ShortlistedResumesScreen({Key? key}) : super(key: key);
+  const WishListScreen({Key? key}) : super(key: key);
 
 
   @override
-  State<ShortlistedResumesScreen> createState() => _ShortlistedResumesScreenState();
+  State<WishListScreen> createState() => _WishListScreenState();
 }
 
-class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
+class _WishListScreenState extends State<WishListScreen> {
   late TextEditingController txtSearchResume;
 
   List<Cadidate> resumes = [
@@ -67,7 +67,7 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "Shortlisted Resumes",
+          "Shortlisted",
           style: TextStyle(fontSize: 20, color: Colors.black),
         ),
       ),
@@ -157,11 +157,11 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                         SizedBox(height: MediaQuery.of(context).size.height / 30,),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child:provider.shortlistedResumes!=null? ListView.builder(
+                          child:provider.wishListedItems!=null? ListView.builder(
                             shrinkWrap: true,
-                            itemCount:(provider.searchedResumes!.data==null || provider.searchedResumes!.data!.isEmpty)? provider.shortlistedResumes!.data!.length:provider.searchedResumes!.data!.length,
+                            itemCount:(provider.searchedWishlistedItems!.data==null || provider.searchedWishlistedItems!.data!.isEmpty)? provider.wishListedItems!.data!.length:provider.searchedWishlistedItems!.data!.length,
                             itemBuilder: (context, index) {
-                              Wishlist wishlist=(provider.searchedResumes!.data==null || provider.searchedResumes!.data!.isEmpty)? provider.shortlistedResumes!.data![index]:provider.searchedResumes!.data![index];
+                              Wishlist wishlist=(provider.searchedWishlistedItems!.data==null || provider.searchedWishlistedItems!.data!.isEmpty)? provider.wishListedItems!.data![index]:provider.searchedWishlistedItems!.data![index];
                               return Padding(
                                 padding: const EdgeInsets.fromLTRB(0,0,0,40),
                                 child: Container(
@@ -217,7 +217,7 @@ class _ShortlistedResumesScreenState extends State<ShortlistedResumesScreen> {
                                           icon: Icon(Icons.delete_outline, color: Colors.red,),
                                           onPressed: () {
                                             setState(() {
-                                              var wishlist=provider.shortlistedResumes!.data![index];
+                                              var wishlist=provider.wishListedItems!.data![index];
                                               provider.removeResume(context,wishlist);
                                             });
                                           },

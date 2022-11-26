@@ -22,11 +22,12 @@ import 'package:hires/presentation/manage_applicants_screen/manage_applicants_sc
 import 'package:hires/presentation/my_contact_screen/my_contact_screen.dart';
 import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/presentation/profile_style_1_screen/profile_style_1_screen.dart';
-import 'package:hires/presentation/shortlisted_resumes_screen/shortlisted_resumes_screen.dart';
 import 'package:hires/presentation/web_view_screen/web_view_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../wishlist_screen/wishlist_screen.dart';
 
 drawerWidget({
   required final isDark,
@@ -354,6 +355,50 @@ drawerWidget({
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(top: getVerticalSize(16)),
+                    child: GestureDetector(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            height: getSize(
+                              20.00,
+                            ),
+                            width: getSize(
+                              20.00,
+                            ),
+                            child: Icon(Icons.person_pin_rounded),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, WishListScreen.id);
+
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: getHorizontalSize(12)),
+                              child: Text(
+                                "Shortlisted",
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: getFontSize(
+                                    15,
+                                  ),
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
                   usePrv.role_id!=Constants.candidateRoleId?   Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
@@ -396,6 +441,7 @@ drawerWidget({
                       ),
                     ),
                   ):SizedBox(),
+
                   usePrv.role_id==Constants.candidateRoleId?   Padding(
                     padding: EdgeInsets.only(top: getVerticalSize(16)),
                     child: GestureDetector(
@@ -437,10 +483,12 @@ drawerWidget({
                               ),
                             ),
                           ),
+
                         ],
                       ),
                     ),
                   ):SizedBox(),
+
                   customEmployerNavBuilder(
                       title: "Manage Jobs",
                       usePrv: usePrv,
@@ -456,6 +504,7 @@ drawerWidget({
                           Navigator.of(context).pushNamed(ManageApplicantsScreen.id),
                       icon: Icon(Icons.wallet_giftcard, color: Colors.grey.shade400,)
                   ),
+
                   Builder(builder: (context) {
                     if (usePrv.role_id != 3)
                       return Container();
@@ -507,17 +556,7 @@ drawerWidget({
                         ),
                       );
                   }),
-                  customEmployerNavBuilder(
-                      title: "Shortlisted Resumes",
-                      usePrv: usePrv,
-                      onTap: () {
-                        Navigator.pushNamed(context, ShortlistedResumesScreen.id);
-                      },
-                      icon: Icon(
-                        CupertinoIcons.rectangle_stack_person_crop_fill,
-                        color: Colors.grey.shade400,
-                      )
-                  ),
+
                   customEmployerNavBuilder(
                       title: "My Contact",
                       usePrv: usePrv,

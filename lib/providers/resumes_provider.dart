@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import '../core/utils/common_utils.dart';
 
 class ResumeProvider extends ChangeNotifier {
-  WishlistModel? shortlistedResumes;
-  WishlistModel? searchedResumes=WishlistModel();
+  WishlistModel? wishListedItems;
+  WishlistModel? searchedWishlistedItems=WishlistModel();
 
   Future getShortlistedResumes(BuildContext context) async {
     String token =
@@ -20,9 +20,9 @@ class ResumeProvider extends ChangeNotifier {
 
     if (body != null) {
       var data = body["data"];
-      shortlistedResumes = WishlistModel.fromJson(data);
+      wishListedItems = WishlistModel.fromJson(data);
       notifyListeners();
-      return shortlistedResumes;
+      return wishListedItems;
     }
   }
 
@@ -52,7 +52,7 @@ class ResumeProvider extends ChangeNotifier {
   }
 
   searchResumes(String keyword){
-    searchedResumes!.data=shortlistedResumes!.data!.where((element) =>element.company!.name==keyword).toList();
+    searchedWishlistedItems!.data=wishListedItems!.data!.where((element) =>element.company!.name==keyword).toList();
     notifyListeners();
   }
 }
