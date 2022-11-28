@@ -49,7 +49,7 @@ class _JobDetails1ScreenState extends State<JobDetails1Screen>
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: getHorizontalSize(16)),
-        child: Container(
+        child:usePrv.role_id==Constants.candidateRoleId? Container(
           width: getHorizontalSize(330),
           height: getVerticalSize(50),
           child: FloatingActionButton.extended(
@@ -70,7 +70,7 @@ class _JobDetails1ScreenState extends State<JobDetails1Screen>
                 Navigator.pushNamed(context, ApplyScreen.id, arguments: job);
               },
               label: Text('Apply Now')),
-        ),
+        ):SizedBox(),
       ),
       body: SafeArea(
         child: Container(

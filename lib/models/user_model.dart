@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hires/core/constants/constants.dart';
+import 'package:hires/models/applicants_model.dart';
 import 'package:hires/models/job_model.dart';
 
 import 'package:hires/services/login_sevice.dart';
@@ -42,6 +43,7 @@ class UserModel {
   int? total_guests;
   int? is_verified;
   int? need_update_pw;
+  CandidateInfo? candidate;
   DateTime? birthday;
   DateTime? email_verified_at;
   DateTime? last_login_at;
@@ -60,7 +62,9 @@ class UserModel {
       this.vendor_commission_type,
       this.role_id,
       this.name,
-      this.first_name,
+      this.first_name
+        ,
+        this.candidate,
       this.last_name,
       this.email,
       this.phone,
@@ -102,6 +106,7 @@ class UserModel {
     token = map['token'] ?? '';
     bio = map['bio'];
     status = map['status'];
+    candidate = map['candidate']!=null?CandidateInfo.fromJson(map['candidate']):null;
     billing_last_name = map['billing_last_name'];
     billing_first_name = map['billing_first_name'];
     country = map['country'];
@@ -147,6 +152,7 @@ class UserModel {
         'billing_first_name': billing_first_name,
         'country': country,
         'state': state,
+        'candidate': candidate!.toJson(),
         'city': city,
         'zip_code': zip_code,
         'address': address,

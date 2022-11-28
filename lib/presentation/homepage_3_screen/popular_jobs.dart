@@ -41,7 +41,7 @@ class _PopularJobes extends State<PopularJobes> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Popular Jobes",
+            "Popular Jobs",
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(

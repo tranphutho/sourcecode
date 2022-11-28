@@ -91,7 +91,7 @@ class Employer {
     categoryId: json['category_id'] == null ? null : json['category_id'],
     teamSize: json['team_size'] == null ? null : json['team_size'],
     about: json['about'] == null ? null : json['about'],
-    company: Company.fromJson(json['company']),
+    company:json['company']!=null? Company.fromJson(json['company']):null,
     category: json["category"] == null
         ? null
         : Category.fromJson(json["category"]),

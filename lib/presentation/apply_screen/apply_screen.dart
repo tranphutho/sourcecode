@@ -246,14 +246,10 @@ class _ApplyScreen extends State<ApplyScreen> {
                                                 Align(
                                                   alignment:
                                                       Alignment.centerLeft,
-                                                  child: Image.asset(
-                                                    ImageConstant.imgSpotigy13,
-                                                    height: getSize(
-                                                      44.00,
-                                                    ),
-                                                    width: getSize(
-                                                      44.00,
-                                                    ),
+                                                  child: Image.network(
+                                                    job!.thumbnailImage != null
+                                                        ? job!.thumbnailImage!
+                                                        : "https://whitejobs.co.in/images/avatar.png",
                                                     fit: BoxFit.fill,
                                                   ),
                                                 ),
@@ -300,8 +296,9 @@ class _ApplyScreen extends State<ApplyScreen> {
                                                         ),
                                                       ),
                                                       child: Text(
-                                                        job!.category!.name!,
-                                                        textAlign:
+                                                        "${job!.company != null ? job!.company!.name : ""}",
+
+                                                      textAlign:
                                                             TextAlign.start,
                                                         style: TextStyle(
                                                           fontSize: getFontSize(
@@ -314,7 +311,8 @@ class _ApplyScreen extends State<ApplyScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      "${Constants.currency}${job?.salaryMin ?? ""} - ${Constants.currency}${job?.salaryMax ?? ""}/${job!.salaryType!.substring(0, 1) ?? ""}",
+                                                      job!.category!.name!,
+
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       textAlign:
@@ -350,7 +348,9 @@ class _ApplyScreen extends State<ApplyScreen> {
                                                       MainAxisSize.max,
                                                   children: [
                                                     Text(
-                                                      "Spotify",
+                                                      "${Constants.currency}${job?.salaryMin ?? ""} - ${Constants.currency}${job?.salaryMax ?? ""}/${job!.salaryType!.substring(0, 1) ?? ""}",
+
+
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       textAlign:
@@ -400,110 +400,6 @@ class _ApplyScreen extends State<ApplyScreen> {
                               ),
                             ),
                           ),
-                          // Align(
-                          //   alignment: Alignment.centerLeft,
-                          //   child: Padding(
-                          //     padding: EdgeInsets.only(
-                          //       left: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //       top: getVerticalSize(
-                          //         24.00,
-                          //       ),
-                          //       right: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //     ),
-                          //     child: Text(
-                          //       "Select a profile",
-                          //       overflow: TextOverflow.ellipsis,
-                          //       textAlign: TextAlign.start,
-                          //       style: TextStyle(
-                          //         fontSize: getFontSize(
-                          //           16,
-                          //         ),
-                          //         fontFamily: 'Poppins',
-                          //         fontWeight: FontWeight.w600,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Container(
-                          //   height: getVerticalSize(
-                          //     200.00,
-                          //   ),
-                          //   child: ListView.builder(
-                          //     padding: EdgeInsets.only(
-                          //       left: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //       top: getVerticalSize(
-                          //         16.00,
-                          //       ),
-                          //       right: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //     ),
-                          //     scrollDirection: Axis.horizontal,
-                          //     physics: BouncingScrollPhysics(),
-                          //     itemCount: 2,
-                          //     itemBuilder: (context, index) {
-                          //       return Group2073ItemWidget();
-                          //     },
-                          //   ),
-                          // ),
-                          // Align(
-                          //   alignment: Alignment.centerLeft,
-                          //   child: Padding(
-                          //     padding: EdgeInsets.only(
-                          //       left: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //       top: getVerticalSize(
-                          //         32.00,
-                          //       ),
-                          //       right: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //     ),
-                          //     child: Text(
-                          //       "Select a resume",
-                          //       overflow: TextOverflow.ellipsis,
-                          //       textAlign: TextAlign.start,
-                          //       style: TextStyle(
-                          //         fontSize: getFontSize(
-                          //           16,
-                          //         ),
-                          //         fontFamily: 'Poppins',
-                          //         fontWeight: FontWeight.w600,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
-                          // Container(
-                          //   height: getVerticalSize(
-                          //     90.00,
-                          //   ),
-                          //   child: ListView.builder(
-                          //     padding: EdgeInsets.only(
-                          //       left: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //       top: getVerticalSize(
-                          //         16.00,
-                          //       ),
-                          //       right: getHorizontalSize(
-                          //         24.00,
-                          //       ),
-                          //     ),
-                          //     scrollDirection: Axis.horizontal,
-                          //     physics: BouncingScrollPhysics(),
-                          //     itemCount: 2,
-                          //     itemBuilder: (context, index) {
-                          //       return Group2074ItemWidget();
-                          //     },
-                          //   ),
-                          // ),
                           Padding(
                             padding: EdgeInsets.only(
                               right: getHorizontalSize(

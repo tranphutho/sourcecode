@@ -834,6 +834,8 @@ class Link {
 
 class JobProvider extends ChangeNotifier {
   JobsModel? featuredJobModel;
+  JobsModel? allJobs;
+
   JobsModel? popularJobModel;
   JobsModel? urgenJobModel;
   JobsModel? appliedJobs;
@@ -842,6 +844,7 @@ class JobProvider extends ChangeNotifier {
   List<Job>? get draftJobs => appliedJobs!.data!.where((element) => element.status=="draft").toList();
   List<Job>? get pendingJobs => appliedJobs!.data!.where((element) => element.status=="pending").toList();
   bool statusLogin = false;
+  bool isLoading = false;
   String mssgLogin = '';
   String emailToVerify = '';
   String resetTypeToVerify = '';
@@ -855,7 +858,10 @@ class JobProvider extends ChangeNotifier {
 
   Future myAppliedJobs(String token)async{
     print("Getting applied obs");
+    isLoading=true;
     var body = await GetServices.getMyAppliedJob(token);
+    isLoading=false;
+
     if (body != null) {
       var data = body["data"];
       appliedJobs = JobsModel.fromJson(body);
@@ -869,8 +875,35 @@ class JobProvider extends ChangeNotifier {
     await findUrgentJobs();
   }
 
-  Future<JobsModel?> findJobs() async {
-    var body = await GetServices.findJobs();
+  Future<JobsModel?> getAllJobs({int page=1}) async {
+    isLoading=true;
+    print("Page $page");
+
+    var body = await GetServices.findJobs(page:page);
+    print("Response "+ body.toString());
+
+    isLoading=false;
+
+    if (body != null) {
+      var data = body["data"];
+      var jobsModel=JobsModel.fromJson(data);
+      if(allJobs==null){
+        allJobs = jobsModel;
+
+      }
+      else{
+        allJobs!.data!.addAll(jobsModel!.data!);
+      }
+      notifyListeners();
+      return allJobs;
+    }
+  }
+  Future<JobsModel?> findJobs({int page=1}) async {
+    isLoading=true;
+
+    var body = await GetServices.findJobs(page:page);
+    isLoading=false;
+
     if (body != null) {
       var data = body["data"];
       popularJobModel = JobsModel.fromJson(data);

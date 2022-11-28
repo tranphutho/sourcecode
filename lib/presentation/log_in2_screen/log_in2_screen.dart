@@ -585,7 +585,7 @@ class LogIn2Screen extends StatelessWidget {
                                 text: TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Haven’t an account? ',
+                                      text: 'Hawven’t an account? ',
                                       style: TextStyle(
                                         color: ColorConstant.gray401,
                                         fontSize: getFontSize(

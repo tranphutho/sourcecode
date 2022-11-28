@@ -1,71 +1,63 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hires/core/app_export.dart';
-import 'package:hires/models/candidates_model.dart';
-import 'package:hires/models/resource_model.dart';
 import 'package:hires/models/user_model.dart';
-import 'package:hires/presentation/candidates_screen/widgets/candidates_card_widget.dart';
-import 'package:hires/presentation/employers_screen/widgets/employers_card_widget.dart';
-import 'package:hires/presentation/homepage_3_screen/homepage_3_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/popular_jobs.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/drawer_widget.dart';
+import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
 import 'package:hires/presentation/searchfilterbottomsheet_page/searchfilterbottomsheet_page.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../models/job_model.dart';
+import '../homepage_3_screen/homepage_3_screen.dart';
+import '../homepage_3_screen/widgets/group568_item_widget.dart';
+import '../homepage_3_screen/widgets/group59_item_widget.dart';
 
-import '../../models/employers_model.dart';
-import '../search_employer_screen/search_employer_screen.dart';
-
-class EmployersScreen extends StatefulWidget {
-  static String id = "employersScreen";
-
-final String? keyword;
-  EmployersScreen({this.keyword});
+class AllJobsScreen extends StatefulWidget {
+  static String id = "Homepage3Screen";
+  static GlobalKey<ScaffoldState> skey = GlobalKey();
 
   @override
-  State<EmployersScreen> createState() => _EmployersScreenState();
+  State<AllJobsScreen> createState() => _AllJobsScreenState();
 }
 
-class _EmployersScreenState extends State<EmployersScreen> {
+class _AllJobsScreenState extends State<AllJobsScreen> {
+  int silderIndex = 1;
   bool status = false;
-  EmployersModel? employers;
-
-  bool _isLoading = false;
-
-
+  JobsModel? allJobs;
+  JobsModel? popularJob;
+  int page=1;
+RefreshController refreshController=RefreshController();
   @override
   initState() {
     super.initState();
-    setState(() {
-      _isLoading = true;
-    });
-    Provider.of<EmployersProvider>(context, listen: false).init(keyword:widget.keyword).then((_) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+
+
+    Provider.of<JobProvider>(context, listen: false).getAllJobs().then((value) =>page++);
   }
 
   @override
   Widget build(BuildContext context) {
-    var screenHeight = MediaQuery.of(context).size.height;
-    var screenWidth = MediaQuery.of(context).size.width;
     //THO
     UserModel usePrv = Provider.of<UserProvider>(
       context,
     ).userApp!;
 
-    employers =
-        Provider.of<EmployersProvider>(context, listen: false).employersModel;
     bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       body: Scaffold(
+
         key: Homepage3Screen.skey,
         endDrawer: drawerWidget(
-            isDark: isDark,
-            usePrv: usePrv,
-            context: context
+          isDark: isDark,
+          usePrv: usePrv,
+          context: context,
         ),
         appBar: AppBar(
           elevation: 0,
@@ -124,7 +116,7 @@ class _EmployersScreenState extends State<EmployersScreen> {
             Builder(builder: (context) {
               return GestureDetector(
                 onTap: () {
-                  Scaffold.of(context).openEndDrawer();
+                  Scaffold.of(context).openDrawer();
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -251,10 +243,11 @@ class _EmployersScreenState extends State<EmployersScreen> {
                               child: TextFormField(
                                 readOnly: true,
                                 onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (c)=>SearchEmployerScreen()));
+                                  Navigator.pushNamed(
+                                      context, SearchOption3Screen.id);
                                 },
                                 decoration: InputDecoration(
-                                  hintText: 'Search a Company',
+                                  hintText: 'Search a job or position',
                                   prefixIcon: Padding(
                                     padding: EdgeInsets.only(
                                       left: context.locale == Constants.engLocal
@@ -399,53 +392,12 @@ class _EmployersScreenState extends State<EmployersScreen> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             Padding(
                               padding: EdgeInsets.only(
-                                left: getHorizontalSize(
-                                  0.00,
-                                ),
                                 top: getVerticalSize(
-                                  30.00,
-                                ),
-                                right: getHorizontalSize(
-                                  0.00,
-                                ),
-                              ),
-                              child: Builder(builder: (context) {
-                                if (_isLoading) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else {
-                                  return Container(
-                                    height: 250,
-                                    width: screenWidth,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFFD9D9D9),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Colors.black26,
-                                              blurRadius: 10,
-                                              offset: Offset(
-                                                  3,3
-                                              )
-                                          )
-                                        ]
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/google_maps.png",
-                                      fit: BoxFit.cover,
-
-                                    ),
-                                  );
-                                }
-                              }),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  40.00,
+                                  20.00,
                                 ),
                               ),
                               child: Row(
@@ -467,7 +419,7 @@ class _EmployersScreenState extends State<EmployersScreen> {
                                           : getHorizontalSize(0),
                                     ),
                                     child: Text(
-                                      "Employers",
+                                      "All Jobs",
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.start,
                                       style: TextStyle(
@@ -515,38 +467,44 @@ class _EmployersScreenState extends State<EmployersScreen> {
                                 ],
                               ),
                             ),
-                            Builder(builder: (context) {
-                              if (_isLoading) {
+                            Consumer<JobProvider>(
+                                builder: (context,provider,_) {
+                              if (provider.isLoading) {
                                 return Center(
                                   child: CircularProgressIndicator(),
                                 );
                               } else {
-                                return Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: getHorizontalSize(
-                                        24.00,
-                                      ),
-                                      top: getVerticalSize(
-                                        20.00,
-                                      ),
-                                      right: getHorizontalSize(
-                                        24.00,
-                                      ),
-                                    ),
+                                return SizedBox(
+                                  height: MediaQuery.of(context).size.height-250,
+                                  child: SmartRefresher(
+
+                                    controller: refreshController,
+                                    enablePullDown: false,
+                                    onLoading: (){
+                                      if(refreshController.isLoading){
+                                        Provider.of<JobProvider>(context,listen: false).getAllJobs(page: page).then((value) {
+                                          page++;
+                                          print("Loading done");
+                                          refreshController.loadComplete();
+                                        });
+
+                                      }
+                                    },
+                                    onRefresh: (){
+                                      print("On refreh");
+                                    },
+                                    enablePullUp: true,
                                     child: ListView.builder(
-                                      physics: BouncingScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: employers!.data!.length,
-                                      itemBuilder: (context, index) {
-                                        return EmployersCardWidget(
-                                            employer: employers!.data![index]
-                                        );
-                                        return Container();
-                                      },
+                                          physics: BouncingScrollPhysics(),
+                                          itemCount: provider.allJobs!.data!.length,
+                                          itemBuilder: (context, index) {
+                                            return Group568ItemWidget(
+                                                job: provider.allJobs!.data![index]);
+
+                                      }
                                     ),
-                                  )
+                                  ),
                                 );
                               }
                             }),
@@ -557,8 +515,7 @@ class _EmployersScreenState extends State<EmployersScreen> {
                   ],
                 ),
               ),
-            )
-        ),
+            )),
       ),
     );
   }

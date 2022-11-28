@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
+import 'package:hires/models/applicants_model.dart';
 import 'package:hires/models/job_model.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/services/get_services.dart';
@@ -53,6 +54,7 @@ class Wishlist {
       this.createdAt,
       this.updatedAt,
       this.job,
+        this.candidate,
       this.company});
   int? id;
   int? objectId;
@@ -60,11 +62,12 @@ class Wishlist {
   int? userId;
   int? createUser;
   int? updateUser;
+  CandidateInfo? candidate;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   // String? thumbnailImage;
-  JobWL? job;
+  Job? job;
   CompanyJob? company;
 
   factory Wishlist.fromJson(Map<String, dynamic> json) => Wishlist(
@@ -80,10 +83,13 @@ class Wishlist {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        job: json["job"] == null ? null : JobWL.fromJson(json["job"]),
+        job: json["job"] == null ? null : Job.fromJson(json["job"]),
         company: json["company"] == null
             ? null
             : CompanyJob.fromJson(json["company"]),
+    candidate: json["candidate"] == null
+            ? null
+            : CandidateInfo.fromJson(json["candidate"]),
       );
 
   Map<String, dynamic> toJson() => {

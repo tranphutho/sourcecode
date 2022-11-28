@@ -5,6 +5,7 @@ import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 multiSelectorDiv({
   required final title,
   required final itemsList,
+  required final selectedList,
 }) {
   return Container(
       decoration: BoxDecoration(
@@ -28,6 +29,7 @@ multiSelectorDiv({
                 ),
                 SizedBox(height: 30,),
                 MultiSelectDialogField(
+                  initialValue:selectedList,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(

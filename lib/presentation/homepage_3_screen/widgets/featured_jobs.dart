@@ -41,7 +41,7 @@ class _FeaturedJobes extends State<FeaturedJobes> {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Featured Jobes 1",
+            "Featured Jobs",
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
             style: TextStyle(

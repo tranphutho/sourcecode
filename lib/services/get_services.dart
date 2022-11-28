@@ -9,11 +9,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'api_urls.dart';
 
 class GetServices {
-  static findJobs() async {
+  static findJobs({int page=0}) async {
     http.Response response;
     try {
       var data = {
         "orderBy": "new",
+        "page":page.toString()
       };
       Uri uri = Uri(
           scheme: 'https',
@@ -36,7 +37,7 @@ class GetServices {
   static getEmployers({String? keyword}) async {
     http.Response response;
     try {
-      var data = {"keyword": keyword};
+      var data = {"s": keyword};
       Uri uri = Uri(
           scheme: 'https',
           host: Constants.urlApi,

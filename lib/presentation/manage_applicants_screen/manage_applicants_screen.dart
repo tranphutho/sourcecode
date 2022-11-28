@@ -159,29 +159,6 @@ class _ManageApplicantsScreenState extends State<ManageApplicantsScreen> {
                           ],
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height / 30,),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: SizedBox(
-                            height: 50,
-                            width: 110,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                });
-                              },
-                              child: const Text("Export"),
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.amber),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                    side: BorderSide(color: Colors.amber)
-                                  )
-                                )
-                              )
-                            ),
-                          ),
-                        ),
                         SizedBox(height: MediaQuery.of(context).size.height / 30,),
                         Container(
                           height: MediaQuery.of(context).size.height / 1.9,
