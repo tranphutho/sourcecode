@@ -5,6 +5,8 @@ import 'package:hires/models/applicants_model.dart';
 import 'package:hires/models/candidates_model.dart';
 import 'package:hires/models/find_jobs.dart';
 import 'package:hires/models/wishlist_model.dart';
+import 'package:hires/presentation/job_details1_screen/job_details1_screen.dart';
+import 'package:hires/presentation/my_profile/candidate_profile.dart';
 import 'package:hires/providers/resumes_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -97,7 +99,7 @@ class _WishListScreenState extends State<WishListScreen> {
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
-                            "Shortlisted Resumes",
+                            "Shortlisted",
                             style: TextStyle(
                               fontSize: 18
                             ),
@@ -162,67 +164,77 @@ class _WishListScreenState extends State<WishListScreen> {
                             itemCount:(provider.searchedWishlistedItems!.data==null || provider.searchedWishlistedItems!.data!.isEmpty)? provider.wishListedItems!.data!.length:provider.searchedWishlistedItems!.data!.length,
                             itemBuilder: (context, index) {
                               Wishlist wishlist=(provider.searchedWishlistedItems!.data==null || provider.searchedWishlistedItems!.data!.isEmpty)? provider.wishListedItems!.data![index]:provider.searchedWishlistedItems!.data![index];
-                              return Padding(
-                                padding: const EdgeInsets.fromLTRB(0,0,0,40),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: ColorConstant.gray100,
-                                    borderRadius: BorderRadius.circular(12),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.shade300,
-                                        blurRadius: 7,
-                                        offset: Offset(3,3)
-                                      )
-                                    ]
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      vertical: 30.0,
-                                      horizontal: 20.0
+                              return InkWell(
+                                onTap: (){
+                                  if(wishlist.objectModel=="job"){
+                                    Navigator.pushNamed(context, JobDetails1Screen.id,arguments: wishlist.job);
+                                  }
+                                  else{
+                                    // Navigator.pushNamed(context, CandidateProfileScreen.id,arguments: wishlist.candidate)
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0,0,0,40),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: ColorConstant.gray100,
+                                      borderRadius: BorderRadius.circular(12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.shade300,
+                                          blurRadius: 7,
+                                          offset: Offset(3,3)
+                                        )
+                                      ]
                                     ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          height: 80,
-                                          width: 80,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(50)
-                                          ),
-                                          child: Image.asset(
-                                            "assets/images/default_image.png",
-                                            fit: BoxFit.cover,
-                                            height: 50,
-                                            width: 50,
-                                          ),
-                                        ),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              wishlist.company!=null?  wishlist.company!.name!:"",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500
-                                              ),
-
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 30.0,
+                                        horizontal: 20.0
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            height: 80,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(50)
                                             ),
-                                            SizedBox(height: 10,),
+                                            child: Image.asset(
+                                              "assets/images/default_image.png",
+                                              fit: BoxFit.cover,
+                                              height: 50,
+                                              width: 50,
+                                            ),
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                wishlist.objectModel=="job"?wishlist.job!.title!:'${wishlist.candidate!.title} ${wishlist.candidate!.user!.name}',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500
+                                                ),
 
-                                          ],
-                                        ),
-                                        IconButton(
-                                          icon: Icon(Icons.delete_outline, color: Colors.red,),
-                                          onPressed: () {
-                                            setState(() {
-                                              var wishlist=provider.wishListedItems!.data![index];
-                                              provider.removeResume(context,wishlist);
-                                            });
-                                          },
-                                        ),
-                                      ],
+                                              ),
+                                              SizedBox(height: 10,),
+
+                                            ],
+                                          ),
+                                          IconButton(
+                                            icon: Icon(Icons.delete_outline, color: Colors.red,),
+                                            onPressed: () {
+                                              setState(() {
+                                                var wishlist=provider.wishListedItems!.data![index];
+                                                provider.removeResume(context,wishlist);
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

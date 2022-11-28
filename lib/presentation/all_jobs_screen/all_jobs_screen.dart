@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../models/job_model.dart';
+import '../homepage_3_screen/homepage_3_screen.dart';
 import '../homepage_3_screen/widgets/group568_item_widget.dart';
 import '../homepage_3_screen/widgets/group59_item_widget.dart';
 
@@ -51,8 +52,9 @@ RefreshController refreshController=RefreshController();
 
     return Scaffold(
       body: Scaffold(
-        key: AllJobsScreen.skey,
-        drawer: drawerWidget(
+
+        key: Homepage3Screen.skey,
+        endDrawer: drawerWidget(
           isDark: isDark,
           usePrv: usePrv,
           context: context,

@@ -9,11 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
 import 'package:hires/models/find_jobs.dart';
+import 'package:hires/models/resource_model.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/featured_jobs.dart';
 import 'package:hires/services/get_services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../services/post_services.dart';
+import 'applicant_detail_model.dart';
+import 'cv_model.dart';
 
 // Findjobs findjobsFromJson(String str) => Findjobs.fromJson(json.decode(str));
 
@@ -504,25 +507,43 @@ class CandidateInfo {
     this.gallry,
     this.video,
     this.allowSearch,
-    this.user
+    this.cvs,
+    this.location,
+    this.skills,
+    this.user,
+    this.education,
+    this.experience
   });
   User? user;
   int? id;
   String? title;
   String? website;
   String? gender;
+  Location? location;
   String? gallry;
   String? video;
+  List<Skills>? skills;
   String? allowSearch;
+  List<CvModel>? cvs;
+  List<EducationModel>? education;
+  List<ExperienceModel>? experience;
 
   factory CandidateInfo.fromJson(Map<String, dynamic> json) => CandidateInfo(
         id: json["id"],
         title: json["title"],
         website: json["website"],
+        skills: json['skills'].map<Skills>((value)=>Skills.fromJson(value)).toList(),
+        cvs: json['cvs'].map<CvModel>((value)=>CvModel.fromJson(value)).toList(),
         gender: json["gender"],
+        location: Location.fromJson(json["location"]),
+
         gallry: json["gallry"],
         video: json["video"],
-        user:User.fromJson(json['user']),
+        education: List<EducationModel>.from(json['education'].map((value)=>EducationModel.fromJson(value))),
+        experience: List<ExperienceModel>.from(json['experience'].map((value)=>ExperienceModel.fromJson(value))),
+
+        
+        user:json['user']!=null?User.fromJson(json['user']):null,
         allowSearch: json["allow_search"],
       );
 
@@ -531,6 +552,7 @@ class CandidateInfo {
         "title": title,
         "website": website,
         "gender": gender,
+        "location": location!.toJson(),
         "gallry": gallry,
         "video": video,
         "allow_search": allowSearch,

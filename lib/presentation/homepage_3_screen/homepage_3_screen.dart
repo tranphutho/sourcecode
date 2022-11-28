@@ -132,7 +132,7 @@ class _Homepage3ScreenState extends State<Homepage3Screen> {
             Builder(builder: (context) {
               return GestureDetector(
                 onTap: () {
-                  Scaffold.of(context).openDrawer();
+                  Scaffold.of(context).openEndDrawer();
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(

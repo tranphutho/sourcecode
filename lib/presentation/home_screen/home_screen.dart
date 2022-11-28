@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
           label: "Employers"),
       BottomNavigationBarItem(
           icon: Icon(Icons.menu),
+
           activeIcon: SvgPicture.asset(ImageConstant.imgProfile213,
               color: ColorConstant.teal600),
           label: "Menu"),
@@ -120,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onTap: (index) {
           setState(() {
             print(index);
-            print(screens.length);
+            print(screens.length-1);
             if (index == screens.length-1) {
               Homepage3Screen.skey.currentState!.openEndDrawer();
               return;

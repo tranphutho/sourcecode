@@ -7,6 +7,7 @@ import 'package:hires/models/resource_model.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/presentation/candidates_screen/widgets/candidates_card_widget.dart';
 import 'package:hires/presentation/employers_screen/widgets/employers_card_widget.dart';
+import 'package:hires/presentation/homepage_3_screen/homepage_3_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/popular_jobs.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/drawer_widget.dart';
 import 'package:hires/presentation/search_option_3_screen/search_option_3_screen.dart';
@@ -60,7 +61,8 @@ class _EmployersScreenState extends State<EmployersScreen> {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Scaffold(
-        drawer: drawerWidget(
+        key: Homepage3Screen.skey,
+        endDrawer: drawerWidget(
             isDark: isDark,
             usePrv: usePrv,
             context: context
@@ -122,7 +124,7 @@ class _EmployersScreenState extends State<EmployersScreen> {
             Builder(builder: (context) {
               return GestureDetector(
                 onTap: () {
-                  Scaffold.of(context).openDrawer();
+                  Scaffold.of(context).openEndDrawer();
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(
@@ -168,30 +170,11 @@ class _EmployersScreenState extends State<EmployersScreen> {
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                top: getVerticalSize(
-                                  12.00,
-                                ),
-                                right: getHorizontalSize(
-                                  2.00,
-                                ),
-                                bottom: getVerticalSize(5)),
-                            //ready
-                            child: Image.asset(
-                              ImageConstant.imgBusinessmanho,
-                              //ImageConstant.education,
-                              height: getSize(
-                                50.00,
-                              ),
-                              width: getSize(
-                                50.00,
-                              ),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
+                        Image.network(
+                          usePrv!.profilePicture != null
+                              ?"http://"+Constants.urlApi+"/"+ usePrv!.profilePicture!
+                              : "https://whitejobs.co.in/images/avatar.png",
+                          fit: BoxFit.fill,
                         ),
                         Align(
                           alignment: Alignment.topRight,

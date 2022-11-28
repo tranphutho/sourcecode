@@ -37,7 +37,7 @@ class GetServices {
   static getEmployers({String? keyword}) async {
     http.Response response;
     try {
-      var data = {"keyword": keyword};
+      var data = {"s": keyword};
       Uri uri = Uri(
           scheme: 'https',
           host: Constants.urlApi,
