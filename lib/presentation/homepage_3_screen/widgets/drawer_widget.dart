@@ -237,7 +237,7 @@ drawerWidget({
                               child: GestureDetector(
                                 onTap: () async {
                                   Navigator.pushNamed(
-                                      context, CandidateProfileScreen.id);
+                                      context, CandidateProfile.id);
                                   return;
                                   //PHUTHO
                                   ApplicantDetailModelProvider applicantDetail =
@@ -334,7 +334,7 @@ drawerWidget({
                             GestureDetector(
                               onTap: () {
                                 Navigator.pushNamed(
-                                    context, CandidateProfileScreen.id);
+                                    context, CandidateProfile.id);
                               },
                               child: Padding(
                                 padding: EdgeInsets.symmetric(

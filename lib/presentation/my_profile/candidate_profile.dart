@@ -24,16 +24,16 @@ import 'package:provider/provider.dart';
 
 import 'my_profile_widgets/education_item_widget.dart';
 
-class CandidateProfileScreen extends StatefulWidget {
+class CandidateProfile extends StatefulWidget {
   static String id = "candidateProfile";
 
-  const CandidateProfileScreen({Key? key}) : super(key: key);
+  const CandidateProfile({Key? key}) : super(key: key);
 
   @override
-  State<CandidateProfileScreen> createState() => _CandidateProfileScreenState();
+  State<CandidateProfile> createState() => _CandidateProfileState();
 }
 
-class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
+class _CandidateProfileState extends State<CandidateProfile> {
   late TextEditingController txtEmail;
   late TextEditingController txtFirstName;
   late TextEditingController txtLastName;

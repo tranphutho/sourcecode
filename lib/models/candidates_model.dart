@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:hires/core/constants/constants.dart';
 import 'package:hires/core/utils/common_utils.dart';
 import 'package:hires/models/applicant_detail_model.dart';
+import 'package:hires/models/resource_model.dart';
 import 'package:hires/services/get_services.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -50,7 +51,7 @@ class Cadidate {
     this.video,
     this.allowSearch,
     this.education,
-    // this.experience,
+    this.experience,
     // this.award,
     this.socialMedia,
     this.languages,
@@ -77,6 +78,9 @@ class Cadidate {
     // this.translations,
     // this.wishlist,
     this.user,
+    this.location,
+    this.bio,
+    this.skills,
     // this.categories
   });
 
@@ -180,7 +184,7 @@ class Cadidate {
   String? video;
   String? allowSearch;
   List<EducationModel>? education;
-  //Null? experience;
+  List<ExperienceModel>? experience;
   //Null? award;
   SocialMedia? socialMedia;
   String? languages;
@@ -207,6 +211,9 @@ class Cadidate {
   // List<Null>? translations;
   //Null? wishlist;
   User? user;
+  Location? location;
+  String? bio;
+  List<Skills>? skills;
   //List<Null>? categories;
 
   factory Cadidate.fromJson(Map<String, dynamic> json) => Cadidate(
@@ -221,7 +228,10 @@ class Cadidate {
             ? null
             : List<EducationModel>.from(
                 json['education'].map((e) => EducationModel.fromJson(e))),
-        // experience: json['experience'],
+        experience: json['experience'] == null
+            ? null
+            : List<ExperienceModel>.from(
+            json['experience'].map((e) => ExperienceModel.fromJson(e))),
         // award : json['award'],
         socialMedia: json['social_media'] != null
             ? new SocialMedia.fromJson(json['social_media'])
@@ -265,6 +275,14 @@ class Cadidate {
         // }
         // wishlist :json['wishlist']==null?null:json['wishlist'],
         user: json['user'] == null ? null : new User.fromJson(json['user']),
+        location: json['location'] != null
+            ? new Location.fromJson(json['location'])
+            : null,
+        bio: json['bio'] == null ? null : json['bio'],
+        skills: json['skills'] == null
+            ? null
+            : List<Skills>.from(
+            json['skills'].map((e) => Skills.fromJson(e))),
         // if (json['categories'] != null) {
         //   categories = <Null>[];
         // json['categories'].forEach((v) {
@@ -285,6 +303,9 @@ class Cadidate {
         'education': this.education == null
             ? null
             : List<EducationModel>.from(education!.map((e) => e.toJson())),
+        'experience': this.experience == null
+            ? null
+            : List<ExperienceModel>.from(experience!.map((e) => e.toJson())),
         //'experience': this.experience;
         // 'award'] = this.award;
         // if (this.socialMedia != null) {
@@ -327,7 +348,14 @@ class Cadidate {
         //   'user'] = this.user!.toJson();
         // }
         'user': this.user == null ? null : this.user!.toJson(),
-        // if (this.categories != null) {
+        'location':
+        this.location == null ? null : this.location!.toJson(),
+        'bio': this.bio == null ? null : this.bio,
+        'skills': this.skills == null
+            ? null
+            : List<Skills>.from(skills!.map((e) => e.toJson())),
+
+    // if (this.categories != null) {
         //   'categories'] = this.categories!.map((v) => v.toJson()).toList();
         // }
       };

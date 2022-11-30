@@ -15,12 +15,14 @@ import 'package:hires/presentation/application_tracking_screen/application_track
 import 'package:hires/presentation/applications_screen/applications_screen.dart';
 import 'package:hires/presentation/apply_screen/apply_screen.dart';
 import 'package:hires/presentation/apply_success_2_screen/apply_success_2_screen.dart';
+import 'package:hires/presentation/candidate_profile_screen/candidate_profile_screen.dart';
 import 'package:hires/presentation/candidates_screen/candidates_screen.dart';
 import 'package:hires/presentation/categories_screen/categories_screen.dart';
 import 'package:hires/presentation/categories_screen/popular.dart';
 import 'package:hires/presentation/categories_screen/trending.dart';
 import 'package:hires/presentation/companies_screen/companies_screen.dart';
 import 'package:hires/presentation/company_profile/company_profile.dart';
+import 'package:hires/presentation/employer_profile_screen/employer_profile_screen.dart';
 import 'package:hires/presentation/employers_screen/employers_screen.dart';
 import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/forgot_password_page/forgot_password_page.dart';
@@ -184,12 +186,14 @@ class _MyAppState extends State<MyApp> {
           ApplicationTrackingScreen.id: (context) =>
               ApplicationTrackingScreen(),
           Popular.id: (context) => Popular(),
+          CandidateProfile.id: (context) => CandidateProfile(),
           CandidateProfileScreen.id: (context) => CandidateProfileScreen(),
           SelectLanguage.id: (context) => SelectLanguage(),
           ApplicationsScreen.id: (context) => ApplicationsScreen(),
           Start1Screen.id: (context) => Start1Screen(),
           EditProfile.id: (context) => EditProfile(),
           EmployersScreen.id: (context) => EmployersScreen(),
+          EmployerProfileScreen.id: (context) => EmployerProfileScreen(),
           ApplyScreen.id: (context) => ApplyScreen(),
           AddNewJobScreen.id: (context) => AddNewJobScreen(),
           ApplySuccess2Screen.id: (context) => ApplySuccess2Screen(),
