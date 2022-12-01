@@ -39,7 +39,7 @@ customImageUploadDiv({
                 Container(
                     width: 400,
                     height: 150,
-                    padding: EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(7.5),
                     decoration: BoxDecoration(
                         border: Border.all(color: Color(0xFFD9D9D9)),
                         borderRadius: BorderRadius.all(Radius.circular(12))

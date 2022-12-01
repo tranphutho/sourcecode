@@ -9,6 +9,8 @@ import 'package:hires/core/utils/math_utils.dart';
 
 import 'package:hires/models/applicant_detail_model.dart';
 import 'package:hires/models/user_model.dart';
+import 'package:hires/presentation/add_education_screen/add_education_screen.dart';
+import 'package:hires/presentation/add_experience_screen/add_experience_screen.dart';
 import 'package:hires/presentation/company_profile/widgets/social_media_div.dart';
 import 'package:hires/presentation/my_profile/my_profile_widgets/categories_card.dart';
 import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
@@ -681,7 +683,7 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                     ),
                                     SizedBox(
                                       height: 50,
-                                      width: 155,
+                                      width: 139,
                                       child: DecoratedBox(
                                           decoration: BoxDecoration(
                                             color: Color(0xFFD9D9D9),
@@ -692,7 +694,7 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                           ),
                                           child: Padding(
                                               padding: EdgeInsets.only(
-                                                  left: 30, right: 30),
+                                                  left: 20, right: 30),
                                               child: DropdownButton<dynamic>(
                                                 value: salaryDWValue,
                                                 items: salaryList,
@@ -703,11 +705,8 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                                         value.toString();
                                                   });
                                                 },
-                                                icon: Padding(
-                                                    padding:
-                                                        EdgeInsets.only(left: 20),
-                                                    child: Icon(
-                                                        Icons.arrow_drop_down)),
+                                                icon: Icon(
+                                                    Icons.arrow_drop_down),
                                                 style: TextStyle(fontSize: 16),
                                                 dropdownColor: Color(0xFFD9D9D9),
                                                 //dropdown background color
@@ -764,7 +763,7 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                       ),
                                       Container(
                                         height: 50,
-                                        width: 200,
+                                        width: 188,
                                         decoration: BoxDecoration(boxShadow: [
                                           BoxShadow(
                                               color: Colors.grey.shade300,
@@ -832,7 +831,7 @@ class _CandidateProfileState extends State<CandidateProfile> {
                               Container(
                                   width: 400,
                                   height: 150,
-                                  padding: EdgeInsets.all(16.0),
+                                  padding: EdgeInsets.all(7.5),
                                   decoration: BoxDecoration(
                                       border:
                                           Border.all(color: Color(0xFFD9D9D9)),
@@ -981,6 +980,13 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                               color: ColorConstant.gray100,
                                               borderRadius:
                                                   BorderRadius.circular(15),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      blurRadius: 4,
+                                                      color: Colors.grey.shade300,
+                                                      offset: Offset(3,3)
+                                                  )
+                                                ]
                                             ),
                                             child: Padding(
                                                 padding: EdgeInsets.only(
@@ -1014,11 +1020,10 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                   ),
                                   SizedBox(
                                       height: 100,
-                                      width: 175,
+                                      width: 150,
                                       child: Column(children: [
                                         SizedBox(
                                           height: 100,
-                                          width: 175,
                                           child: customColumn(
                                             keyboardType: TextInputType.number,
                                             height: 50.0,
@@ -1184,27 +1189,78 @@ class _CandidateProfileState extends State<CandidateProfile> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text("Education",style: TextStyle(fontSize: 20),),
+                                    SizedBox(height: 15,),
                                     ListView.builder(
                                       shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) =>
-                                            EducationItemWidget(
-                                              education: usePrv!
-                                                  .candidate!.education![index],
-                                            ),
+                                            index == usePrv!.candidate!.education!.length - 1
+                                                ? Column(
+                                                  children: [
+                                                    EducationItemWidget(
+                                                      education: usePrv!
+                                                          .candidate!.education![index],
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment.topRight,
+                                                      child: ElevatedButton.icon(
+                                                        icon: Icon(Icons.add_circle_outline),
+                                                        onPressed: () {
+                                                          Navigator.push(context, MaterialPageRoute(builder: (_) => AddEducationScreen()));
+                                                        },
+                                                        label: Text("Add education"),
+                                                        style: ButtonStyle(
+                                                            padding: MaterialStateProperty.all(
+                                                                EdgeInsets.symmetric(
+                                                                    horizontal: 16, vertical: 13)),
+                                                            backgroundColor:
+                                                            MaterialStateProperty.all(Colors.teal)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                                : EducationItemWidget(
+                                                  education: usePrv!
+                                                      .candidate!.education![index],
+                                                ),
                                         itemCount:
                                             usePrv!.candidate!.education!.length),
                                     SizedBox(height: 15,),
-
                                     Text("Experiences",style: TextStyle(fontSize: 20),),
                                     SizedBox(height: 15,),
                                     ListView.builder(
                                       shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) =>
-                                            ExperienceItemWidget(
+                                          index == usePrv!.candidate!.experience!.length - 1
+                                            ? Column(
+                                              children: [
+                                                ExperienceItemWidget(
+                                                  experience: usePrv!
+                                                      .candidate!.experience![index],
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: ElevatedButton.icon(
+                                                    icon: Icon(Icons.add_circle_outline),
+                                                    onPressed: () {
+                                                      Navigator.push(context, MaterialPageRoute(builder: (_) => AddExperienceScreen()));
+                                                    },
+                                                    label: Text("Add experience"),
+                                                    style: ButtonStyle(
+                                                        padding: MaterialStateProperty.all(
+                                                            EdgeInsets.symmetric(
+                                                                horizontal: 16, vertical: 13)),
+                                                        backgroundColor:
+                                                        MaterialStateProperty.all(Colors.teal)),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                            : ExperienceItemWidget(
                                               experience: usePrv!
-                                                  .candidate!.experience![index],
+                                                .candidate!.experience![index],
                                             ),
                                         itemCount:
                                             usePrv!.candidate!.education!.length),
