@@ -7,12 +7,14 @@ import 'package:hires/core/utils/color_constant.dart';
 import 'package:hires/core/utils/image_constant.dart';
 import 'package:hires/core/utils/math_utils.dart';
 import 'package:hires/models/applicant_detail_model.dart';
+import 'package:hires/models/candidates_model.dart';
 import 'package:hires/models/user_model.dart';
 import 'package:hires/presentation/add_new_job_screen/add_new_job_screen.dart';
 import 'package:hires/presentation/applications_screen/applications_screen.dart';
 import 'package:hires/presentation/candidates_screen/candidates_screen.dart';
 import 'package:hires/presentation/companies_screen/companies_screen.dart';
 import 'package:hires/presentation/company_profile/company_profile.dart';
+import 'package:hires/presentation/employer_profile_screen/employer_profile_screen.dart';
 import 'package:hires/presentation/employers_screen/employers_screen.dart';
 import 'package:hires/presentation/following_employer_screen/following_employer_screen.dart';
 import 'package:hires/presentation/homepage_3_screen/widgets/custom_employer_nav_div.dart';
@@ -27,13 +29,16 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../models/employers_model.dart';
 import '../../wishlist_screen/wishlist_screen.dart';
 
 drawerWidget({
   required final isDark,
   required final usePrv,
   required final context,
+
 }) {
+
   return Drawer(
       backgroundColor: isDark ? ColorConstant.darkBg : ColorConstant.whiteA700,
       child: Padding(
@@ -230,61 +235,6 @@ drawerWidget({
                                         margin: EdgeInsets.zero)
                                   },
                                 )),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: getVerticalSize(4),
-                              ),
-                              child: GestureDetector(
-                                onTap: () async {
-                                  Navigator.pushNamed(
-                                      context, CandidateProfile.id);
-                                  return;
-                                  //PHUTHO
-                                  ApplicantDetailModelProvider applicantDetail =
-                                      Provider.of<ApplicantDetailModelProvider>(
-                                          context,
-                                          listen: false);
-
-                                  if (usePrv.role_id == 3) {
-                                    Provider.of<ApplicantDetailModelProvider>(
-                                            context,
-                                            listen: false)
-                                        .getApplicantDetail(
-                                            usePrv.id!, usePrv.token!)
-                                        .then((_) {
-                                      Navigator.pushNamed(
-                                          context, ProfileStyle1Screen.id);
-                                    });
-                                    // await applicantDetail
-                                    //     .getApplicantDetail(
-                                    //         usePrv.id!, usePrv.token!);
-                                    // Navigator.pushNamed(
-                                    //     context, ProfileStyle1Screen.id);
-                                  } else {
-                                    Navigator.pushNamed(
-                                        context, CompanyProfile.id);
-                                  }
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "View Profile",
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: ColorConstant.teal600,
-                                        fontSize: getFontSize(
-                                          14,
-                                        ),
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                         GestureDetector(
@@ -333,8 +283,15 @@ drawerWidget({
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(
-                                    context, CandidateProfile.id);
+                                if(usePrv!.role_id == 3) {
+                                  Navigator.pushNamed(
+                                      context, CandidateProfile.id);
+                                }
+                                else if (usePrv!.role_id == 2) {
+                                  Navigator.pushNamed(
+                                      context, CompanyProfile.id);
+                                }
+
                               },
                               child: Padding(
                                 padding: EdgeInsets.symmetric(

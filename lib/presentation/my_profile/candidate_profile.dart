@@ -346,19 +346,21 @@ class _CandidateProfileState extends State<CandidateProfile> {
     Completer<GoogleMapController> _controller = Completer();
 
     usePrv = Provider.of<UserProvider>(context).userApp!;
-    txtEmail.text = usePrv!.email ?? "";
-    txtFirstName.text = usePrv!.first_name ?? "";
-    txtLastName.text = usePrv!.last_name ?? "";
+    txtEmail.text = usePrv!.email ?? "not available";
+    txtFirstName.text = usePrv!.first_name ?? "not available";
+    txtLastName.text = usePrv!.last_name ?? "not available";
     final f = new DateFormat('dd/MM/yyyy');
     txtBirthday.text = "" + f.format(usePrv!.birthday!).toString();
-    txtPhoneNum.text = usePrv!.phone ?? "";
-    txtBiographical.text = usePrv!.bio ?? "";
-    txtWebsite.text = usePrv!.company?.website ?? "";
-    txtCity.text = usePrv!.company?.address ?? "";
-    txtLatitude.text = usePrv!.candidate!.location!.mapLat ?? "";
-    txtLongitude.text = usePrv!.candidate!.location?.mapLng ?? "";
+    txtPhoneNum.text = usePrv!.phone ?? "not available";
+    txtBiographical.text = usePrv!.bio ?? "not available";
+    txtWebsite.text = usePrv!.company?.website ?? "not available";
+    txtCity.text = usePrv!.company?.address ?? "not available";
+    txtLatitude.text = usePrv!.candidate!.location!.mapLat ?? "not available";
+    txtLongitude.text = usePrv!.candidate!.location?.mapLng ?? "not available";
     txtMapZoom.text = usePrv!.candidate!.location?.mapZoom.toString() ?? "";
-
+    txtLanguage.text = usePrv!.locale ?? "not available";
+    txtUrl.text = usePrv!.candidate?.video ?? "not available";
+    txtAddressLine.text = usePrv!.address ?? "not available";
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,

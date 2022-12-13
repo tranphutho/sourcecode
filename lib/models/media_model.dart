@@ -135,7 +135,7 @@ class MediaProvider extends ChangeNotifier {
 
   Future<MediasModel?> getMediaImage() async {
     var body = await GetServices.getMediaImage();
-    if (body["status"]) {
+    if (body["status"] == 0) {
       if (body != null) {
         var data = body["data"];
         //applicantDetail = ApplicantDetailModel.fromJson();

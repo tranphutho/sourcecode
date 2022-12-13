@@ -329,7 +329,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                               children: [
                                 SizedBox(height: screenWidth / 12,),
 
-                                candidate?.experience != null ?
+                                candidate?.experience?.first.from != null ?
                                   Html(data: candidate!.experience?.first.from,)
                                     : Text("not available")
                               ],
@@ -341,34 +341,26 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  "EDUCATION",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF4451a4)
-                                  ),
-                                ),
-                                Text(
-                                  candidate?.education?.first.location ?? "",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFF4451a4)
-                                  ),
-                                ),
-                              ],
+                            Text(
+                              "EDUCATION",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF4451a4)
+                              ),
                             ),
                             SizedBox(width: screenWidth / 6,),
-                            Column(
-                              children: [
-                                SizedBox(height: screenWidth / 12,),
-                                candidate?.education != null ?
-                                Html(data: candidate!.education?.first.from,)
-                                    : Text("not available")
-                              ],
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: candidate?.education?.length,
+                                itemBuilder: (context, index) {
+                                  return candidate?.education?[index].from != null ?
+                                  Html(data: candidate!.education?[index].location,)
+                                      : Text("not available");
+                                },
+
+                              ),
                             )
                           ]
                       ),

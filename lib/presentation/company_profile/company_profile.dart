@@ -52,7 +52,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
   File? imageFile;
 
   String publishDWValue = "Draft";
-  String companySizeDWValue = "10 - 50 members";
+  var companySizeDWValue;
   String categoryDWValue = "1";
   String categoryId = "AF";
   String nearestCityDWValue = "0";
@@ -113,7 +113,7 @@ class _CompanyProfileState extends State<CompanyProfile> {
       txtGoogle.text = usePrv!.company!.socialMedia?.google ?? "";
       nearestCityDWValue = usePrv!.company!.locationId.toString();
       categoryDWValue = usePrv!.company!.categoryId.toString();
-      companySizeDWValue = usePrv!.company!.teamSize.toString();
+      // companySizeDWValue = usePrv!.company!.teamSize.toString();
       publishDWValue = usePrv!.company!.status!;
       country = usePrv!.company!.country ?? "";
       if (usePrv!.company!.allowSearch == 1)
