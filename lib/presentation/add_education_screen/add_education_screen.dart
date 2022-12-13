@@ -98,7 +98,6 @@ class _AddEducationScreenState extends State<AddEducationScreen> {
               Container(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
                     padding: EdgeInsets.symmetric(vertical: 20)
                   ),
                   onPressed: () {

@@ -506,13 +506,16 @@ class CandidateInfo {
     this.gender,
     this.gallry,
     this.video,
+    this.expectedSalary,
     this.allowSearch,
     this.cvs,
     this.location,
     this.skills,
     this.user,
     this.education,
-    this.experience
+    this.experience,
+    this.experienceYear,
+    this.languages
   });
   User? user;
   int? id;
@@ -524,6 +527,9 @@ class CandidateInfo {
   String? video;
   List<Skills>? skills;
   String? allowSearch;
+  String? experienceYear;
+  String? expectedSalary;
+  String? languages;
   List<CvModel>? cvs;
   List<EducationModel>? education;
   List<ExperienceModel>? experience;
@@ -535,10 +541,13 @@ class CandidateInfo {
         skills: json['skills'].map<Skills>((value)=>Skills.fromJson(value)).toList(),
         cvs: json['cvs'].map<CvModel>((value)=>CvModel.fromJson(value)).toList(),
         gender: json["gender"],
+    languages: json["languages"],
         location: Location.fromJson(json["location"]),
 
         gallry: json["gallry"],
         video: json["video"],
+        experienceYear: json['experience_year'],
+        expectedSalary: json['expected_salary'],
         education: List<EducationModel>.from(json['education'].map((value)=>EducationModel.fromJson(value))),
         experience: List<ExperienceModel>.from(json['experience'].map((value)=>ExperienceModel.fromJson(value))),
 
@@ -555,6 +564,8 @@ class CandidateInfo {
         "location": location!.toJson(),
         "gallry": gallry,
         "video": video,
+        "expected_salary": expectedSalary,
+        "experience_year": experienceYear,
         "allow_search": allowSearch,
       };
 }

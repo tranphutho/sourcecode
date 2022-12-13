@@ -318,89 +318,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               327.00,
                             ),
                             child: TextFormField(
-                              controller: txtPhoneNum,
-                              decoration: InputDecoration(
-                                hintText: 'Phone Number',
-                                hintStyle: TextStyle(
-                                  fontSize: getFontSize(
-                                    14.0,
-                                  ),
-
-                                ),
-
-                                prefixIcon: Padding(
-                                  padding: EdgeInsets.only(
-                                    left: getHorizontalSize(
-                                      24.00,
-                                    ),
-                                    right: getHorizontalSize(
-                                      10.00,
-                                    ),
-                                  ),
-                                  child:Container(
-                                    height: getSize(
-                                      20.00,
-                                    ),
-                                    width: getSize(
-                                      19.00,
-                                    ),
-                                    child:isDark
-                                        ? Icon(CupertinoIcons.phone, color: Colors.white,)
-                                        : Icon(CupertinoIcons.phone)
-                                  ),
-                                ),
-                                prefixIconConstraints: BoxConstraints(
-                                  minWidth: getSize(
-                                    20.00,
-                                  ),
-                                  minHeight: getSize(
-                                    20.00,
-                                  ),
-                                ),
-                                isDense: true,
-                                contentPadding: EdgeInsets.only(
-                                  top: getVerticalSize(
-                                    25.50,
-                                  ),
-                                  bottom: getVerticalSize(
-                                    .50,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(
-                                color: ColorConstant.gray900,
-                                fontSize: getFontSize(
-                                  14.0,
-                                ),
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child:   Padding(
-                          padding: EdgeInsets.only(
-                            left: getHorizontalSize(
-                              24.00,
-                            ),
-                            top: getVerticalSize(
-                              24.00,
-                            ),
-                            right: getHorizontalSize(
-                              24.00,
-                            ),
-                          ),
-                          child: Container(
-                            height: getVerticalSize(
-                              52.00,
-                            ),
-                            width: getHorizontalSize(
-                              327.00,
-                            ),
-                            child: TextFormField(
                               controller: txtPwd,
                               obscureText: obscure1,
                               decoration: InputDecoration(
@@ -501,13 +418,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onTap: ()async{
                              if(!isLoading) {
                                 if(txtEmail.text.trim().isEmpty ||
-                                  txtPwd.text.trim().isEmpty || txtPwd.text != txtPwdC.text){
+                                  txtPwd.text.trim().isEmpty){
 
                                   String mssg = '';
                                   if(txtEmail.text.trim().isEmpty) mssg = Constants.mssgErrEntrEmail;
                                   else if(txtPwd.text.trim().isEmpty)   mssg = Constants.mssgErrEntrPwd;
-                                  else if(txtPwd.text != txtPwdC.text)  mssg = Constants.mssgErrDMatchPwds;
-                                  getToastMessage(mssg, Colors.red);
                                 }
                                 else{
                                   setState(() {

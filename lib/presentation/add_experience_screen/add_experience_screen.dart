@@ -99,7 +99,6 @@ class _AddExperienceScreenState extends State<AddExperienceScreen> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: 15),
-                    backgroundColor: Colors.teal
                   ),
                   onPressed: () {
                     if(_formKey.currentState!.validate()) {

@@ -105,20 +105,7 @@ class _CandidateProfileState extends State<CandidateProfile> {
           MultiSelectItem<Categories>(category, category.jobCategory))
       .toList();
 
-  static List<JobSkills> _jobSkillsList = [
-    JobSkills(id: 1, jobTitle: "App"),
-    JobSkills(id: 2, jobTitle: "Administrative"),
-    JobSkills(id: 3, jobTitle: "android"),
-    JobSkills(id: 4, jobTitle: "wordpress"),
-    JobSkills(id: 5, jobTitle: "design"),
-    JobSkills(id: 6, jobTitle: "react"),
-    JobSkills(id: 7, jobTitle: "javascript"),
-    JobSkills(id: 8, jobTitle: "html"),
-  ];
-  final _jobSkills = _jobSkillsList
-      .map(
-          (jobSkill) => MultiSelectItem<JobSkills>(jobSkill, jobSkill.jobTitle))
-      .toList();
+
 
   List<ApplicantDetailModel> candidateExperienceList = [
     ApplicantDetailModel(experience: [
@@ -361,6 +348,10 @@ class _CandidateProfileState extends State<CandidateProfile> {
     txtLanguage.text = usePrv!.locale ?? "not available";
     txtUrl.text = usePrv!.candidate?.video ?? "not available";
     txtAddressLine.text = usePrv!.address ?? "not available";
+    txtExperience.text = usePrv!.candidate!.experienceYear ?? "not available";
+    txtSalary.text = usePrv!.candidate!.expectedSalary ?? "0";
+    txtLanguage.text = usePrv!.candidate!.languages ?? "Not set";
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
