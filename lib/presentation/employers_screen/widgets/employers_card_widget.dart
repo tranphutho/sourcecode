@@ -5,6 +5,7 @@ import 'package:hires/core/app_export.dart';
 import 'package:hires/core/theme/theme_constants.dart';
 import 'package:hires/models/candidates_model.dart';
 import 'package:hires/models/employers_model.dart';
+import 'package:hires/presentation/employer_profile_screen/employer_profile_screen.dart';
 import 'package:hires/presentation/job_details1_screen/job_details1_screen.dart';
 
 import '../../../models/job_model.dart';
@@ -19,7 +20,8 @@ class EmployersCardWidget extends StatelessWidget {
     bool isDark = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, JobDetails1Screen.id, arguments: candidate);
+        // Navigator.pushNamed(context, JobDetails1Screen.id, arguments: employer);
+        Navigator.pushNamed(context, EmployerProfileScreen.id, arguments: employer);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12),

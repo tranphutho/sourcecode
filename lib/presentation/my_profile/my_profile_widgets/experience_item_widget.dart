@@ -10,7 +10,7 @@ class ExperienceItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0,0,0,10),
+      padding: EdgeInsets.fromLTRB(0,0,0,30),
       child: Container(
         decoration: BoxDecoration(
             color: ColorConstant.gray100,

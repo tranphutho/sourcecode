@@ -332,7 +332,7 @@ class _ManageJobsScreenState extends State<ManageJobsScreen> {
                                                                               fontSize: 17),
                                                                           children: <TextSpan>[
                                                                             TextSpan(
-                                                                              text: value.myJobsModel!.data![index].category!.name!,
+                                                                              text: value.myJobsModel?.data?[index].category?.name ?? "not available",
                                                                               style: TextStyle(fontSize: 14, color: Colors.black),
                                                                             )
                                                                           ]),

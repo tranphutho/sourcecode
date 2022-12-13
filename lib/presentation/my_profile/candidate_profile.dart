@@ -9,6 +9,8 @@ import 'package:hires/core/utils/math_utils.dart';
 
 import 'package:hires/models/applicant_detail_model.dart';
 import 'package:hires/models/user_model.dart';
+import 'package:hires/presentation/add_education_screen/add_education_screen.dart';
+import 'package:hires/presentation/add_experience_screen/add_experience_screen.dart';
 import 'package:hires/presentation/company_profile/widgets/social_media_div.dart';
 import 'package:hires/presentation/my_profile/my_profile_widgets/categories_card.dart';
 import 'package:hires/presentation/my_profile/my_profile_widgets/custom_image_upload.dart';
@@ -24,16 +26,16 @@ import 'package:provider/provider.dart';
 
 import 'my_profile_widgets/education_item_widget.dart';
 
-class CandidateProfileScreen extends StatefulWidget {
+class CandidateProfile extends StatefulWidget {
   static String id = "candidateProfile";
 
-  const CandidateProfileScreen({Key? key}) : super(key: key);
+  const CandidateProfile({Key? key}) : super(key: key);
 
   @override
-  State<CandidateProfileScreen> createState() => _CandidateProfileScreenState();
+  State<CandidateProfile> createState() => _CandidateProfileState();
 }
 
-class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
+class _CandidateProfileState extends State<CandidateProfile> {
   late TextEditingController txtEmail;
   late TextEditingController txtFirstName;
   late TextEditingController txtLastName;
@@ -344,19 +346,21 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
     Completer<GoogleMapController> _controller = Completer();
 
     usePrv = Provider.of<UserProvider>(context).userApp!;
-    txtEmail.text = usePrv!.email ?? "";
-    txtFirstName.text = usePrv!.first_name ?? "";
-    txtLastName.text = usePrv!.last_name ?? "";
+    txtEmail.text = usePrv!.email ?? "not available";
+    txtFirstName.text = usePrv!.first_name ?? "not available";
+    txtLastName.text = usePrv!.last_name ?? "not available";
     final f = new DateFormat('dd/MM/yyyy');
     txtBirthday.text = "" + f.format(usePrv!.birthday!).toString();
-    txtPhoneNum.text = usePrv!.phone ?? "";
-    txtBiographical.text = usePrv!.bio ?? "";
-    txtWebsite.text = usePrv!.company?.website ?? "";
-    txtCity.text = usePrv!.company?.address ?? "";
-    txtLatitude.text = usePrv!.candidate!.location!.mapLat ?? "";
-    txtLongitude.text = usePrv!.candidate!.location?.mapLng ?? "";
+    txtPhoneNum.text = usePrv!.phone ?? "not available";
+    txtBiographical.text = usePrv!.bio ?? "not available";
+    txtWebsite.text = usePrv!.company?.website ?? "not available";
+    txtCity.text = usePrv!.company?.address ?? "not available";
+    txtLatitude.text = usePrv!.candidate!.location!.mapLat ?? "not available";
+    txtLongitude.text = usePrv!.candidate!.location?.mapLng ?? "not available";
     txtMapZoom.text = usePrv!.candidate!.location?.mapZoom.toString() ?? "";
-
+    txtLanguage.text = usePrv!.locale ?? "not available";
+    txtUrl.text = usePrv!.candidate?.video ?? "not available";
+    txtAddressLine.text = usePrv!.address ?? "not available";
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -681,7 +685,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                     ),
                                     SizedBox(
                                       height: 50,
-                                      width: 155,
+                                      width: 139,
                                       child: DecoratedBox(
                                           decoration: BoxDecoration(
                                             color: Color(0xFFD9D9D9),
@@ -692,7 +696,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                           ),
                                           child: Padding(
                                               padding: EdgeInsets.only(
-                                                  left: 30, right: 30),
+                                                  left: 20, right: 30),
                                               child: DropdownButton<dynamic>(
                                                 value: salaryDWValue,
                                                 items: salaryList,
@@ -703,11 +707,8 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                                         value.toString();
                                                   });
                                                 },
-                                                icon: Padding(
-                                                    padding:
-                                                        EdgeInsets.only(left: 20),
-                                                    child: Icon(
-                                                        Icons.arrow_drop_down)),
+                                                icon: Icon(
+                                                    Icons.arrow_drop_down),
                                                 style: TextStyle(fontSize: 16),
                                                 dropdownColor: Color(0xFFD9D9D9),
                                                 //dropdown background color
@@ -764,7 +765,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                       ),
                                       Container(
                                         height: 50,
-                                        width: 200,
+                                        width: 188,
                                         decoration: BoxDecoration(boxShadow: [
                                           BoxShadow(
                                               color: Colors.grey.shade300,
@@ -832,7 +833,7 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                               Container(
                                   width: 400,
                                   height: 150,
-                                  padding: EdgeInsets.all(16.0),
+                                  padding: EdgeInsets.all(7.5),
                                   decoration: BoxDecoration(
                                       border:
                                           Border.all(color: Color(0xFFD9D9D9)),
@@ -981,6 +982,13 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                               color: ColorConstant.gray100,
                                               borderRadius:
                                                   BorderRadius.circular(15),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      blurRadius: 4,
+                                                      color: Colors.grey.shade300,
+                                                      offset: Offset(3,3)
+                                                  )
+                                                ]
                                             ),
                                             child: Padding(
                                                 padding: EdgeInsets.only(
@@ -1014,11 +1022,10 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                   ),
                                   SizedBox(
                                       height: 100,
-                                      width: 175,
+                                      width: 150,
                                       child: Column(children: [
                                         SizedBox(
                                           height: 100,
-                                          width: 175,
                                           child: customColumn(
                                             keyboardType: TextInputType.number,
                                             height: 50.0,
@@ -1184,27 +1191,78 @@ class _CandidateProfileScreenState extends State<CandidateProfileScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text("Education",style: TextStyle(fontSize: 20),),
+                                    SizedBox(height: 15,),
                                     ListView.builder(
                                       shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) =>
-                                            EducationItemWidget(
-                                              education: usePrv!
-                                                  .candidate!.education![index],
-                                            ),
+                                            index == usePrv!.candidate!.education!.length - 1
+                                                ? Column(
+                                                  children: [
+                                                    EducationItemWidget(
+                                                      education: usePrv!
+                                                          .candidate!.education![index],
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment.topRight,
+                                                      child: ElevatedButton.icon(
+                                                        icon: Icon(Icons.add_circle_outline),
+                                                        onPressed: () {
+                                                          Navigator.push(context, MaterialPageRoute(builder: (_) => AddEducationScreen()));
+                                                        },
+                                                        label: Text("Add education"),
+                                                        style: ButtonStyle(
+                                                            padding: MaterialStateProperty.all(
+                                                                EdgeInsets.symmetric(
+                                                                    horizontal: 16, vertical: 13)),
+                                                            backgroundColor:
+                                                            MaterialStateProperty.all(Colors.teal)),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                                : EducationItemWidget(
+                                                  education: usePrv!
+                                                      .candidate!.education![index],
+                                                ),
                                         itemCount:
                                             usePrv!.candidate!.education!.length),
                                     SizedBox(height: 15,),
-
                                     Text("Experiences",style: TextStyle(fontSize: 20),),
                                     SizedBox(height: 15,),
                                     ListView.builder(
                                       shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
                                         itemBuilder: (context, index) =>
-                                            ExperienceItemWidget(
+                                          index == usePrv!.candidate!.experience!.length - 1
+                                            ? Column(
+                                              children: [
+                                                ExperienceItemWidget(
+                                                  experience: usePrv!
+                                                      .candidate!.experience![index],
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: ElevatedButton.icon(
+                                                    icon: Icon(Icons.add_circle_outline),
+                                                    onPressed: () {
+                                                      Navigator.push(context, MaterialPageRoute(builder: (_) => AddExperienceScreen()));
+                                                    },
+                                                    label: Text("Add experience"),
+                                                    style: ButtonStyle(
+                                                        padding: MaterialStateProperty.all(
+                                                            EdgeInsets.symmetric(
+                                                                horizontal: 16, vertical: 13)),
+                                                        backgroundColor:
+                                                        MaterialStateProperty.all(Colors.teal)),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                            : ExperienceItemWidget(
                                               experience: usePrv!
-                                                  .candidate!.experience![index],
+                                                .candidate!.experience![index],
                                             ),
                                         itemCount:
                                             usePrv!.candidate!.education!.length),

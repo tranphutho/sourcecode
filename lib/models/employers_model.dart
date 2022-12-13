@@ -13,6 +13,69 @@ import 'job_model.dart';
 
 // String findjobsToJson(Findjobs data) => json.encode(data.toJson());
 
+class JobsModel {
+  JobsModel({
+    this.id,
+    this.title,
+    this.slug,
+    this.content,
+    this.expirationDate,
+    this.hours,
+    this.salaryType,
+    this.salaryMin,
+    this.salaryMax,
+    this.gender,
+    this.isUrgent
+  });
+  int? id;
+  String? title;
+  String? slug;
+  String? content;
+  String? expirationDate;
+  var hours;
+  String? salaryType;
+  var salaryMin;
+  var salaryMax;
+  String? gender;
+  int? isUrgent;
+  int? isFeatured;
+
+
+
+  JobsModel.fromJson(Map<String, dynamic> map) {
+    id = map["id"];
+    title = map["title"];
+    slug = map["slug"];
+    content = map["content"];
+    expirationDate = map["expiration_date"];
+    hours = map["hours"];
+    salaryType = map["salary_type"];
+    salaryMin = map["salary_min"];
+    salaryMax = map["salary_max"];
+    gender = map["gender"];
+    isUrgent = map["is_urgent"];
+    isFeatured = map["is_featured"];
+
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'title': title,
+    'slug': slug,
+    'content': content,
+    'expiration_date': expirationDate,
+    'hours': hours,
+    'salary_type': salaryType,
+    'salary_min': salaryMin,
+    'salary_max': salaryMax,
+    'gender': gender,
+    'is_urgent': isUrgent,
+    'is_featured': isFeatured,
+
+  };
+
+}
+
 class EmployersModel {
   EmployersModel({
     this.data,
@@ -54,6 +117,8 @@ class Employer {
     this.category,
     this.company,
     this.location,
+    this.jobCount,
+    this.jobs,
   });
 
   int? id;
@@ -74,6 +139,8 @@ class Employer {
   Category? category;
   Company? company;
   Location? location;
+  int? jobCount;
+  List<JobsModel>? jobs;
 
   factory Employer.fromJson(Map<String, dynamic> json) => Employer(
     id: json['id'] == null ? null : json['id'],
@@ -97,7 +164,12 @@ class Employer {
         : Category.fromJson(json["category"]),
     location: json["location"] == null
         ? null
-        : Location.fromJson(json["location"])
+        : Location.fromJson(json["location"]),
+    jobCount: json["job_count"] == null ? null : json["job_count"],
+    jobs: json["jobs"] == null
+        ? null
+        : List<JobsModel>.from(
+            json["jobs"].map((x) => JobsModel.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -117,8 +189,11 @@ class Employer {
     'team_size': this.teamSize == null ? null : this.teamSize,
     'about': this.about == null ? null : this.about,
     'category': category == null ? null : category!.toJson(),
-    'location': location == null ? null : location!.toJson()
-
+    'location': location == null ? null : location!.toJson(),
+    'job_count': this.jobCount == null ? null : this.jobCount,
+    "jobs": jobs == null
+        ? null
+        : List<JobsModel>.from(jobs!.map((x) => x.toJson())),
   };
 }
 
